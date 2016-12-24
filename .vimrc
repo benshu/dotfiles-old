@@ -11,30 +11,32 @@ set nocompatible              " be iMproved
 "
 " {{{
 call plug#begin('~/.vim/plugged')
-Plug 'VundleVim/Vundle.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-unimpaired'
 Plug '907th/vim-auto-save'
 Plug 'Chiel92/vim-autoformat'
-Plug 'majutsushi/tagbar'
+Plug 'PeterRincker/vim-argumentative'
+Plug 'Shougo/denite.nvim'
 Plug 'SirVer/ultisnips'
+Plug 'Valloric/YouCompleteMe'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'brauner/vimtux'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'honza/vim-snippets'
-Plug 'mattn/emmet-vim'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/scrooloose/syntastic'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Valloric/YouCompleteMe'
-Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
 Plug 'severin-lemaignan/vim-minimap'
-Plug 'airblade/vim-gitgutter'
-Plug 'tmhedberg/SimpylFold'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'brauner/vimtux'
+Plug 'tmhedberg/SimpylFold'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 "Themes
 Plug 'mhartington/oceanic-next'
 Plug 'git://github.com/altercation/vim-colors-solarized.git'
@@ -201,7 +203,7 @@ au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
 set iskeyword+=:
 
-" YCM settings
+" YCM settings {{{
 "
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -229,8 +231,8 @@ let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
-"
-" Synatstic
+"}}}
+" Synatstic {{{
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 3
@@ -239,7 +241,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_python_exec='python'
 " Disable line too long errors in syntastic
 let g:syntastic_python_flake8_args='--ignore=E501'
-
+"}}}
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " If you prefer the Omni-Completion tip window to close when a selection is
@@ -257,10 +259,13 @@ autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 "Airline config
+let g:airline_left_sep = ' '
+let g:airline_left_alt_sep = '|'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "oceanicnext"
-
 "Multi cursors config
 "
 let g:multi_cursor_next_key='<C-n>'
@@ -268,12 +273,12 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
- " _____                 _   _                 
-" |  ___|   _ _ __   ___| |_(_) ___  _ __  ___ 
+ " _____                 _   _
+" |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
 " | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 " |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
 " |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
-                                             
+
 " {{{
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
@@ -321,12 +326,12 @@ endfunction
 
 " }}}
 "
-"  _  __            ____  _           _ _                 
-" | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___ 
+"  _  __            ____  _           _ _
+" | |/ /___ _   _  | __ )(_)_ __   __| (_)_ __   __ _ ___
 " | ' // _ \ | | | |  _ \| | '_ \ / _` | | '_ \ / _` / __|
 " | . \  __/ |_| | | |_) | | | | | (_| | | | | | (_| \__ \
 " |_|\_\___|\__, | |____/|_|_| |_|\__,_|_|_| |_|\__, |___/
-          " |___/                               |___/     
+          " |___/                               |___/
 
 " {{{
 "
