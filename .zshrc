@@ -88,6 +88,7 @@ source ~/.aliases
 source ~/.exports
 source ~/.functions
 source ~/.extra
+source ~/.docker_aliases
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /home/hagay/google-cloud-sdk/path.zsh.inc ]; then
@@ -98,3 +99,5 @@ fi
 if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
   source '/home/hagay/google-cloud-sdk/completion.zsh.inc'
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

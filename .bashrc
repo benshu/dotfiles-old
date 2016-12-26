@@ -9,3 +9,5 @@ fi
 if [ -f /home/hagay/google-cloud-sdk/completion.bash.inc ]; then
   source '/home/hagay/google-cloud-sdk/completion.bash.inc'
 fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

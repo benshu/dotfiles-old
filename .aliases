@@ -17,7 +17,7 @@ alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
-alias gd="cd ~/Google\ Drive/"
+alias gd="git difftool -d"
 
 alias todo="$EDITOR ~/.todo.md"
 alias sexify="python -m autopep8 --in-place --aggressive --aggressive"
