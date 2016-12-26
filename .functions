@@ -3,6 +3,10 @@
 function cl() { 
     history -p '!!'|tr -d \\n|pbcopy; 
 }
+# Show 255 colors options
+function show_colors() { 
+    for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
+}
 #LaTeX file compile with simple settings
 function mklatex() {
 	if [ $# -eq 0 ]; then
