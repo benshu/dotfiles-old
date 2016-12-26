@@ -37,6 +37,9 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'brauner/vimtux'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Raimondi/delimitMate'
 "Themes
 Plug 'mhartington/oceanic-next'
 Plug 'git://github.com/altercation/vim-colors-solarized.git'
@@ -77,7 +80,6 @@ set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
 "set background=dark
 "let g:solarized_termtrans=256
 
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 
 "clang formatter
 map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
@@ -125,7 +127,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_python_exec='python3'
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " Setup autosave plugin, off by default, enable with :AutoSaveToggle
 let g:auto_save = 0
@@ -241,6 +242,7 @@ vmap <C-c>r <Plug>SendSelectionToTmux
 nmap <leader>r <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 let g:ctrlp_working_path_mode= 'ra'
 
@@ -316,6 +318,8 @@ autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 "Airline config
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "oceanicnext"
 
@@ -420,7 +424,8 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 " Run line under cursor as shell command and paste output to buffer
 noremap Q !!$SHELL<CR>
 
-nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>T :CtrlPTag<CR>
+nnoremap <leader>t :CtrlPTagBufAll<CR>
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
 " }}}
