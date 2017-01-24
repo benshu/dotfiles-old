@@ -9,12 +9,7 @@ export CLICOLOR=1
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-POWERLEVEL9K_MODE='awesome-fontconfig'
-POWERLEVEL9K_PROMPT_ON_NEWLINE=true
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status background_jobs_joined vi_mode)
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
-POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
-ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -39,7 +34,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -62,7 +57,7 @@ plugins=(git python tmux docker vi-mode history-substring-search zsh-syntax-high
 
 # User configuration
 
-export PATH=$HOME:/usr/local/opt/coreutils/libexec/gnubin:/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=$HOME:/usr/local/opt/coreutils/libexec/gnubin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -72,9 +67,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-				export EDITOR='vim'
+    export EDITOR='vim'
 else
-				export EDITOR='gvim'
+    export EDITOR='gvim'
 fi
 
 # Compilation flags
@@ -88,7 +83,6 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# change gd alias from git plugin to gdiff, gd is used for Google Drive
 source ~/.aliases
 source ~/.exports
 source ~/.functions
@@ -106,3 +100,8 @@ if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Base 16 shell theme
+BASE16_SHELL=$HOME/.config/base16-shell/
+
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"

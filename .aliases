@@ -1,3 +1,7 @@
+# Intsights
+alias dtunnel="print -P %F{green}; python3 -m deployment.tunnel --project intsights-dev-2"
+alias ptunnel="print -P %F{red}; python3 -m deployment.tunnel --project intsights"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
@@ -8,7 +12,6 @@ alias -- -="cd -"
 
 # Shortcuts
 alias gdp='cd ~/Google\ Drive/Projects'
-alias gdiff='git diff' # Since I override oh-my-zsh's gd For google drive
 alias gcd='git checkout dev'
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
