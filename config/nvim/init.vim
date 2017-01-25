@@ -26,11 +26,11 @@ call dein#add('Shougo/unite.vim')
 call dein#add('mileszs/ack.vim')
 " call dein#add('Shougo/vimfiler.vim')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
-call dein#add('Yggdroot/indentLine')
+" call dein#add('Yggdroot/indentLine')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('christoomey/vim-tmux-navigator')
 call dein#add('ctrlpvim/ctrlp.vim')
-"call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
+call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
 call dein#add('alfredodeza/coveragepy.vim')
 call dein#add('dhruvasagar/vim-table-mode')
 call dein#add('elzr/vim-json', {'on_ft': 'json'})
@@ -44,7 +44,8 @@ call dein#add('mhartington/oceanic-next')
 call dein#add('neomake/neomake')
 call dein#add('scrooloose/nerdtree')
 call dein#add('terryma/vim-multiple-cursors')
-"call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+call dein#add('terryma/vim-expand-region')
+call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
 call dein#add('tmux-plugins/vim-tmux')
 call dein#add('tomtom/tcomment_vim')
 call dein#add('tpope/vim-fugitive')
@@ -58,6 +59,10 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
 call dein#add('janko-m/vim-test', {'on_ft': 'python'})
 call dein#add('hynek/vim-python-pep8-indent')
+call dein#add('junegunn/gv.vim')
+call dein#add('junegunn/vim-peekaboo')
+call dein#add('junegunn/goyo.vim')
+call dein#add('wellle/tmux-complete.vim')
 
 " these need to be added last
 call dein#add('ryanoasis/vim-devicons')
@@ -114,6 +119,7 @@ set modeline
 set modelines=4
 " Ignore case of searches
 set ignorecase
+set wildignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Show the filename in the window titlebar
@@ -133,8 +139,6 @@ set shortmess=I
 
 " System mappings  ----------------------------------------------------------{{{
 let g:lmap =  {}
-" No need for ex mode
-nnoremap Q <nop>
 vnoremap // y/<C-R>"<CR>
 " exit insert, dd line, enter insert
 inoremap <c-d> <esc>ddi
@@ -215,6 +219,9 @@ let g:jedi#documentation_command        = "<leader>pk"
 let g:jedi#usages_command               = "<leader>pu"
 let g:jedi#rename_command               = "<leader>pr"
 
+" Execute python file with python3
+noremap <leader>p :Dispatch! python3 %<CR>
+
 " }}}
 
 " Linting -------------------------------------------------------------------{{{
@@ -238,7 +245,7 @@ autocmd! BufWritePost * Neomake
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
 " Use braceless plugin for python-aware indenting, folding
-autocmd FileType python BracelessEnable +indent +fold
+autocmd FileType python BracelessEnable +indent
 " autocmd FileType python nnoremap <space> :<C-u>call braceless#fold#close(line('.'), 0)<cr>
 " autocmd FileType python vnoremap <space> :<C-u>call braceless#fold#close(line('.'), 0)<cr>
 let g:braceless_cont_call = 1
@@ -263,7 +270,7 @@ nnoremap <leader>gb :Gblame<CR>
 map <silent> - :NERDTreeToggle<CR>
 " map <silent> - :VimFiler<CR>
 " let g:NERDTreeHijackNetrw=0
-let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
+let g:NERDTreeIgnore = ['__pycache__', '*.pyc'] " Ignore files in .gitignore
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
