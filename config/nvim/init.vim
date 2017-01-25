@@ -44,6 +44,7 @@ call dein#add('neomake/neomake')
 call dein#add('scrooloose/nerdtree')
 call dein#add('terryma/vim-multiple-cursors')
 "call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+call dein#add('terryma/vim-expand-region')
 call dein#add('tmux-plugins/vim-tmux')
 call dein#add('tomtom/tcomment_vim')
 call dein#add('tpope/vim-fugitive')
@@ -59,6 +60,10 @@ call dein#add('janko-m/vim-test', {'on_ft': 'python'})
 call dein#add('hynek/vim-python-pep8-indent')
 call dein#add('AndrewRadev/splitjoin.vim')
 call dein#add('milkypostman/vim-togglelist')
+call dein#add('junegunn/gv.vim')
+call dein#add('junegunn/vim-peekaboo')
+call dein#add('junegunn/goyo.vim')
+call dein#add('wellle/tmux-complete.vim')
 
 " these need to be added last
 call dein#add('ryanoasis/vim-devicons')
@@ -115,6 +120,7 @@ set modeline
 set modelines=4
 " Ignore case of searches
 set ignorecase
+set wildignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
 " Show the filename in the window titlebar
@@ -235,6 +241,9 @@ let g:tmux_window = "test"
 au FileType python map <silent> <leader>pt :Dispatch docker exec -it worker pytest -s /backend/%<CR>
 " Set vim togglelist to use Copen as quickfix window
 let g:toggle_list_copen_command="Copen"
+
+" Execute python file with python3
+noremap <leader>p :Dispatch! python3 %<CR>
 
 " }}}
 
