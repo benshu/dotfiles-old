@@ -60,6 +60,7 @@ call dein#add('janko-m/vim-test', {'on_ft': 'python'})
 call dein#add('hynek/vim-python-pep8-indent')
 call dein#add('AndrewRadev/splitjoin.vim')
 call dein#add('milkypostman/vim-togglelist')
+call dein#add('jpalardy/vim-slime.git')
 call dein#add('junegunn/gv.vim')
 call dein#add('junegunn/vim-peekaboo')
 call dein#add('junegunn/goyo.vim')
@@ -154,6 +155,8 @@ noremap  <silent> <Home> g<Home>
 noremap  <silent> <End>  g<End>
 inoremap <silent> <Home> <C-o>g<Home>
 inoremap <silent> <End>  <C-o>g<End>
+inoremap jk <esc>
+inoremap kj <esc>
 noremap H ^
 noremap L g_
 nnoremap ; :
@@ -235,7 +238,7 @@ let g:splitjoin_python_brackets_on_separate_lines = 1
 
 " Dispatch settings
 
-let g:tmux_session = "main"
+let g:tmux_session = "left"
 let g:tmux_window = "test"
 
 au FileType python map <silent> <leader>pt :Dispatch docker exec -it worker pytest -s /backend/%<CR>
@@ -347,8 +350,6 @@ endfunction
 call deoplete#custom#set('buffer', 'mark', 'buffer')
 call deoplete#custom#set('omni', 'mark', 'omni')
 call deoplete#custom#set('file', 'mark', 'file')
-" let g:deoplete#omni_patterns = {}
-" let g:deoplete#omni_patterns.html = ''
 function! Preview_func()
     if &pvw
         setlocal nonumber norelativenumber
