@@ -1,3 +1,7 @@
+# Intsights
+alias dtunnel="print -P %F{green}; python3 -m deployment.tunnel --project intsights-dev-2"
+alias ptunnel="print -P %F{red}; python3 -m deployment.tunnel --project intsights"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
@@ -16,8 +20,10 @@ alias p="cd ~/projects"
 alias g="git"
 alias h="history"
 alias j="jobs"
-alias gd="cd ~/Google\ Drive/"
+alias gd="git difftool -d"
+alias gdr="cd ~/Google\ Drive/"
 
+alias todo="$EDITOR ~/.todo.md"
 alias sexify="python -m autopep8 --in-place --aggressive --aggressive"
 alias retag="ctags -R --fields=+l ."
 
@@ -44,7 +50,6 @@ alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 
 # List only hidden files
 alias lh="ls -ld .?* ${colorflag}"
-# Always use color output for `ls`
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -88,11 +93,6 @@ command -v md5sum > /dev/null || alias md5sum="md5"
 
 # OS X has no `sha1sum`, so use `shasum` as a fallback
 command -v sha1sum > /dev/null || alias sha1sum="shasum"
-
-# JavaScriptCore REPL
-jscbin="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc";
-[ -e "${jscbin}" ] && alias jsc="${jscbin}";
-unset jscbin;
 
 # Trim new lines and copy to clipboard
 alias c="tr -d '\n' | pbcopy"

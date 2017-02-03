@@ -24,7 +24,6 @@ call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/unite.vim')
 call dein#add('mileszs/ack.vim')
-" call dein#add('Shougo/vimfiler.vim')
 call dein#add('Xuyuanp/nerdtree-git-plugin')
 " call dein#add('Yggdroot/indentLine')
 call dein#add('airblade/vim-gitgutter')
@@ -44,8 +43,8 @@ call dein#add('mhartington/oceanic-next')
 call dein#add('neomake/neomake')
 call dein#add('scrooloose/nerdtree')
 call dein#add('terryma/vim-multiple-cursors')
-call dein#add('terryma/vim-expand-region')
 call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+call dein#add('terryma/vim-expand-region')
 call dein#add('tmux-plugins/vim-tmux')
 call dein#add('tomtom/tcomment_vim')
 call dein#add('tpope/vim-fugitive')
@@ -59,6 +58,8 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
 call dein#add('janko-m/vim-test', {'on_ft': 'python'})
 call dein#add('hynek/vim-python-pep8-indent')
+call dein#add('AndrewRadev/splitjoin.vim')
+call dein#add('milkypostman/vim-togglelist')
 call dein#add('junegunn/gv.vim')
 call dein#add('junegunn/vim-peekaboo')
 call dein#add('junegunn/goyo.vim')
@@ -93,7 +94,7 @@ set relativenumber
 set tabstop=4 shiftwidth=4 expandtab
 set conceallevel=0
 " block select not limited by shortest line
-set virtualedit=
+set virtualedit=block
 set wildmenu
 set laststatus=2
 set wrap linebreak nolist
@@ -140,13 +141,15 @@ set shortmess=I
 " System mappings  ----------------------------------------------------------{{{
 let g:lmap =  {}
 vnoremap // y/<C-R>"<CR>
+" Map Y to more logical yank to end of line
+map Y y$
 " exit insert, dd line, enter insert
 inoremap <c-d> <esc>ddi
 " Navigate between display lines
 noremap  <silent> <Up>   gk
 noremap  <silent> <Down> gj
-noremap  <silent> k gk
-noremap  <silent> j gj
+" noremap  <silent> k gk
+" noremap  <silent> j gj
 noremap  <silent> <Home> g<Home>
 noremap  <silent> <End>  g<End>
 inoremap <silent> <Home> <C-o>g<Home>
@@ -194,8 +197,11 @@ nnoremap <leader>gb :Gblame<CR>
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+nnoremap <leader>T :CtrlPTag<CR>
+nnoremap <leader>t :CtrlPTagBufAll<CR>
 
 "}}}
 
@@ -218,6 +224,23 @@ let g:jedi#goto_definitions_command     = "<leader>pd"
 let g:jedi#documentation_command        = "<leader>pk"
 let g:jedi#usages_command               = "<leader>pu"
 let g:jedi#rename_command               = "<leader>pr"
+" Python breakpoints shortcuts
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+
+" splitjoin settings
+
+let g:splitjoin_trailing_comma = 1
+let g:splitjoin_python_brackets_on_separate_lines = 1
+
+" Dispatch settings
+
+let g:tmux_session = "main"
+let g:tmux_window = "test"
+
+au FileType python map <silent> <leader>pt :Dispatch docker exec -it worker pytest -s /backend/%<CR>
+" Set vim togglelist to use Copen as quickfix window
+let g:toggle_list_copen_command="Copen"
 
 " Execute python file with python3
 noremap <leader>p :Dispatch! python3 %<CR>
@@ -268,9 +291,8 @@ nnoremap <leader>gb :Gblame<CR>
 " NERDTree ------------------------------------------------------------------{{{
 " nnoremap <silent> - :Lex<CR>
 map <silent> - :NERDTreeToggle<CR>
-" map <silent> - :VimFiler<CR>
-" let g:NERDTreeHijackNetrw=0
-let g:NERDTreeIgnore = ['__pycache__', '*.pyc'] " Ignore files in .gitignore
+map <silent> <leader>nf :NERDTreeFind<CR>
+let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
@@ -283,10 +305,10 @@ let g:WebDevIconsOS = 'Darwin'
 "let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
-" let g:webdevicons_enable_nerdtree = 0
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:webdevicons_enable_nerdtree = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:DevIconsEnableFoldersOpenClose = 1
-" let g:NERDTreeFileExtensionHighlightFullName = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
 "
 "
 "}}}
@@ -355,7 +377,6 @@ hi deniteMatched guibg=None
 hi deniteMatchedChar guibg=None
 
 nnoremap <silent> <leader>h :Denite  help<CR>
-nnoremap <silent> <leader>c :Denite colorscheme<CR>
 nnoremap <silent> <leader>u :call dein#update()<CR>
 call denite#custom#map(
             \ 'insert',
@@ -412,6 +433,15 @@ call denite#custom#var('menu', 'menus', s:menus)
 nnoremap <silent> <Leader>g :Denite menu:git <CR>
 "}}}
 "}}}
+
+" Searching (Ack, ag) -------------------------------------------------------{{{
+
+if executable('ag')
+  " let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'rg --vimgrep --no-heading'
+endif
+
+" }}}
 
 " Navigate between vim buffers and tmux panels ------------------------------{{{
 "split navigations
@@ -494,3 +524,50 @@ let g:airline#extensions#tabline#buffer_idx_format = {
 
 "}}}
 
+" Functions ---------------------------------------------------------------{{{
+"
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    :%s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+
+" Function to close all buffers but those open in a window
+"
+function! Wipeout()
+  " list of *all* buffer numbers
+  let l:buffers = range(1, bufnr('$'))
+
+  " what tab page are we in?
+  let l:currentTab = tabpagenr()
+  try
+    " go through all tab pages
+    let l:tab = 0
+    while l:tab < tabpagenr('$')
+      let l:tab += 1
+
+      " go through all windows
+      let l:win = 0
+      while l:win < winnr('$')
+        let l:win += 1
+        " whatever buffer is in this window in this tab, remove it from
+        " l:buffers list
+        let l:thisbuf = winbufnr(l:win)
+        call remove(l:buffers, index(l:buffers, l:thisbuf))
+      endwhile
+    endwhile
+
+    " if there are any buffers left, delete them
+    if len(l:buffers)
+      execute 'bwipeout' join(l:buffers)
+    endif
+  finally
+    " go back to our original tab page
+    execute 'tabnext' l:currentTab
+  endtry
+endfunction
+"}}}

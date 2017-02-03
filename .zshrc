@@ -96,11 +96,11 @@ export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh  
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f /Users/Benshu/google-cloud-sdk/path.zsh.inc ]; then
-  source '/Users/Benshu/google-cloud-sdk/path.zsh.inc'
+if [ -f /Users/Benshu/Downloads/google-cloud-sdk/path.zsh.inc ]; then
+  source '/Users/Benshu/Downloads/google-cloud-sdk/path.zsh.inc'
 fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f /Users/Benshu/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/Users/Benshu/google-cloud-sdk/completion.zsh.inc'
+if [ -f /Users/Benshu/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
+  source '/Users/Benshu/Downloads/google-cloud-sdk/completion.zsh.inc'
 fi
