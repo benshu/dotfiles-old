@@ -3,80 +3,84 @@
 " repo  : https://github.com/benshu/dotfiles/
 "
 
-" Setup dein  ---------------------------------------------------------------{{{
+" Setup Plugins ---------------------------------------------------------------{{{
 if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
     call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
     call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
 endif
 
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
-call dein#begin(expand('~/.config/nvim'))
-call dein#add('Chiel92/vim-autoformat')
-" call dein#add('Konfekt/FastFold')
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/denite.nvim')
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('Shougo/echodoc.vim')
-call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
-call dein#add('Shougo/neoinclude.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/unite.vim')
-call dein#add('mileszs/ack.vim')
-call dein#add('Xuyuanp/nerdtree-git-plugin')
-" call dein#add('Yggdroot/indentLine')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('christoomey/vim-tmux-navigator')
-call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
-call dein#add('alfredodeza/coveragepy.vim')
-call dein#add('dhruvasagar/vim-table-mode')
-call dein#add('elzr/vim-json', {'on_ft': 'json'})
-call dein#add('haya14busa/dein-command.vim')
-call dein#add('honza/vim-snippets')
-call dein#add('itmammoth/doorboy.vim')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('tweekmonster/braceless.vim')
-" call dein#add('majutsushi/tagbar')
-call dein#add('mhartington/oceanic-next')
-call dein#add('neomake/neomake')
-call dein#add('scrooloose/nerdtree')
-call dein#add('terryma/vim-multiple-cursors')
-"call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
-call dein#add('terryma/vim-expand-region')
-call dein#add('tmux-plugins/vim-tmux')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-unimpaired')
-call dein#add('tpope/vim-dispatch')
-call dein#add('tyru/open-browser.vim')
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
-call dein#add('janko-m/vim-test', {'on_ft': 'python'})
-call dein#add('hynek/vim-python-pep8-indent')
-call dein#add('AndrewRadev/splitjoin.vim')
-call dein#add('milkypostman/vim-togglelist')
-call dein#add('jpalardy/vim-slime.git')
-call dein#add('junegunn/gv.vim')
-call dein#add('junegunn/vim-peekaboo')
-call dein#add('junegunn/goyo.vim')
-call dein#add('wellle/tmux-complete.vim')
 
-" these need to be added last
-call dein#add('ryanoasis/vim-devicons')
-call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
+    call dein#begin(expand('~/.config/nvim'))
+    call dein#add('Shougo/dein.vim')
+    call dein#add('Chiel92/vim-autoformat')
+    " call dein#add('Konfekt/FastFold')
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('Shougo/echodoc.vim')
+    call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
+    call dein#add('Shougo/neoinclude.vim')
+    call dein#add('Shougo/neomru.vim')
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('mileszs/ack.vim')
+    call dein#add('Xuyuanp/nerdtree-git-plugin')
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('ctrlpvim/ctrlp.vim')
+    call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
+    call dein#add('alfredodeza/coveragepy.vim')
+    call dein#add('dhruvasagar/vim-table-mode')
+    call dein#add('elzr/vim-json', {'on_ft': 'json'})
+    call dein#add('haya14busa/dein-command.vim')
+    call dein#add('honza/vim-snippets')
+    call dein#add('itmammoth/doorboy.vim')
+    call dein#add('junegunn/vim-easy-align')
+    call dein#add('tweekmonster/braceless.vim')
+    " call dein#add('majutsushi/tagbar')
+    call dein#add('neomake/neomake')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('terryma/vim-multiple-cursors')
+    "call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+    call dein#add('terryma/vim-expand-region')
+    call dein#add('tmux-plugins/vim-tmux')
+    call dein#add('tomtom/tcomment_vim')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('tpope/vim-repeat')
+    call dein#add('tpope/vim-surround')
+    call dein#add('tpope/vim-unimpaired')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tyru/open-browser.vim')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+    call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
+    call dein#add('janko-m/vim-test', {'on_ft': 'python'})
+    call dein#add('hynek/vim-python-pep8-indent')
+    call dein#add('AndrewRadev/splitjoin.vim')
+    call dein#add('milkypostman/vim-togglelist')
+    call dein#add('jpalardy/vim-slime.git')
+    call dein#add('junegunn/gv.vim')
+    call dein#add('junegunn/vim-peekaboo')
+    call dein#add('junegunn/goyo.vim')
+    call dein#add('wellle/tmux-complete.vim')
+    " Themes
+    call dein#add('mhartington/oceanic-next')
+    call dein#add( 'justinmk/molokai' )
 
+    "" these need to be added last
+    call dein#add('ryanoasis/vim-devicons')
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+    call dein#end()
+    call dein#save_state()
+endif
 
 if dein#check_install()
     call dein#install()
     let pluginsExist=1
 endif
 
-call dein#end()
 filetype plugin indent on
 " }}}
 
@@ -160,6 +164,7 @@ inoremap kj <esc>
 noremap H ^
 noremap L g_
 nnoremap ; :
+nnoremap <leader>df madawx/)x`a
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
 " Neovim terminal mapping
@@ -227,6 +232,7 @@ let g:jedi#goto_definitions_command     = "<leader>pd"
 let g:jedi#documentation_command        = "<leader>pk"
 let g:jedi#usages_command               = "<leader>pu"
 let g:jedi#rename_command               = "<leader>pr"
+let g:jedi#use_splits_not_buffers = "right"
 " Python breakpoints shortcuts
 au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>

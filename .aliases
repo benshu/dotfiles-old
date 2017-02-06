@@ -1,6 +1,7 @@
 # Intsights
-alias dtunnel="print -P %F{green}; python3 -m deployment.tunnel --project intsights-dev-2"
-alias ptunnel="print -P %F{red}; python3 -m deployment.tunnel --project intsights"
+alias dtunnel='python3 -m deployment.tunnel --project intsights-dev-2'
+alias ptunnel='python3 -m deployment.tunnel --project intsights'
+alias gmylog='git log --oneline --graph --decorate=full --author Hagay'
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
