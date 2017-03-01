@@ -14,6 +14,8 @@ alias -- -="cd -"
 # Shortcuts
 alias gdp='cd ~/Google\ Drive/Projects'
 alias gcd='git checkout dev'
+# git branch diff
+alias gbd='git log --graph --left-right --cherry-pick --oneline'
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"

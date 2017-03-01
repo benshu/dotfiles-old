@@ -14,7 +14,6 @@ set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
 if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
     call dein#begin(expand('~/.config/nvim'))
     call dein#add('Shougo/dein.vim')
-    call dein#add('Chiel92/vim-autoformat')
     " call dein#add('Konfekt/FastFold')
     call dein#add('Shougo/denite.nvim')
     call dein#add('Shougo/deoplete.nvim')
@@ -29,16 +28,13 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('christoomey/vim-tmux-navigator')
-    call dein#add('ctrlpvim/ctrlp.vim')
     call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
-    call dein#add('alfredodeza/coveragepy.vim')
     call dein#add('dhruvasagar/vim-table-mode')
-    call dein#add('elzr/vim-json', {'on_ft': 'json'})
     call dein#add('haya14busa/dein-command.vim')
     call dein#add('honza/vim-snippets')
     call dein#add('itmammoth/doorboy.vim')
     call dein#add('junegunn/vim-easy-align')
-    call dein#add('tweekmonster/braceless.vim')
+    " call dein#add('tweekmonster/braceless.vim')
     " call dein#add('majutsushi/tagbar')
     call dein#add('neomake/neomake')
     call dein#add('scrooloose/nerdtree')
@@ -56,7 +52,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('vim-airline/vim-airline')
     call dein#add('vim-airline/vim-airline-themes')
     call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
-    call dein#add('janko-m/vim-test', {'on_ft': 'python'})
     call dein#add('hynek/vim-python-pep8-indent')
     call dein#add('AndrewRadev/splitjoin.vim')
     call dein#add('milkypostman/vim-togglelist')
@@ -65,6 +60,20 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('junegunn/goyo.vim')
     call dein#add('wellle/tmux-complete.vim')
+
+    " On evaluation
+    call dein#add('alfredodeza/coveragepy.vim')
+    call dein#add('elzr/vim-json', {'on_ft': 'json'})
+    call dein#add('henrik/vim-indexed-search')
+    call dein#add('janko-m/vim-test', {'on_ft': 'python'})
+    call dein#add('michaeljsmith/vim-indent-object')
+    call dein#add('Chiel92/vim-autoformat')
+    " call dein#add('sbdchd/neoformat')
+    call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
+    call dein#add('junegunn/fzf.vim')
+    call dein#add('junegunn/limelight.vim')
+    call dein#add('junegunn/rainbow_parentheses.vim')
+
     " Themes
     call dein#add('mhartington/oceanic-next')
     call dein#add( 'justinmk/molokai' )
@@ -72,6 +81,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     "" these need to be added last
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+
     call dein#end()
     call dein#save_state()
 endif
@@ -84,6 +94,13 @@ endif
 filetype plugin indent on
 " }}}
 
+" DEPRECATION HELL
+"
+"
+" call dein#add('ctrlpvim/ctrlp.vim')
+" nnoremap <leader>T :CtrlPTag<CR>
+" nnoremap <leader>t :CtrlPTag<CR>
+" nnoremap <leader>t :CtrlPTagBufAll<CR>
 " System Settings  ----------------------------------------------------------{{{
 " Neovim Settings
 set termguicolors
@@ -91,7 +108,6 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set clipboard+=unnamedplus
 " Currently needed for neovim paste issue
 set pastetoggle=<f6>
-set nopaste
 set noshowmode
 filetype on
 set number
@@ -105,7 +121,8 @@ set laststatus=2
 set wrap linebreak nolist
 set wildmode=full
 set updatetime=500
-set complete=.,w,b,u,t,k " Define completion types for vim autocomplete
+" Define completion types for vim autocomplete
+set complete=.,w,b,u,t,k
 let mapleader = ','
 set undofile
 " Centralize backups, swapfiles and undo history
@@ -125,6 +142,7 @@ set modeline
 set modelines=4
 " Ignore case of searches
 set ignorecase
+" Ignore case in wildmenu
 set wildignorecase
 " Highlight dynamically as pattern is typed
 set incsearch
@@ -134,12 +152,9 @@ set title
 set showcmd
 " Start scrolling three lines before the horizontal window border
 set scrolloff=3
-
-let g:indentLine_char='│'
-let g:table_mode_corner="|"
-
-set formatoptions+=t
-set inccommand=nosplit
+" Lazy redrawing for faster responsivness
+set lazyredraw
+set inccommand=split
 set shortmess+=atI
 " }}}
 
@@ -167,12 +182,6 @@ nnoremap ; :
 nnoremap <leader>df madawx/)x`a
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
-" Neovim terminal mapping
-" terminal 'normal mode'
-tmap <esc> <c-\><c-n><esc><cr>
-" ,f to format code, requires formatters: read the docs
-noremap <leader>f :Autoformat<CR>
-let g:lmap.f = { 'name' : 'Format file' }
 noremap <leader>TM :TableModeToggle<CR>
 inoremap <c-f> <c-x><c-f>
 " Copy to system clipboard
@@ -199,18 +208,28 @@ map <silent> <esc> :noh<cr>
 noremap <leader>W :w !sudo tee % > /dev/null<CR>
 " Run line under cursor as shell command and paste output to buffer
 noremap Q !!$SHELL<CR>
-"nnoremap <leader>t :CtrlPTag<CR>
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
+" Quick way to save file
+nnoremap <leader>w :w<CR>
 " If you prefer the Omni-Completion tip window to close when a selection is
 " made, these lines close it on movement in insert mode or when leaving
 " insert mode
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-nnoremap <leader>T :CtrlPTag<CR>
-nnoremap <leader>t :CtrlPTagBufAll<CR>
 
+"command abbrevs we can use `:E<space>` (and similar) to edit a file in the
+"same dir as current file
+cabbrev E <c-r>="e "  . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
+cabbrev Sp <c-r>="sp " . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
+cabbrev SP <c-r>="sp " . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
+cabbrev Vs <c-r>="vs " . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
+cabbrev VS <c-r>="vs " . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
+function! s:Eatchar(pat)
+  let c = nr2char(getchar(0))
+  return (c =~ a:pat) ? '' : c
+endfunc
 "}}}
 
 " Themes, Commands, etc  ----------------------------------------------------{{{
@@ -218,6 +237,30 @@ nnoremap <leader>t :CtrlPTagBufAll<CR>
 syntax on
 " set background=dark
 colorscheme OceanicNext
+
+" ,f to format code
+noremap <leader>f :Autoformat<CR>
+let g:lmap.f = { 'name' : 'Format file' }
+
+let g:neoformat_python_autopep8 = {
+            \ 'exe': 'autopep8',
+            \ 'args': ['-s 4', '-E'],
+            \ 'replace': 0,
+            \ 'stdin': 0,
+            \ 'no_append': 0,
+            \ }
+
+let g:neoformat_enabled_python = ['autopep8']
+let g:neoformat_only_msg_on_error = 1
+
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
 "}}}
 
 " Python --------------------------------------------------------------------{{{
@@ -234,8 +277,10 @@ let g:jedi#usages_command               = "<leader>pu"
 let g:jedi#rename_command               = "<leader>pr"
 let g:jedi#use_splits_not_buffers = "right"
 " Python breakpoints shortcuts
-au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
-au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+" au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+" au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>b oimport pudb; pu.db;<esc>
+au FileType python map <silent> <leader>B Oimport pudb; pu.db;<esc>
 
 " splitjoin settings
 
@@ -253,6 +298,13 @@ let g:toggle_list_copen_command="Copen"
 
 " Execute python file with python3
 noremap <leader>p :Dispatch! python3 %<CR>
+
+" Use braceless plugin for python-aware indenting
+" autocmd FileType python BracelessEnable +indent
+"
+" let g:braceless_cont_call = 1
+" let g:braceless_cont_block = 1
+" let g:braceless_line_continuation = 0
 
 " }}}
 
@@ -276,19 +328,11 @@ autocmd! BufWritePost * Neomake
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
-" Use braceless plugin for python-aware indenting, folding
-" autocmd FileType python BracelessEnable +indent +fold
-autocmd FileType python BracelessEnable +indent
-" autocmd FileType python nnoremap <space> :<C-u>call braceless#fold#close(line('.'), 0)<cr>
-" autocmd FileType python vnoremap <space> :<C-u>call braceless#fold#close(line('.'), 0)<cr>
-let g:braceless_cont_call = 1
-let g:braceless_cont_block = 1
-let g:braceless_line_continuation = 0
-
 " Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <tab> za
+vnoremap <tab> za
 
+autocmd FileType python set foldmethod=indent
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType vim setlocal foldlevel=0
 " }}}
@@ -308,13 +352,10 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 let NERDTreeMapJumpFirstChild = ''
-let g:webdevicons_enable_vimfiler = 0
 let g:WebDevIconsOS = 'Linux'
-"let NERDTreeShowHidden=1
 let g:NERDTreeWinSize=40
 let g:NERDTreeAutoDeleteBuffer=1
-" let g:webdevicons_enable_nerdtree = 0
-" let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:DevIconsEnableFoldersOpenClose = 1
 "}}}
 
@@ -344,7 +385,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 let g:deoplete#enable_at_startup = 1
 let g:echodoc_enable_at_startup = 1
 set splitbelow
-set completeopt+=noselect
+" set completeopt+=noselect
 
 function! Multiple_cursors_before()
     let b:deoplete_disable_auto_complete=2
@@ -353,9 +394,9 @@ function! Multiple_cursors_after()
     let b:deoplete_disable_auto_complete=0
 endfunction
 
-call deoplete#custom#set('buffer', 'mark', 'buffer')
-call deoplete#custom#set('omni', 'mark', 'omni')
-call deoplete#custom#set('file', 'mark', 'file')
+call deoplete#custom#set('buffer', 'mark', 'buf')
+call deoplete#custom#set('omni', 'mark', 'O')
+call deoplete#custom#set('file', 'mark', 'f')
 function! Preview_func()
     if &pvw
         setlocal nonumber norelativenumber
@@ -371,9 +412,9 @@ call denite#custom#option('default', 'prompt', '❯')
 call denite#custom#source(
             \ 'file_rec', 'vars', {
             \   'command': [
-            \      'ag', '--follow','--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png'
-            \   ] })
-call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
+            \      'rg', '--follow','--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png'
+            \] })
+call denite#custom#source('file_rec', 'sorters', ['sorter_rank'])
 
 nnoremap <silent> <c-p> :Denite file_rec<CR>
 hi deniteMatched guibg=None
@@ -396,7 +437,8 @@ call denite#custom#map(
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
             \ [ '.git/', '.ropeproject/', '__pycache__/',
-            \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+            \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
+            \   '*.pyc', '*.swp', '*.swn', '*.swl', '*.swo'])
 
 " Git from unite...ERMERGERD ------------------------------------------------{{{
 let s:menus = {} " Useful when building interfaces at appropriate places
@@ -437,12 +479,53 @@ nnoremap <silent> <Leader>g :Denite menu:git <CR>
 "}}}
 "}}}
 
-" Searching (Ack, ag) -------------------------------------------------------{{{
+" Searching (Ack, rg, FZF) -------------------------------------------------------{{{
 
-if executable('ag')
-  " let g:ackprg = 'ag --vimgrep'
-  let g:ackprg = 'rg --vimgrep --no-heading'
+if executable('rg')
+    " let g:ackprg = 'ag --vimgrep'
+    let g:ackprg = 'rg --vimgrep --no-heading'
 endif
+
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+
+nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack!/')<CR>
+nnoremap <silent> <leader>. :AckIn
+
+nnoremap <silent> K :call SearchWordWithAck()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAck()<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+function! SearchWordWithAck()
+    execute 'Ack!' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAck() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ack!' selection
+endfunction
+
+function! SearchWithAckInDirectory(...)
+    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
+endfunction
+command! -nargs=+ -complete=dir AckIn call SearchWithAckInDirectory(<f-args>)
 
 " }}}
 
@@ -529,6 +612,29 @@ let g:airline#extensions#tabline#buffer_idx_format = {
 
 " Functions ---------------------------------------------------------------{{{
 "
+"toggle a markdown notes file in a fixed window on the right with f12
+nnoremap <F12> :NotesToggle<cr>
+command! -nargs=0 NotesToggle call <sid>toggleNotes()
+function! s:toggleNotes() abort
+    let winnr = bufwinnr("~/notes.md")
+    if winnr > 0
+        exec winnr . "wincmd c"
+        return
+    endif
+
+    botright 100vs notes.md
+    setl wfw
+    setl nonu
+
+    "hack to make nerdtree et al not split the window
+    "setl previewwindow
+
+    "for some reason this doesnt get run automatically and the cursor
+    "position doesn't get set
+    doautocmd bufreadpost %
+
+    "normal zMzO
+endfunction
 " Strip trailing whitespace (,ss)
 function! StripWhitespace()
     let save_cursor = getpos(".")
@@ -542,35 +648,35 @@ noremap <leader>ss :call StripWhitespace()<CR>
 " Function to close all buffers but those open in a window
 "
 function! Wipeout()
-  " list of *all* buffer numbers
-  let l:buffers = range(1, bufnr('$'))
+    " list of *all* buffer numbers
+    let l:buffers = range(1, bufnr('$'))
 
-  " what tab page are we in?
-  let l:currentTab = tabpagenr()
-  try
-    " go through all tab pages
-    let l:tab = 0
-    while l:tab < tabpagenr('$')
-      let l:tab += 1
+    " what tab page are we in?
+    let l:currentTab = tabpagenr()
+    try
+        " go through all tab pages
+        let l:tab = 0
+        while l:tab < tabpagenr('$')
+            let l:tab += 1
 
-      " go through all windows
-      let l:win = 0
-      while l:win < winnr('$')
-        let l:win += 1
-        " whatever buffer is in this window in this tab, remove it from
-        " l:buffers list
-        let l:thisbuf = winbufnr(l:win)
-        call remove(l:buffers, index(l:buffers, l:thisbuf))
-      endwhile
-    endwhile
+            " go through all windows
+            let l:win = 0
+            while l:win < winnr('$')
+                let l:win += 1
+                " whatever buffer is in this window in this tab, remove it from
+                " l:buffers list
+                let l:thisbuf = winbufnr(l:win)
+                call remove(l:buffers, index(l:buffers, l:thisbuf))
+            endwhile
+        endwhile
 
-    " if there are any buffers left, delete them
-    if len(l:buffers)
-      execute 'bwipeout' join(l:buffers)
-    endif
-  finally
-    " go back to our original tab page
-    execute 'tabnext' l:currentTab
-  endtry
+        " if there are any buffers left, delete them
+        if len(l:buffers)
+            execute 'bwipeout' join(l:buffers)
+        endif
+    finally
+        " go back to our original tab page
+        execute 'tabnext' l:currentTab
+    endtry
 endfunction
 "}}}
