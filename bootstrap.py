@@ -72,8 +72,8 @@ def link_files():
     home = os.getenv('HOME')
     cwd = os.getenv('PWD')
     for file in files_to_bootstrap:
-        target= home + '/' + file
-        source= cwd + '/' + file
+        target = home + '/' + file
+        source = cwd + '/' + file
         if os.path.isfile(target):
             print 'File exists, creating backup @ ' , target
             os.system('mv ' + target + ' ' + target + '.backup' + datetime.datetime.now().isoformat())

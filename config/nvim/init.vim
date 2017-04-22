@@ -60,6 +60,8 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('junegunn/goyo.vim')
     call dein#add('wellle/tmux-complete.vim')
+    call dein#add('arcticicestudio/nord-vim')
+
 
     " On evaluation
     call dein#add('alfredodeza/coveragepy.vim')
@@ -180,6 +182,7 @@ noremap H ^
 noremap L g_
 nnoremap ; :
 nnoremap <leader>df madawx/)x`a
+nnoremap <leader>c :bd<CR>
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
 noremap <leader>TM :TableModeToggle<CR>
@@ -236,7 +239,7 @@ endfunc
 " Theme
 syntax on
 " set background=dark
-colorscheme OceanicNext
+colorscheme nord
 
 " ,f to format code
 noremap <leader>f :Autoformat<CR>
@@ -277,10 +280,10 @@ let g:jedi#usages_command               = "<leader>pu"
 let g:jedi#rename_command               = "<leader>pr"
 let g:jedi#use_splits_not_buffers = "right"
 " Python breakpoints shortcuts
-" au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
-" au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
-au FileType python map <silent> <leader>b oimport pudb; pu.db;<esc>
-au FileType python map <silent> <leader>B Oimport pudb; pu.db;<esc>
+au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
+au FileType python map <silent> <leader>bu oimport pudb; pu.db;<esc>
+au FileType python map <silent> <leader>Bu Oimport pudb; pu.db;<esc>
 
 " splitjoin settings
 
@@ -568,7 +571,7 @@ let g:airline_right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
-let g:airline_theme='oceanicnext'
+let g:airline_theme='nord'
 set hidden
 " cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
@@ -622,7 +625,7 @@ function! s:toggleNotes() abort
         return
     endif
 
-    botright 100vs notes.md
+    botright 100vs ~/notes.md
     setl wfw
     setl nonu
 
