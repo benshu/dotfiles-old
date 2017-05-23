@@ -64,6 +64,8 @@ call dein#add('junegunn/gv.vim')
 call dein#add('junegunn/vim-peekaboo')
 call dein#add('junegunn/goyo.vim')
 call dein#add('wellle/tmux-complete.vim')
+call dein#add('arcticicestudio/nord-vim')
+call dein#add('ludovicchabant/vim-gutentags')
 
 " these need to be added last
 call dein#add('ryanoasis/vim-devicons')
