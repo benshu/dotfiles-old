@@ -84,7 +84,6 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# change gd alias from git plugin to gdiff, gd is used for Google Drive
 source ~/.aliases
 source ~/.exports
 source ~/.functions
@@ -104,3 +103,4 @@ fi
 if [ -f /Users/Benshu/Downloads/google-cloud-sdk/completion.zsh.inc ]; then
   source '/Users/Benshu/Downloads/google-cloud-sdk/completion.zsh.inc'
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

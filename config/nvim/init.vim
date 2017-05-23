@@ -10,67 +10,81 @@ if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
 endif
 
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
-call dein#begin(expand('~/.config/nvim'))
-call dein#add('Chiel92/vim-autoformat')
-call dein#add('Konfekt/FastFold')
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/denite.nvim')
-call dein#add('Shougo/deoplete.nvim')
-call dein#add('Shougo/echodoc.vim')
-call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
-call dein#add('Shougo/neoinclude.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neosnippet.vim')
-call dein#add('Shougo/neosnippet-snippets')
-call dein#add('Shougo/unite.vim')
-call dein#add('mileszs/ack.vim')
-call dein#add('Xuyuanp/nerdtree-git-plugin')
-" call dein#add('Yggdroot/indentLine')
-call dein#add('airblade/vim-gitgutter')
-call dein#add('christoomey/vim-tmux-navigator')
-call dein#add('ctrlpvim/ctrlp.vim')
-call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
-call dein#add('alfredodeza/coveragepy.vim')
-call dein#add('dhruvasagar/vim-table-mode')
-call dein#add('elzr/vim-json', {'on_ft': 'json'})
-call dein#add('haya14busa/dein-command.vim')
-call dein#add('honza/vim-snippets')
-call dein#add('itmammoth/doorboy.vim')
-call dein#add('junegunn/vim-easy-align')
-call dein#add('tweekmonster/braceless.vim')
-call dein#add('majutsushi/tagbar')
-call dein#add('mhartington/oceanic-next')
-call dein#add('neomake/neomake')
-call dein#add('scrooloose/nerdtree')
-call dein#add('terryma/vim-multiple-cursors')
-call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
-call dein#add('terryma/vim-expand-region')
-call dein#add('tmux-plugins/vim-tmux')
-call dein#add('tomtom/tcomment_vim')
-call dein#add('tpope/vim-fugitive')
-call dein#add('tpope/vim-repeat')
-call dein#add('tpope/vim-surround')
-call dein#add('tpope/vim-unimpaired')
-call dein#add('tpope/vim-dispatch')
-call dein#add('tyru/open-browser.vim')
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
-call dein#add('janko-m/vim-test', {'on_ft': 'python'})
-call dein#add('hynek/vim-python-pep8-indent')
-call dein#add('AndrewRadev/splitjoin.vim')
-call dein#add('milkypostman/vim-togglelist')
-call dein#add('junegunn/gv.vim')
-call dein#add('junegunn/vim-peekaboo')
-call dein#add('junegunn/goyo.vim')
-call dein#add('wellle/tmux-complete.vim')
-call dein#add('arcticicestudio/nord-vim')
-call dein#add('ludovicchabant/vim-gutentags')
+if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
+    call dein#begin(expand('~/.config/nvim'))
+    call dein#add('Shougo/dein.vim')
+    " call dein#add('Konfekt/FastFold')
+    call dein#add('Shougo/denite.nvim')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('Shougo/echodoc.vim')
+    call dein#add('Shougo/neco-vim', {'on_ft': 'vim'})
+    call dein#add('Shougo/neoinclude.vim')
+    call dein#add('Shougo/neomru.vim')
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('mileszs/ack.vim')
+    call dein#add('Xuyuanp/nerdtree-git-plugin')
+    call dein#add('airblade/vim-gitgutter')
+    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('davidhalter/jedi-vim', {'on_ft': 'python'})
+    call dein#add('dhruvasagar/vim-table-mode')
+    call dein#add('haya14busa/dein-command.vim')
+    call dein#add('honza/vim-snippets')
+    call dein#add('itmammoth/doorboy.vim')
+    call dein#add('junegunn/vim-easy-align')
+    " call dein#add('tweekmonster/braceless.vim')
+    " call dein#add('majutsushi/tagbar')
+    call dein#add('neomake/neomake')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('terryma/vim-multiple-cursors')
+    "call dein#add('tmhedberg/SimpylFold', {'on_ft': 'python'})
+    call dein#add('terryma/vim-expand-region')
+    call dein#add('tmux-plugins/vim-tmux')
+    call dein#add('tomtom/tcomment_vim')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('tpope/vim-repeat')
+    call dein#add('tpope/vim-surround')
+    call dein#add('tpope/vim-unimpaired')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tyru/open-browser.vim')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+    call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
+    call dein#add('janko-m/vim-test', {'on_ft': 'python'})
+    call dein#add('hynek/vim-python-pep8-indent')
+    call dein#add('AndrewRadev/splitjoin.vim')
+    call dein#add('milkypostman/vim-togglelist')
+    call dein#add('junegunn/gv.vim')
+    call dein#add('junegunn/vim-peekaboo')
+    call dein#add('junegunn/goyo.vim')
+    call dein#add('wellle/tmux-complete.vim')
+    call dein#add('arcticicestudio/nord-vim')
 
-" these need to be added last
-call dein#add('ryanoasis/vim-devicons')
-call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
+    " On evaluation
+    " call dein#add('Yggdroot/indentLine')
+    " call dein#add('sbdchd/neoformat')
+    call dein#add('Chiel92/vim-autoformat')
+    call dein#add('alfredodeza/coveragepy.vim')
+    call dein#add('elzr/vim-json', {'on_ft': 'json'})
+    call dein#add('henrik/vim-indexed-search')
+    call dein#add('janko-m/vim-test', {'on_ft': 'python'})
+    call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
+    call dein#add('junegunn/fzf.vim')
+    call dein#add('junegunn/limelight.vim')
+    call dein#add('junegunn/rainbow_parentheses.vim')
+    call dein#add('ludovicchabant/vim-gutentags')
+    call dein#add('michaeljsmith/vim-indent-object')
+
+    " Themes
+    call dein#add('mhartington/oceanic-next')
+    call dein#add( 'justinmk/molokai' )
+
+    " these need to be added last
+    call dein#add('ryanoasis/vim-devicons')
+    call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
+endif
 
 if dein#check_install()
     call dein#install()
@@ -212,6 +226,29 @@ nnoremap <leader>t :CtrlPTagBufAll<CR>
 syntax on
 " set background=dark
 colorscheme OceanicNext
+
+noremap <leader>f :Autoformat<CR>
+let g:lmap.f = { 'name' : 'Format file' }
+
+let g:neoformat_python_autopep8 = {
+            \ 'exe': 'autopep8',
+            \ 'args': ['-s 4', '-E'],
+            \ 'replace': 0,
+            \ 'stdin': 0,
+            \ 'no_append': 0,
+            \ }
+
+let g:neoformat_enabled_python = ['autopep8']
+let g:neoformat_only_msg_on_error = 1
+
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
 "}}}
 
 " Python --------------------------------------------------------------------{{{
