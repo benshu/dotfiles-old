@@ -10,7 +10,6 @@ if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
 endif
 
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
-
 if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
     call dein#begin(expand('~/.config/nvim'))
     call dein#add('Shougo/dein.vim')
@@ -23,7 +22,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
-    call dein#add('Shougo/unite.vim')
     call dein#add('mileszs/ack.vim')
     call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('airblade/vim-gitgutter')
@@ -64,23 +62,25 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
 
 
     " On evaluation
+    " call dein#add('Yggdroot/indentLine')
+    " call dein#add('sbdchd/neoformat')
+    call dein#add('Chiel92/vim-autoformat')
     call dein#add('alfredodeza/coveragepy.vim')
     call dein#add('elzr/vim-json', {'on_ft': 'json'})
     call dein#add('henrik/vim-indexed-search')
     call dein#add('janko-m/vim-test', {'on_ft': 'python'})
-    call dein#add('michaeljsmith/vim-indent-object')
-    call dein#add('Chiel92/vim-autoformat')
-    " call dein#add('sbdchd/neoformat')
     call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
     call dein#add('junegunn/fzf.vim')
     call dein#add('junegunn/limelight.vim')
     call dein#add('junegunn/rainbow_parentheses.vim')
+    call dein#add('ludovicchabant/vim-gutentags')
+    call dein#add('michaeljsmith/vim-indent-object')
 
     " Themes
     call dein#add('mhartington/oceanic-next')
     call dein#add( 'justinmk/molokai' )
 
-    "" these need to be added last
+    " these need to be added last
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
@@ -96,22 +96,12 @@ endif
 filetype plugin indent on
 " }}}
 
-" DEPRECATION HELL
-"
-"
-" call dein#add('ctrlpvim/ctrlp.vim')
-" nnoremap <leader>T :CtrlPTag<CR>
-" nnoremap <leader>t :CtrlPTag<CR>
-" nnoremap <leader>t :CtrlPTagBufAll<CR>
 " System Settings  ----------------------------------------------------------{{{
 " Neovim Settings
 set termguicolors
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set clipboard+=unnamedplus
-" Currently needed for neovim paste issue
-set pastetoggle=<f6>
 set noshowmode
-filetype on
 set number
 set relativenumber
 set tabstop=4 shiftwidth=4 expandtab
@@ -125,13 +115,13 @@ set wildmode=full
 set updatetime=500
 " Define completion types for vim autocomplete
 set complete=.,w,b,u,t,k
-let mapleader = ','
+let mapleader = '<space>'
 set undofile
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
+set backupdir=~/.vim/backups//
+set directory=~/.vim/swaps//
 if exists("&undodir")
-    set undodir=~/.vim/undo
+    set undodir=~/.vim/undo//
 endif
 " Add the g flag to search/replace by default
 set gdefault
@@ -143,7 +133,7 @@ set backupskip=/tmp/*,/private/tmp/*
 set modeline
 set modelines=4
 " Ignore case of searches
-set ignorecase
+set smartcase
 " Ignore case in wildmenu
 set wildignorecase
 " Highlight dynamically as pattern is typed
@@ -241,7 +231,6 @@ syntax on
 " set background=dark
 colorscheme nord
 
-" ,f to format code
 noremap <leader>f :Autoformat<CR>
 let g:lmap.f = { 'name' : 'Format file' }
 
@@ -302,13 +291,6 @@ let g:toggle_list_copen_command="Copen"
 " Execute python file with python3
 noremap <leader>p :Dispatch! python3 %<CR>
 
-" Use braceless plugin for python-aware indenting
-" autocmd FileType python BracelessEnable +indent
-"
-" let g:braceless_cont_call = 1
-" let g:braceless_cont_block = 1
-" let g:braceless_line_continuation = 0
-
 " }}}
 
 " Linting -------------------------------------------------------------------{{{
@@ -316,11 +298,6 @@ noremap <leader>p :Dispatch! python3 %<CR>
 let g:neomake_warning_sign = {'text': '⚠', 'texthl': 'NeomakeWarningSign'}
 " let g:neomake_open_list = 2
 let g:neomake_list_height = 5
-
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠ '
-" hi ALEErrorSign guifg=#ec5f67 ctermfg=203 guibg=#343d46 ctermbg=237
-" hi ALEWarningSign guifg=#fac863 ctermfg=221 guibg=#343d46 ctermbg=237
 let g:neomake_python_enabled_makers = ['flake8', 'pep8']
 " E501 is line length of 80 characters
 let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501'], }
@@ -331,7 +308,7 @@ autocmd! BufWritePost * Neomake
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
-" Space to toggle folds.
+" Tab to toggle folds.
 nnoremap <tab> za
 vnoremap <tab> za
 
@@ -355,11 +332,17 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 let NERDTreeMapJumpFirstChild = ''
-let g:WebDevIconsOS = 'Linux'
+if has("mac")
+    let g:WebDevIconsOS = 'Darwin'
+else
+    let g:WebDevIconsOS = 'Linux'
+endif
 let g:NERDTreeWinSize=40
 let g:NERDTreeAutoDeleteBuffer=1
+let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:DevIconsEnableFoldersOpenClose = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
 "}}}
 
 " Snipppets -----------------------------------------------------------------{{{
@@ -439,11 +422,11 @@ call denite#custom#map(
             \)
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-            \ [ '.git/', '.ropeproject/', '__pycache__/',
+            \ [ '.git/', '__pycache__/',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
             \   '*.pyc', '*.swp', '*.swn', '*.swl', '*.swo'])
 
-" Git from unite...ERMERGERD ------------------------------------------------{{{
+" Git from Denite -------------------------------------------------------------{{{
 let s:menus = {} " Useful when building interfaces at appropriate places
 let s:menus.git = {
             \ 'description' : 'Fugitive interface',
@@ -485,11 +468,84 @@ nnoremap <silent> <Leader>g :Denite menu:git <CR>
 " Searching (Ack, rg, FZF) -------------------------------------------------------{{{
 
 if executable('rg')
-    " let g:ackprg = 'ag --vimgrep'
     let g:ackprg = 'rg --vimgrep --no-heading'
 endif
+"}}}
 
+" FZF ------------------------------------------------------------------{{{
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+
+" Use ESC to close fzf
+aug fzf_setup
+au!
+au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+aug END
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack!/')<CR>
+nnoremap <silent> <leader>. :AckIn
+nnoremap <silent> K :call SearchWordWithAck()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAck()<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+
+" Insert mode completion
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --fields=+l .'
+"
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+function! SearchWordWithAck()
+    execute 'Ack!' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAck() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ack!' selection
+endfunction
+
+function! SearchWithAckInDirectory(...)
+    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
+endfunction
+command! -nargs=+ -complete=dir AckIn call SearchWithAckInDirectory(<f-args>)
 
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
@@ -508,6 +564,29 @@ nnoremap <silent> <leader>ga :BCommits<CR>
 
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --fields=+l .'
+"
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 function! SearchWordWithAck()
     execute 'Ack!' expand('<cword>')
@@ -571,7 +650,7 @@ let g:airline_right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
-let g:airline_theme='nord'
+let g:airline_theme='oceanicnext'
 set hidden
 " cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
