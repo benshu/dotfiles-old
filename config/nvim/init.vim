@@ -22,7 +22,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
-    call dein#add('Shougo/unite.vim')
     call dein#add('mileszs/ack.vim')
     call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('airblade/vim-gitgutter')
@@ -306,18 +305,12 @@ autocmd! BufWritePost * Neomake
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
-" Use braceless plugin for python-aware indenting, folding
-autocmd FileType python BracelessEnable +indent
-" autocmd FileType python nnoremap <space> :<C-u>call braceless#fold#close(line('.'), 0)<cr>
-" autocmd FileType python vnoremap <space> :<C-u>call braceless#fold#close(line('.'), 0)<cr>
-let g:braceless_cont_call = 1
-let g:braceless_cont_block = 1
-let g:braceless_line_continuation = 0
 
 " Space to toggle folds.
-nnoremap <Space> za
-vnoremap <Space> za
+nnoremap <tab> za
+vnoremap <tab> za
 
+autocmd FileType python set foldmethod=indent
 autocmd FileType vim setlocal foldmethod=marker
 autocmd FileType vim setlocal foldlevel=0
 " }}}
@@ -328,7 +321,6 @@ nnoremap <leader>gb :Gblame<CR>
 " }}}
 
 " NERDTree ------------------------------------------------------------------{{{
-" nnoremap <silent> - :Lex<CR>
 map <silent> - :NERDTreeToggle<CR>
 map <silent> <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
@@ -337,7 +329,6 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
-
 let NERDTreeMapJumpFirstChild = ''
 let g:webdevicons_enable_vimfiler = 0
 let g:WebDevIconsOS = 'Darwin'
@@ -378,10 +369,10 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 let g:deoplete#enable_at_startup = 1
 let g:echodoc_enable_at_startup = 1
 set splitbelow
-set completeopt+=noselect
+" set completeopt+=noselect
 
 function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete=2
+    let b:deoplete_disable_auto_complete=1
 endfunction
 function! Multiple_cursors_after()
     let b:deoplete_disable_auto_complete=0
@@ -407,11 +398,11 @@ call denite#custom#option('default', 'prompt', '❯')
 call denite#custom#source(
             \ 'file_rec', 'vars', {
             \   'command': [
-            \      'ag', '--follow','--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png'
+            \      'rg', '--follow','--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png'
             \   ] })
 call denite#custom#source('file_rec', 'sorters', ['sorter_sublime'])
 
-nnoremap <silent> <c-p> :Denite file_rec<CR>
+" nnoremap <silent> <c-p> :Denite file_rec<CR>
 hi deniteMatched guibg=None
 hi deniteMatchedChar guibg=None
 
@@ -434,7 +425,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
             \ [ '.git/', '.ropeproject/', '__pycache__/',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-" Git from unite...ERMERGERD ------------------------------------------------{{{
+" Git from Denite...ERMERGERD ------------------------------------------------{{{
 let s:menus = {} " Useful when building interfaces at appropriate places
 let s:menus.git = {
             \ 'description' : 'Fugitive interface',
@@ -475,10 +466,85 @@ nnoremap <silent> <Leader>g :Denite menu:git <CR>
 
 " Searching (Ack, ag) -------------------------------------------------------{{{
 
-if executable('ag')
-  " let g:ackprg = 'ag --vimgrep'
+if executable('rg')
   let g:ackprg = 'rg --vimgrep --no-heading'
 endif
+
+" FZF ------------------------------------------------------------------{{{
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+
+" Use ESC to close fzf
+aug fzf_setup
+au!
+au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
+aug END
+
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
+nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <leader>a :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+nnoremap <silent> <leader>o :BTags<CR>
+nnoremap <silent> <leader>O :Tags<CR>
+nnoremap <silent> <leader>? :History<CR>
+nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack!/')<CR>
+nnoremap <silent> <leader>. :AckIn
+nnoremap <silent> K :call SearchWordWithAck()<CR>
+vnoremap <silent> K :call SearchVisualSelectionWithAck()<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+
+" Insert mode completion
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --fields=+l .'
+"
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+function! SearchWordWithAck()
+    execute 'Ack!' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAck() range
+    let old_reg = getreg('"')
+    let old_regtype = getregtype('"')
+    let old_clipboard = &clipboard
+    set clipboard&
+    normal! ""gvy
+    let selection = getreg('"')
+    call setreg('"', old_reg, old_regtype)
+    let &clipboard = old_clipboard
+    execute 'Ack!' selection
+endfunction
+
+function! SearchWithAckInDirectory(...)
+    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
+endfunction
+command! -nargs=+ -complete=dir AckIn call SearchWithAckInDirectory(<f-args>)
+"}}}
 
 " }}}
 
