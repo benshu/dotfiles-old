@@ -44,6 +44,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('tmux-plugins/vim-tmux')
     call dein#add('tomtom/tcomment_vim')
     call dein#add('tpope/vim-fugitive')
+    call dein#add('idanarye/vim-merginal')
     call dein#add('tpope/vim-repeat')
     call dein#add('tpope/vim-surround')
     call dein#add('tpope/vim-unimpaired')
@@ -60,7 +61,9 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('junegunn/goyo.vim')
     call dein#add('wellle/tmux-complete.vim')
-    call dein#add('arcticicestudio/nord-vim')
+    call dein#add('michaeljsmith/vim-indent-object')
+    call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
+    call dein#add('junegunn/fzf.vim')
 
 
     " On evaluation
@@ -68,17 +71,16 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('elzr/vim-json', {'on_ft': 'json'})
     call dein#add('henrik/vim-indexed-search')
     call dein#add('janko-m/vim-test', {'on_ft': 'python'})
-    call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('Chiel92/vim-autoformat')
-    " call dein#add('sbdchd/neoformat')
-    call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
-    call dein#add('junegunn/fzf.vim')
+    call dein#add('sbdchd/neoformat')
     call dein#add('junegunn/limelight.vim')
     call dein#add('junegunn/rainbow_parentheses.vim')
 
     " Themes
     call dein#add('mhartington/oceanic-next')
-    call dein#add( 'justinmk/molokai' )
+    call dein#add('arcticicestudio/nord-vim')
+    call dein#add('justinmk/molokai')
+    call dein#add('joshdick/onedark.vim')
 
     "" these need to be added last
     call dein#add('ryanoasis/vim-devicons')
@@ -114,6 +116,7 @@ set noshowmode
 filetype on
 set number
 set relativenumber
+set cursorline
 set tabstop=4 shiftwidth=4 expandtab
 set conceallevel=0
 " block select not limited by shortest line
@@ -128,11 +131,12 @@ set complete=.,w,b,u,t,k
 let mapleader = ','
 set undofile
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
+set backupdir=~/.vim/backups//
+set directory=~/.vim/swaps//
 if exists("&undodir")
-    set undodir=~/.vim/undo
+    set undodir=~/.vim/undo//
 endif
+set noswapfile
 " Add the g flag to search/replace by default
 set gdefault
 " Don’t add empty newlines at the end of files
@@ -181,7 +185,6 @@ inoremap kj <esc>
 noremap H ^
 noremap L g_
 nnoremap ; :
-nnoremap <leader>df madawx/)x`a
 nnoremap <leader>c :bd<CR>
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
@@ -221,7 +224,7 @@ nnoremap <leader>w :w<CR>
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 "command abbrevs we can use `:E<space>` (and similar) to edit a file in the
 "same dir as current file
 cabbrev E <c-r>="e "  . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
@@ -239,7 +242,13 @@ endfunc
 " Theme
 syntax on
 " set background=dark
-colorscheme nord
+colorscheme onedark
+let g:onedark_terminal_italics = 1
+
+" rainbow_parentheses settings
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+au VimEnter * RainbowParentheses
 
 " ,f to format code
 noremap <leader>f :Autoformat<CR>
@@ -571,7 +580,7 @@ let g:airline_right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
-let g:airline_theme='nord'
+let g:airline_theme='onedark'
 set hidden
 " cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
@@ -612,8 +621,8 @@ let g:airline#extensions#tabline#buffer_idx_format = {
             \}
 
 "}}}
-
-" Functions ---------------------------------------------------------------{{{
+"
+"Functions ---------------------------------------------------------------{{{
 "
 "toggle a markdown notes file in a fixed window on the right with f12
 nnoremap <F12> :NotesToggle<cr>
@@ -682,4 +691,5 @@ function! Wipeout()
         execute 'tabnext' l:currentTab
     endtry
 endfunction
+command! -nargs=0 Wipe call Wipeout()
 "}}}
