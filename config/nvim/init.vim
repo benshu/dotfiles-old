@@ -115,13 +115,13 @@ set wildmode=full
 set updatetime=500
 " Define completion types for vim autocomplete
 set complete=.,w,b,u,t,k
-let mapleader = '<space>'
+let mapleader = ','
 set undofile
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups//
-set directory=~/.vim/swaps//
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
 if exists("&undodir")
-    set undodir=~/.vim/undo//
+    set undodir=~/.vim/undo
 endif
 " Add the g flag to search/replace by default
 set gdefault
@@ -133,7 +133,7 @@ set backupskip=/tmp/*,/private/tmp/*
 set modeline
 set modelines=4
 " Ignore case of searches
-set smartcase
+set ignorecase
 " Ignore case in wildmenu
 set wildignorecase
 " Highlight dynamically as pattern is typed
@@ -231,6 +231,7 @@ syntax on
 " set background=dark
 colorscheme nord
 
+" ,f to format code
 noremap <leader>f :Autoformat<CR>
 let g:lmap.f = { 'name' : 'Format file' }
 
@@ -291,6 +292,13 @@ let g:toggle_list_copen_command="Copen"
 " Execute python file with python3
 noremap <leader>p :Dispatch! python3 %<CR>
 
+" Use braceless plugin for python-aware indenting
+" autocmd FileType python BracelessEnable +indent
+"
+" let g:braceless_cont_call = 1
+" let g:braceless_cont_block = 1
+" let g:braceless_line_continuation = 0
+
 " }}}
 
 " Linting -------------------------------------------------------------------{{{
@@ -298,6 +306,11 @@ noremap <leader>p :Dispatch! python3 %<CR>
 let g:neomake_warning_sign = {'text': '⚠', 'texthl': 'NeomakeWarningSign'}
 " let g:neomake_open_list = 2
 let g:neomake_list_height = 5
+
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠ '
+" hi ALEErrorSign guifg=#ec5f67 ctermfg=203 guibg=#343d46 ctermbg=237
+" hi ALEWarningSign guifg=#fac863 ctermfg=221 guibg=#343d46 ctermbg=237
 let g:neomake_python_enabled_makers = ['flake8', 'pep8']
 " E501 is line length of 80 characters
 let g:neomake_python_flake8_maker = { 'args': ['--ignore=E501'], }
@@ -308,7 +321,7 @@ autocmd! BufWritePost * Neomake
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
-" Tab to toggle folds.
+" Space to toggle folds.
 nnoremap <tab> za
 vnoremap <tab> za
 
@@ -332,17 +345,11 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
 let NERDTreeMapJumpFirstChild = ''
-if has("mac")
-    let g:WebDevIconsOS = 'Darwin'
-else
-    let g:WebDevIconsOS = 'Linux'
-endif
+let g:WebDevIconsOS = 'Linux'
 let g:NERDTreeWinSize=40
 let g:NERDTreeAutoDeleteBuffer=1
-let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:DevIconsEnableFoldersOpenClose = 1
-let g:NERDTreeFileExtensionHighlightFullName = 1
 "}}}
 
 " Snipppets -----------------------------------------------------------------{{{
@@ -422,11 +429,11 @@ call denite#custom#map(
             \)
 
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-            \ [ '.git/', '__pycache__/',
+            \ [ '.git/', '.ropeproject/', '__pycache__/',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
             \   '*.pyc', '*.swp', '*.swn', '*.swl', '*.swo'])
 
-" Git from Denite -------------------------------------------------------------{{{
+" Git from unite...ERMERGERD ------------------------------------------------{{{
 let s:menus = {} " Useful when building interfaces at appropriate places
 let s:menus.git = {
             \ 'description' : 'Fugitive interface',
@@ -468,85 +475,12 @@ nnoremap <silent> <Leader>g :Denite menu:git <CR>
 " Searching (Ack, rg, FZF) -------------------------------------------------------{{{
 
 if executable('rg')
+    " let g:ackprg = 'ag --vimgrep'
     let g:ackprg = 'rg --vimgrep --no-heading'
 endif
-"}}}
 
-" FZF ------------------------------------------------------------------{{{
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
-" Use ESC to close fzf
-aug fzf_setup
-au!
-au TermOpen term://*FZF tnoremap <silent> <buffer><nowait> <esc> <c-c>
-aug END
-
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-nnoremap <silent> <C-P> :Files<CR>
-nnoremap <silent> <leader>a :Buffers<CR>
-nnoremap <silent> <leader>A :Windows<CR>
-nnoremap <silent> <leader>; :BLines<CR>
-nnoremap <silent> <leader>o :BTags<CR>
-nnoremap <silent> <leader>O :Tags<CR>
-nnoremap <silent> <leader>? :History<CR>
-nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack!/')<CR>
-nnoremap <silent> <leader>. :AckIn
-nnoremap <silent> K :call SearchWordWithAck()<CR>
-vnoremap <silent> K :call SearchVisualSelectionWithAck()<CR>
-nnoremap <silent> <leader>gl :Commits<CR>
-nnoremap <silent> <leader>ga :BCommits<CR>
-
-" Insert mode completion
-imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-imap <C-x><C-l> <plug>(fzf-complete-line)
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R --fields=+l .'
-"
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-
-function! SearchWordWithAck()
-    execute 'Ack!' expand('<cword>')
-endfunction
-
-function! SearchVisualSelectionWithAck() range
-    let old_reg = getreg('"')
-    let old_regtype = getregtype('"')
-    let old_clipboard = &clipboard
-    set clipboard&
-    normal! ""gvy
-    let selection = getreg('"')
-    call setreg('"', old_reg, old_regtype)
-    let &clipboard = old_clipboard
-    execute 'Ack!' selection
-endfunction
-
-function! SearchWithAckInDirectory(...)
-    call fzf#vim#ag(join(a:000[1:], ' '), extend({'dir': a:1}, g:fzf#vim#default_layout))
-endfunction
-command! -nargs=+ -complete=dir AckIn call SearchWithAckInDirectory(<f-args>)
-
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>A :Windows<CR>
@@ -564,29 +498,6 @@ nnoremap <silent> <leader>ga :BCommits<CR>
 
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R --fields=+l .'
-"
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-" Likewise, Files command with preview window
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-" Advanced customization using autoload functions
-inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 function! SearchWordWithAck()
     execute 'Ack!' expand('<cword>')
@@ -650,7 +561,7 @@ let g:airline_right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
-let g:airline_theme='oceanicnext'
+let g:airline_theme='nord'
 set hidden
 " cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
