@@ -53,12 +53,15 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('hynek/vim-python-pep8-indent')
     call dein#add('AndrewRadev/splitjoin.vim')
     call dein#add('milkypostman/vim-togglelist')
-    call dein#add('jpalardy/vim-slime.git')
     call dein#add('junegunn/gv.vim')
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('junegunn/goyo.vim')
     call dein#add('wellle/tmux-complete.vim')
-    call dein#add('arcticicestudio/nord-vim')
+    call dein#add('michaeljsmith/vim-indent-object')
+    call dein#add('junegunn/rainbow_parentheses.vim')
+    call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
+    call dein#add('junegunn/fzf.vim')
+    call dein#add('junegunn/rainbow_parentheses.vim')
 
 
     " On evaluation
@@ -69,23 +72,23 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('elzr/vim-json', {'on_ft': 'json'})
     call dein#add('henrik/vim-indexed-search')
     call dein#add('janko-m/vim-test', {'on_ft': 'python'})
-    call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
-    call dein#add('junegunn/fzf.vim')
+    call dein#add('Chiel92/vim-autoformat')
+    call dein#add('sbdchd/neoformat')
     call dein#add('junegunn/limelight.vim')
-    call dein#add('junegunn/rainbow_parentheses.vim')
+    call dein#add('idanarye/vim-merginal')
+    call dein#add('jpalardy/vim-slime.git')
     call dein#add('ludovicchabant/vim-gutentags')
-    call dein#add('michaeljsmith/vim-indent-object')
 
     " Themes
     call dein#add('mhartington/oceanic-next')
-    call dein#add( 'justinmk/molokai' )
+    call dein#add('arcticicestudio/nord-vim')
+    call dein#add('justinmk/molokai')
+    call dein#add('joshdick/onedark.vim')
 
     " these need to be added last
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
-    call dein#end()
-    call dein#save_state()
 endif
 
 if dein#check_install()
@@ -104,6 +107,7 @@ set clipboard+=unnamedplus
 set noshowmode
 set number
 set relativenumber
+set cursorline
 set tabstop=4 shiftwidth=4 expandtab
 set conceallevel=0
 " block select not limited by shortest line
@@ -118,11 +122,12 @@ set complete=.,w,b,u,t,k
 let mapleader = ','
 set undofile
 " Centralize backups, swapfiles and undo history
-set backupdir=~/.vim/backups
-set directory=~/.vim/swaps
+set backupdir=~/.vim/backups//
+set directory=~/.vim/swaps//
 if exists("&undodir")
-    set undodir=~/.vim/undo
+    set undodir=~/.vim/undo//
 endif
+set noswapfile
 " Add the g flag to search/replace by default
 set gdefault
 " Don’t add empty newlines at the end of files
@@ -146,7 +151,7 @@ set showcmd
 set scrolloff=3
 " Lazy redrawing for faster responsivness
 set lazyredraw
-set inccommand=split
+set inccommand=nosplit
 set shortmess+=atI
 " }}}
 
@@ -171,10 +176,12 @@ inoremap kj <esc>
 noremap H ^
 noremap L g_
 nnoremap ; :
-nnoremap <leader>df madawx/)x`a
 nnoremap <leader>c :bd<CR>
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
+" ,f to format code, requires formatters: read the docs
+noremap <leader>f :Autoformat<CR>
+let g:lmap.f = { 'name' : 'Format file' }
 noremap <leader>TM :TableModeToggle<CR>
 inoremap <c-f> <c-x><c-f>
 " Copy to system clipboard
@@ -211,7 +218,7 @@ nnoremap <leader>w :w<CR>
 " autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 "command abbrevs we can use `:E<space>` (and similar) to edit a file in the
 "same dir as current file
 cabbrev E <c-r>="e "  . expand("%:h") . "/"<cr><c-r>=<SID>Eatchar(' ')<cr>
@@ -229,7 +236,13 @@ endfunc
 " Theme
 syntax on
 " set background=dark
-colorscheme nord
+colorscheme onedark
+let g:onedark_terminal_italics = 1
+
+" rainbow_parentheses settings
+let g:rainbow#max_level = 16
+let g:rainbow#pairs = [['(', ')'], ['[', ']'], ['{', '}']]
+au VimEnter * RainbowParentheses
 
 " ,f to format code
 noremap <leader>f :Autoformat<CR>
@@ -321,6 +334,7 @@ autocmd! BufWritePost * Neomake
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
+
 " Space to toggle folds.
 nnoremap <tab> za
 vnoremap <tab> za
@@ -348,8 +362,10 @@ let NERDTreeMapJumpFirstChild = ''
 let g:WebDevIconsOS = 'Linux'
 let g:NERDTreeWinSize=40
 let g:NERDTreeAutoDeleteBuffer=1
+let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:DevIconsEnableFoldersOpenClose = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
 "}}}
 
 " Snipppets -----------------------------------------------------------------{{{
@@ -381,7 +397,7 @@ set splitbelow
 " set completeopt+=noselect
 
 function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete=2
+    let b:deoplete_disable_auto_complete=1
 endfunction
 function! Multiple_cursors_after()
     let b:deoplete_disable_auto_complete=0
@@ -433,7 +449,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
             \   '*.pyc', '*.swp', '*.swn', '*.swl', '*.swo'])
 
-" Git from unite...ERMERGERD ------------------------------------------------{{{
+" Git from Denite ------------------------------------------------{{{
 let s:menus = {} " Useful when building interfaces at appropriate places
 let s:menus.git = {
             \ 'description' : 'Fugitive interface',
@@ -475,12 +491,16 @@ nnoremap <silent> <Leader>g :Denite menu:git <CR>
 " Searching (Ack, rg, FZF) -------------------------------------------------------{{{
 
 if executable('rg')
-    " let g:ackprg = 'ag --vimgrep'
     let g:ackprg = 'rg --vimgrep --no-heading'
 endif
 
+" FZF ------------------------------------------------------------------{{{
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>A :Windows<CR>
@@ -490,14 +510,36 @@ nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack!/')<CR>
 nnoremap <silent> <leader>. :AckIn
-
 nnoremap <silent> K :call SearchWordWithAck()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAck()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 
+" Insert mode completion
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --fields=+l .'
+"
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 function! SearchWordWithAck()
     execute 'Ack!' expand('<cword>')
@@ -561,7 +603,7 @@ let g:airline_right_alt_sep = '|'
 let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_skip_empty_sections = 1
-let g:airline_theme='nord'
+let g:airline_theme='onedark'
 set hidden
 " cnoreabbrev <expr> x getcmdtype() == ":" && getcmdline() == 'x' ? 'Sayonara' : 'x'
 tmap <leader>x <c-\><c-n>:bp! <BAR> bd! #<CR>
@@ -602,8 +644,8 @@ let g:airline#extensions#tabline#buffer_idx_format = {
             \}
 
 "}}}
-
-" Functions ---------------------------------------------------------------{{{
+"
+"Functions ---------------------------------------------------------------{{{
 "
 "toggle a markdown notes file in a fixed window on the right with f12
 nnoremap <F12> :NotesToggle<cr>
@@ -672,4 +714,5 @@ function! Wipeout()
         execute 'tabnext' l:currentTab
     endtry
 endfunction
+command! -nargs=0 Wipe call Wipeout()
 "}}}

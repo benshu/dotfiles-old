@@ -12,6 +12,7 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
+alias gs='gsb'
 alias gdp='cd ~/Google\ Drive/Projects'
 alias gcd='git checkout dev'
 # git branch diff
