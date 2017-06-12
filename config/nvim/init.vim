@@ -23,7 +23,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neosnippet.vim')
     call dein#add('Shougo/neosnippet-snippets')
-    call dein#add('Shougo/unite.vim')
     call dein#add('mileszs/ack.vim')
     call dein#add('Xuyuanp/nerdtree-git-plugin')
     call dein#add('airblade/vim-gitgutter')
@@ -44,7 +43,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('tmux-plugins/vim-tmux')
     call dein#add('tomtom/tcomment_vim')
     call dein#add('tpope/vim-fugitive')
-    call dein#add('idanarye/vim-merginal')
     call dein#add('tpope/vim-repeat')
     call dein#add('tpope/vim-surround')
     call dein#add('tpope/vim-unimpaired')
@@ -56,14 +54,15 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('hynek/vim-python-pep8-indent')
     call dein#add('AndrewRadev/splitjoin.vim')
     call dein#add('milkypostman/vim-togglelist')
-    call dein#add('jpalardy/vim-slime.git')
     call dein#add('junegunn/gv.vim')
     call dein#add('junegunn/vim-peekaboo')
     call dein#add('junegunn/goyo.vim')
     call dein#add('wellle/tmux-complete.vim')
     call dein#add('michaeljsmith/vim-indent-object')
+    call dein#add('junegunn/rainbow_parentheses.vim')
     call dein#add('junegunn/fzf', { 'merged': 0, 'build': './install --all' })
     call dein#add('junegunn/fzf.vim')
+    call dein#add('junegunn/rainbow_parentheses.vim')
 
 
     " On evaluation
@@ -74,7 +73,9 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('Chiel92/vim-autoformat')
     call dein#add('sbdchd/neoformat')
     call dein#add('junegunn/limelight.vim')
-    call dein#add('junegunn/rainbow_parentheses.vim')
+    call dein#add('idanarye/vim-merginal')
+    call dein#add('jpalardy/vim-slime.git')
+    call dein#add('ludovicchabant/vim-gutentags')
 
     " Themes
     call dein#add('mhartington/oceanic-next')
@@ -86,8 +87,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
-    call dein#end()
-    call dein#save_state()
 endif
 
 if dein#check_install()
@@ -98,20 +97,11 @@ endif
 filetype plugin indent on
 " }}}
 
-" DEPRECATION HELL
-"
-"
-" call dein#add('ctrlpvim/ctrlp.vim')
-" nnoremap <leader>T :CtrlPTag<CR>
-" nnoremap <leader>t :CtrlPTag<CR>
-" nnoremap <leader>t :CtrlPTagBufAll<CR>
 " System Settings  ----------------------------------------------------------{{{
 " Neovim Settings
 set termguicolors
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set clipboard+=unnamedplus
-" Currently needed for neovim paste issue
-set pastetoggle=<f6>
 set noshowmode
 filetype on
 set number
@@ -160,7 +150,7 @@ set showcmd
 set scrolloff=3
 " Lazy redrawing for faster responsivness
 set lazyredraw
-set inccommand=split
+set inccommand=nosplit
 set shortmess+=atI
 " }}}
 
@@ -188,6 +178,9 @@ nnoremap ; :
 nnoremap <leader>c :bd<CR>
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
+" ,f to format code, requires formatters: read the docs
+noremap <leader>f :Autoformat<CR>
+let g:lmap.f = { 'name' : 'Format file' }
 noremap <leader>TM :TableModeToggle<CR>
 inoremap <c-f> <c-x><c-f>
 " Copy to system clipboard
@@ -340,6 +333,7 @@ autocmd! BufWritePost * Neomake
 
 " Fold, gets it's own section  ----------------------------------------------{{{
 set foldlevel=99
+
 " Space to toggle folds.
 nnoremap <tab> za
 vnoremap <tab> za
@@ -367,8 +361,10 @@ let NERDTreeMapJumpFirstChild = ''
 let g:WebDevIconsOS = 'Linux'
 let g:NERDTreeWinSize=40
 let g:NERDTreeAutoDeleteBuffer=1
+let g:webdevicons_enable_nerdtree = 1
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " let g:DevIconsEnableFoldersOpenClose = 1
+let g:NERDTreeFileExtensionHighlightFullName = 1
 "}}}
 
 " Snipppets -----------------------------------------------------------------{{{
@@ -400,7 +396,7 @@ set splitbelow
 " set completeopt+=noselect
 
 function! Multiple_cursors_before()
-    let b:deoplete_disable_auto_complete=2
+    let b:deoplete_disable_auto_complete=1
 endfunction
 function! Multiple_cursors_after()
     let b:deoplete_disable_auto_complete=0
@@ -452,7 +448,7 @@ call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
             \   '*.pyc', '*.swp', '*.swn', '*.swl', '*.swo'])
 
-" Git from unite...ERMERGERD ------------------------------------------------{{{
+" Git from Denite ------------------------------------------------{{{
 let s:menus = {} " Useful when building interfaces at appropriate places
 let s:menus.git = {
             \ 'description' : 'Fugitive interface',
@@ -494,12 +490,16 @@ nnoremap <silent> <Leader>g :Denite menu:git <CR>
 " Searching (Ack, rg, FZF) -------------------------------------------------------{{{
 
 if executable('rg')
-    " let g:ackprg = 'ag --vimgrep'
     let g:ackprg = 'rg --vimgrep --no-heading'
 endif
 
+" FZF ------------------------------------------------------------------{{{
 let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
+" Mapping selecting mappings
+nmap <leader><tab> <plug>(fzf-maps-n)
+xmap <leader><tab> <plug>(fzf-maps-x)
+omap <leader><tab> <plug>(fzf-maps-o)
 nnoremap <silent> <C-P> :Files<CR>
 nnoremap <silent> <leader>a :Buffers<CR>
 nnoremap <silent> <leader>A :Windows<CR>
@@ -509,14 +509,36 @@ nnoremap <silent> <leader>O :Tags<CR>
 nnoremap <silent> <leader>? :History<CR>
 nnoremap <silent> <leader>/ :execute 'Ack! ' . input('Ack!/')<CR>
 nnoremap <silent> <leader>. :AckIn
-
 nnoremap <silent> K :call SearchWordWithAck()<CR>
 vnoremap <silent> K :call SearchVisualSelectionWithAck()<CR>
 nnoremap <silent> <leader>gl :Commits<CR>
 nnoremap <silent> <leader>ga :BCommits<CR>
 
+" Insert mode completion
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
+imap <c-x><c-k> <plug>(fzf-complete-word)
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --fields=+l .'
+"
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 function! SearchWordWithAck()
     execute 'Ack!' expand('<cword>')
