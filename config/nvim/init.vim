@@ -10,7 +10,6 @@ if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
 endif
 
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
-
 if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
     call dein#begin(expand('~/.config/nvim'))
     call dein#add('Shougo/dein.vim')
@@ -66,6 +65,9 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
 
 
     " On evaluation
+    " call dein#add('Yggdroot/indentLine')
+    " call dein#add('sbdchd/neoformat')
+    call dein#add('Chiel92/vim-autoformat')
     call dein#add('alfredodeza/coveragepy.vim')
     call dein#add('elzr/vim-json', {'on_ft': 'json'})
     call dein#add('henrik/vim-indexed-search')
@@ -83,7 +85,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")
     call dein#add('justinmk/molokai')
     call dein#add('joshdick/onedark.vim')
 
-    "" these need to be added last
+    " these need to be added last
     call dein#add('ryanoasis/vim-devicons')
     call dein#add('tiagofumo/vim-nerdtree-syntax-highlight')
 
@@ -103,7 +105,6 @@ set termguicolors
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set clipboard+=unnamedplus
 set noshowmode
-filetype on
 set number
 set relativenumber
 set cursorline
