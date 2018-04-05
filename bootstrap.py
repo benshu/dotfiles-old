@@ -13,14 +13,14 @@ files_to_bootstrap = [
     '.functions',
     '.gdbinit',
     '.gitattributes',
-#    '.gitconfig',
+    #    '.gitconfig',
     '.gitignore',
     '.gvimrc',
     '.hgignore',
     '.hushlogin',
     '.inputrc',
     '.screenrc',
-    '.spacemacs',
+#    '.spacemacs',
     '.tmux.conf',
     '.vimrc',
     '.wgetrc',
@@ -75,8 +75,9 @@ def link_files():
         target = home + '/' + file
         source = cwd + '/' + file
         if os.path.isfile(target):
-            print 'File exists, creating backup @ ' , target
-            os.system('mv ' + target + ' ' + target + '.backup' + datetime.datetime.now().isoformat())
+            print 'File exists, creating backup @ ', target
+            os.system('mv ' + target + ' ' + target + '.backup' +
+                      datetime.datetime.now().isoformat())
         print('ln -nfs ' + target + ' ' + source)
         os.system('ln -nfs ' + source + ' ' + target)
         print('Linked ', target)

@@ -57,7 +57,8 @@ plugins=(git python tmux docker vi-mode history-substring-search zsh-syntax-high
 
 # User configuration
 
-export PATH=$HOME:/usr/local/opt/coreutils/libexec/gnubin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$PATH
+export LC_ALL=en_US.UTF-8
+export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$PATH:/usr/local/go/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -69,7 +70,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR='vim'
 else
-    export EDITOR='gvim'
+    export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -100,8 +101,16 @@ if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# setting rg as the default command for fzf with respecting .gitignore
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+# setting rg as the default command for fzf with respecting .gitignore
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Base 16 shell theme
 BASE16_SHELL=$HOME/.config/base16-shell/
 
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+export QT_PKG_CONFIG=true
+
+alias unzip=/home/hagay/go/bin/unzip
