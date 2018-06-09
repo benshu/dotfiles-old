@@ -15,21 +15,24 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('Shougo/deoplete.nvim')
     call dein#add('junegunn/fzf', {'merged': 0})
     call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})
-    call dein#add('tpope/vim-fugitive')
     call dein#add('tpope/vim-surround')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('idanarye/vim-merginal')
     call dein#add('junegunn/gv.vim')
     call dein#add('lambdalisue/gina.vim')
     call dein#add('airblade/vim-gitgutter')
-    call dein#add('hynek/vim-python-pep8-indent')
     call dein#add('autozimu/LanguageClient-neovim', {'branch': 'next', 'build': 'bash install.sh'})
     call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('brooth/far.vim')
     call dein#add('AndrewRadev/splitjoin.vim')
+    call dein#add('hynek/vim-python-pep8-indent')
     call dein#add('christoomey/vim-tmux-navigator')
     call dein#add('benmills/vimux')
-
+    call dein#add('alfredodeza/coveragepy.vim')
+    call dein#add('chrisbra/Colorizer')
 
     call dein#add('joshdick/onedark.vim')
+    call dein#add('rakr/vim-one')
 endif
 
 if dein#check_install()
@@ -42,6 +45,10 @@ call dein#remote_plugins()
 " }}}
 
 " System settings {{{
+
+let g:far#debug = 1
+let g:far#source = 'agnvim'
+
 set clipboard+=unnamedplus
 set tabstop=4
 set shiftwidth=4
@@ -74,6 +81,7 @@ nnoremap <silent> <C-P> :Files<CR>
 nnoremap <C-w>z :mksession! ~/.vim/session.vim<CR>:wincmd o<CR>
 nnoremap <C-w>Z :source ~/.vim/session.vim<CR>
 
+noremap Q !!$SHELL<CR>
 "}}}
 "}}}
 
@@ -97,12 +105,18 @@ let g:splitjoin_python_brackets_on_separate_lines = 1
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
+let g:LanguageClient_settingsPath = '/home/hagay/.config/pyls/settings.json'
 let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
+    \ 'python': ['pyls', '-vv', '--log-file', '/home/hagay/.local/var/log/pyls.log'],
     \ }
 
+nnoremap <F6> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+let g:deoplete#sources = {}
+let g:deoplete#sources.python3 = ['LanguageClient']
 "}}}
