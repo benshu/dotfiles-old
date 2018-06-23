@@ -17,11 +17,14 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})
     call dein#add('tpope/vim-surround')
     call dein#add('tpope/vim-fugitive')
+    call dein#add('tpope/vim-commentary')
+    call dein#add('jiangmiao/auto-pairs')
     call dein#add('idanarye/vim-merginal')
     call dein#add('junegunn/gv.vim')
     call dein#add('lambdalisue/gina.vim')
     call dein#add('airblade/vim-gitgutter')
     call dein#add('autozimu/LanguageClient-neovim', {'branch': 'next', 'build': 'bash install.sh'})
+    call dein#add('w0rp/ale')
     call dein#add('michaeljsmith/vim-indent-object')
     call dein#add('brooth/far.vim')
     call dein#add('AndrewRadev/splitjoin.vim')
@@ -30,7 +33,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('benmills/vimux')
     call dein#add('alfredodeza/coveragepy.vim')
     call dein#add('chrisbra/Colorizer')
-
+    call dein#add('terryma/vim-multiple-cursors')
     call dein#add('joshdick/onedark.vim')
     call dein#add('rakr/vim-one')
 endif
@@ -58,6 +61,7 @@ set directory=~/.vim/swaps//
 set undodir=~/.vim/undo//
 set list
 set complete=.,w,b,u,t,k
+set completeopt=longest,menuone,preview
 let mapleader = ' '
 set mouse=a
 set ignorecase
@@ -82,7 +86,10 @@ nnoremap <C-w>z :mksession! ~/.vim/session.vim<CR>:wincmd o<CR>
 nnoremap <C-w>Z :source ~/.vim/session.vim<CR>
 
 noremap Q !!$SHELL<CR>
-"}}}
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+
 "}}}
 
 " Themes {{{
@@ -105,9 +112,25 @@ let g:splitjoin_python_brackets_on_separate_lines = 1
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
+let g:ale_sign_error = '✖'
+let g:ale_sign_warning = '⚠ '
+let g:ale_python_flake8_options = '--ignore=E501'
+let g:ale_python_autopep8_options = '--in-place --aggressive --aggressive --max-line-length=120'
+let g:ale_linters = {
+            \ 'python': ['flake8'],
+            \ 'javascript': ['eslint']
+            \ }
+let g:ale_fixers = {
+            \ 'python': ['yapf'],
+            \ 'javascript': ['eslint']
+            \ }
+" Bind F8 to fixing problems with ALE
+nmap <F8> <Plug>(ale_fix)
+vmap <F8> <Plug>(ale_fix)
+
 let g:LanguageClient_settingsPath = '/home/hagay/.config/pyls/settings.json'
 let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls', '-vv', '--log-file', '/home/hagay/.local/var/log/pyls.log'],
+    \ 'python': ['pyls', '-vv', '--log-file', '/home/hagay/.local/var/log/pyls/pyls.log'],
     \ }
 
 nnoremap <F6> :call LanguageClient_contextMenu()<CR>
