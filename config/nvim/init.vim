@@ -13,6 +13,11 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#begin(expand('~/.config/nvim/repos'))
     call dein#add('Shougo/dein.vim')
     call dein#add('Shougo/deoplete.nvim')
+    let g:deoplete#enable_at_startup = 1
+
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/echodoc.vim')
     call dein#add('junegunn/fzf', {'merged': 0})
     call dein#add('junegunn/fzf.vim', {'depends': 'fzf'})
     call dein#add('tpope/vim-surround')
@@ -36,6 +41,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('terryma/vim-multiple-cursors')
     call dein#add('joshdick/onedark.vim')
     call dein#add('rakr/vim-one')
+    call dein#add('wellle/tmux-complete.vim')
 endif
 
 if dein#check_install()
@@ -49,16 +55,13 @@ call dein#remote_plugins()
 
 " System settings {{{
 
-let g:far#debug = 1
-let g:far#source = 'agnvim'
-
 set clipboard+=unnamedplus
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set backupdir=~/.vim/backups//
-set directory=~/.vim/swaps//
-set undodir=~/.vim/undo//
+set backupdir=~/.cache/nvim/backups//
+set directory=~/.cache/nvim/swaps//
+set undodir=~/.cache/nvim/undo//
 set list
 set complete=.,w,b,u,t,k
 set completeopt=longest,menuone,preview
@@ -66,6 +69,9 @@ let mapleader = ' '
 set mouse=a
 set ignorecase
 set smartcase
+set noshowmode
+" Required for operations modifying multiple buffers like rename.
+set hidden
 
 map <silent> <esc> :noh<cr>
 
@@ -81,9 +87,10 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 nnoremap <silent> <C-P> :Files<CR>
+
 " zoom into split
-nnoremap <C-w>z :mksession! ~/.vim/session.vim<CR>:wincmd o<CR>
-nnoremap <C-w>Z :source ~/.vim/session.vim<CR>
+nnoremap <C-w>z :mksession! ~/.cache/nvim/session.vim<CR>:wincmd o<CR>
+nnoremap <C-w>Z :source ~/.cache/nvim/session.vim<CR>
 
 noremap Q !!$SHELL<CR>
 
@@ -96,7 +103,6 @@ cmap w!! w !sudo tee > /dev/null %
 set termguicolors
 colorscheme onedark
 let g:onedark_terminal_italics = 1
-
 "}}}
 
 " Folding {{{
@@ -105,13 +111,17 @@ set foldlevel=99
 autocmd FileType vim setlocal foldmethod=marker
 "}}}
 
-" Plugins {{{
+" FAR - Find and Replace {{{
+let g:far#debug = 1
+let g:far#source = 'agnvim'
+"}}}
+
+" SplitJoin {{{
 let g:splitjoin_trailing_comma = 1
 let g:splitjoin_python_brackets_on_separate_lines = 1
+"}}}
 
-" Required for operations modifying multiple buffers like rename.
-set hidden
-
+" Ale - Linting and fixing {{{
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠ '
 let g:ale_python_flake8_options = '--ignore=E501'
@@ -124,10 +134,13 @@ let g:ale_fixers = {
             \ 'python': ['yapf'],
             \ 'javascript': ['eslint']
             \ }
+
 " Bind F8 to fixing problems with ALE
 nmap <F8> <Plug>(ale_fix)
 vmap <F8> <Plug>(ale_fix)
+"}}}
 
+" LanguageClient {{{
 let g:LanguageClient_settingsPath = '/home/hagay/.config/pyls/settings.json'
 let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls', '-vv', '--log-file', '/home/hagay/.local/var/log/pyls/pyls.log'],
@@ -137,9 +150,39 @@ nnoremap <F6> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+" }}}
 
-let g:deoplete#enable_at_startup = 1
+" Deoplete - completion manager {{{
+
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#sources = {}
 let g:deoplete#sources.python3 = ['LanguageClient']
+
+" }}}
+
+" Neosnippet - snippet manager {{{
+
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+" Note: It must be "imap" and "smap".  It uses <Plug> mappings.
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+" For conceal markers.
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
 "}}}
+
+" tmux-complete {{{
+let g:tmuxcomplete#trigger = ''
+" }}}
