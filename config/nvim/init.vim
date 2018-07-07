@@ -113,7 +113,7 @@ autocmd FileType vim setlocal foldmethod=marker
 
 " FAR - Find and Replace {{{
 let g:far#debug = 1
-let g:far#source = 'agnvim'
+let g:far#source = 'rgnvim'
 "}}}
 
 " SplitJoin {{{
