@@ -1,0 +1,1 @@
+KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="change", ENV{DISPLAY}=":0", RUN+="/bin/bash /home/hagay/dotfiles/monitor.sh"

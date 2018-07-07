@@ -10,39 +10,40 @@ set nocompatible              " be iMproved
 "                                 |_|            |___/
 "
 " {{{
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
 call plug#begin('~/.vim/plugged')
+Plug 'VundleVim/Vundle.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
 Plug '907th/vim-auto-save'
 Plug 'Chiel92/vim-autoformat'
-Plug 'PeterRincker/vim-argumentative'
-Plug 'Shougo/denite.nvim'
+Plug 'majutsushi/tagbar'
 Plug 'SirVer/ultisnips'
-Plug 'Valloric/YouCompleteMe'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'airblade/vim-gitgutter'
-Plug 'brauner/vimtux'
-Plug 'christoomey/vim-tmux-navigator'
 Plug 'honza/vim-snippets'
-Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/scrooloose/syntastic'
-Plug 'junegunn/vim-easy-align'
-Plug 'majutsushi/tagbar'
-Plug 'mattn/emmet-vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Valloric/YouCompleteMe'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'severin-lemaignan/vim-minimap'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'airblade/vim-gitgutter'
 Plug 'tmhedberg/SimpylFold'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'brauner/vimtux'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+Plug 'Raimondi/delimitMate'
 "Themes
 Plug 'mhartington/oceanic-next'
 Plug 'git://github.com/altercation/vim-colors-solarized.git'
 Plug 'tomasr/molokai'
 Plug 'https://github.com/sickill/vim-monokai'
-Plug 'jellybeans.vim'
 Plug 'https://github.com/digitaltoad/vim-pug'
 "Plugin 'https://github.com/terryma/vim-multiple-cursors'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
@@ -68,13 +69,67 @@ if &term =~# '^screen'
 endif
 
 
-colorscheme OceanicNext
-
 " Prevent delay when esc. from insert mode (Should be os x only)
 set timeoutlen=1000 ttimeoutlen=0
 
 set wildignore+=*/tmp/*,*.so,*.o,*.swp,*.zip,*.png,*.jpg
-syntax enable
+
+"syntax enable
+"set background=dark
+"let g:solarized_termtrans=256
+
+
+"clang formatter
+map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+
+set grepprg=grep\ -nH\ $* " For latex-suite
+let g:tex_flavor='latex'
+"
+" Python breakpoints shortcuts
+au FileType python map <silent> <leader>b oimport pdb; pdb.set_trace()<esc>
+au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
+set iskeyword+=:
+"
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType = '<C-n>'
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+"let g:UltiSnipsJumpForwardTrigger = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+let g:ycm_register_as_syntastic_checker = 1 "default 1
+let g:Show_diagnostics_ui = 1 "default 1
+"will put icons in Vim's gutter on lines that have a diagnostic set.
+"Turning this off will also turn off the YcmErrorLine and YcmWarningLine
+"highlighting
+let g:ycm_enable_diagnostic_signs = 1
+let g:ycm_enable_diagnostic_highlighting = 1
+let g:ycm_always_populate_location_list = 1 "default 0
+let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+let g:ycm_complete_in_strings = 1 "default 1
+let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+let g:ycm_path_to_python_interpreter = 'python' "default ''
+
+let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+let g:ycm_server_log_level = 'info' "default info
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+"
+" Synatstic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_python_exec='python3'
+
+
+" Setup autosave plugin, off by default, enable with :AutoSaveToggle
+let g:auto_save = 0
+let g:auto_save_in_insert_mode = 1
+let g:auto_save_events = ["InsertLeave", "TextChanged"]
 
 " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set clipboard=unnamed
@@ -99,7 +154,7 @@ set noeol
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
-    set undodir=~/.vim/undo
+	set undodir=~/.vim/undo
 endif
 " Don’t create backups when editing files in certain directories
 set backupskip=/tmp/*,/private/tmp/*
@@ -185,12 +240,13 @@ vmap <C-c>r <Plug>SendSelectionToTmux
 nmap <leader>r <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard'] " Ignore files in .gitignore
 let g:ctrlp_working_path_mode= 'ra'
 
 "clang formatter for c files
-map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
-imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+" map <C-K> :pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
+" imap <C-K> <c-o>:pyf /usr/local/Cellar/clang-format/2016-03-29/share/clang/clang-format.py<cr>
 let g:NERDTreeIgnore = ['__pycache__'] " Ignore files in .gitignore
 map <silent> - :NERDTreeToggle<CR>
 " Nerd commenter
@@ -203,7 +259,7 @@ au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
 au FileType python map <silent> <leader>B Oimport ipdb; ipdb.set_trace()<esc>
 set iskeyword+=:
 
-" YCM settings {{{
+" YCM settings
 "
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
@@ -231,8 +287,8 @@ let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
 let g:ycm_server_log_level = 'info' "default info
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
-"}}}
-" Synatstic {{{
+"
+" Synatstic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_loc_list_height = 3
@@ -241,7 +297,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_python_exec='python'
 " Disable line too long errors in syntastic
 let g:syntastic_python_flake8_args='--ignore=E501'
-"}}}
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 " If you prefer the Omni-Completion tip window to close when a selection is
@@ -255,17 +311,16 @@ set foldmethod=marker
 set foldlevel=99
 
 " Simply fold settings
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=indent
 autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 
 "Airline config
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '|'
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
 let g:airline_powerline_fonts = 1
 let g:airline_theme = "oceanicnext"
+
 "Multi cursors config
 "
 let g:multi_cursor_next_key='<C-n>'
@@ -273,7 +328,8 @@ let g:multi_cursor_prev_key='<C-p>'
 let g:multi_cursor_skip_key='<C-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
- " _____                 _   _
+" }}}
+"  _____                 _   _
 " |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
 " | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 " |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
@@ -366,7 +422,8 @@ inoremap <C-t>     <Esc>:tabnew<CR>
 " Run line under cursor as shell command and paste output to buffer
 noremap Q !!$SHELL<CR>
 
-nnoremap <leader>t :CtrlPTag<CR>
+nnoremap <leader>T :CtrlPTag<CR>
+nnoremap <leader>t :CtrlPTagBufAll<CR>
 vnoremap <leader>gb :Gblame<CR>
 nnoremap <leader>gb :Gblame<CR>
 " }}}

@@ -1,3 +1,8 @@
+# lint the diff to the selected branch
+function lintdiff() {
+    git diff --name-only "$1" | grep "\.py" | xargs -n 1 flake8 --ignore=E501 | grep -v -e "__init__.py.*F401"
+}
+
 # Copy last command to clipboard
 # cl() { history -p 'cat ~/.bash_profile '|tr -d \n|pbcopy; }
 function cl() { 
@@ -45,11 +50,6 @@ function calc() {
 # Create a new directory and enter it
 function mkd() {
 	mkdir -p "$@" && cd "$_";
-}
-
-# Change working directory to the top-most Finder window location
-function cdf() { # short for `cdfinder`
-	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
 }
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression

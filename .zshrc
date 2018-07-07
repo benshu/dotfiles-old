@@ -1,7 +1,6 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-export DEFAULT_USER="Benshu"
-export LANG=en_US.UTF-8
+export DEFAULT_USER="hagay"
 
 export CLICOLOR=1
 # export TERM=xterm-256color
@@ -40,7 +39,7 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -63,7 +62,8 @@ plugins=(git python tmux docker vi-mode history-substring-search zsh-syntax-high
 
 # User configuration
 
-export PATH=$HOME:/usr/local/opt/coreutils/libexec/gnubin:/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export LC_ALL=en_US.UTF-8
+export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$PATH:/usr/local/go/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -73,9 +73,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-				export EDITOR='vim'
+    export EDITOR='vim'
 else
-				export EDITOR='gvim'
+    export EDITOR='nvim'
 fi
 
 # Compilation flags
@@ -89,16 +89,12 @@ fi
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# change gd alias from git plugin to gdiff, gd is used for Google Drive
 source ~/.aliases
 source ~/.exports
 source ~/.functions
 source ~/.extra
-source ~/.cudarc
+source ~/.docker_aliases
 
-# Python virtualenv wrapper
-export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /home/hagay/google-cloud-sdk/path.zsh.inc ]; then
   source '/home/hagay/google-cloud-sdk/path.zsh.inc'
@@ -108,3 +104,18 @@ fi
 if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
   source '/home/hagay/google-cloud-sdk/completion.zsh.inc'
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# setting rg as the default command for fzf with respecting .gitignore
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+
+# setting rg as the default command for fzf with respecting .gitignore
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# Base 16 shell theme
+BASE16_SHELL=$HOME/.config/base16-shell/
+
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+export QT_PKG_CONFIG=true
+
+alias unzip=/home/hagay/go/bin/unzip
