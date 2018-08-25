@@ -28,7 +28,7 @@ Plug 'https://github.com/scrooloose/nerdcommenter'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/scrooloose/syntastic'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'severin-lemaignan/vim-minimap'
 Plug 'airblade/vim-gitgutter'
@@ -92,31 +92,31 @@ au FileType python map <silent> <leader>B Oimport pdb; pdb.set_trace()<esc>
 set iskeyword+=:
 "
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType = '<C-n>'
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-"let g:UltiSnipsJumpForwardTrigger = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
-let g:ycm_register_as_syntastic_checker = 1 "default 1
-let g:Show_diagnostics_ui = 1 "default 1
-"will put icons in Vim's gutter on lines that have a diagnostic set.
-"Turning this off will also turn off the YcmErrorLine and YcmWarningLine
-"highlighting
-let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_enable_diagnostic_highlighting = 1
-let g:ycm_always_populate_location_list = 1 "default 0
-let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
-let g:ycm_complete_in_strings = 1 "default 1
-let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
-let g:ycm_path_to_python_interpreter = 'python' "default ''
-
-let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
-let g:ycm_server_log_level = 'info' "default info
-nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
-nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
+"let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+""let g:SuperTabDefaultCompletionType = '<C-n>'
+"" better key bindings for UltiSnipsExpandTrigger
+"let g:UltiSnipsExpandTrigger = "<tab>"
+""let g:UltiSnipsJumpForwardTrigger = "<tab>"
+""let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+"let g:ycm_register_as_syntastic_checker = 1 "default 1
+"let g:Show_diagnostics_ui = 1 "default 1
+""will put icons in Vim's gutter on lines that have a diagnostic set.
+""Turning this off will also turn off the YcmErrorLine and YcmWarningLine
+""highlighting
+"let g:ycm_enable_diagnostic_signs = 1
+"let g:ycm_enable_diagnostic_highlighting = 1
+"let g:ycm_always_populate_location_list = 1 "default 0
+"let g:ycm_open_loclist_on_ycm_diags = 1 "default 1
+"let g:ycm_complete_in_strings = 1 "default 1
+"let g:ycm_collect_identifiers_from_tags_files = 0 "default 0
+"let g:ycm_path_to_python_interpreter = 'python' "default ''
+"
+"let g:ycm_server_use_vim_stdout = 0 "default 0 (logging to console)
+"let g:ycm_server_log_level = 'info' "default info
+"nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+"nnoremap <leader>g :YcmCompleter GoToDefinition<CR>
 "
 " Synatstic
 let g:syntastic_always_populate_loc_list = 1
