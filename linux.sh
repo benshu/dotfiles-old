@@ -89,3 +89,6 @@ sudo apt-get install numix-gtk-theme numix-icon-theme-circle
 # Should be done premenantly via
 setxkbmap -option caps:escape
 
+## Ricing
+# sddm theme
+# https://github.com/Eayu/sddm-theme-clairvoyance
