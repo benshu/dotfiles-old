@@ -23,11 +23,15 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('tpope/vim-surround')
     call dein#add('tpope/vim-fugitive')
     call dein#add('tpope/vim-commentary')
+    call dein#add('tpope/vim-vinegar.git')
+    call dein#add('tpope/vim-unimpaired')
     call dein#add('jiangmiao/auto-pairs')
     call dein#add('idanarye/vim-merginal')
     call dein#add('junegunn/gv.vim')
+    call dein#add('junegunn/vim-easy-align')
     call dein#add('lambdalisue/gina.vim')
     call dein#add('airblade/vim-gitgutter')
+    call dein#add('will133/vim-dirdiff')
     call dein#add('autozimu/LanguageClient-neovim', {'branch': 'next', 'build': 'bash install.sh'})
     call dein#add('w0rp/ale')
     call dein#add('michaeljsmith/vim-indent-object')
@@ -39,9 +43,15 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('alfredodeza/coveragepy.vim')
     call dein#add('chrisbra/Colorizer')
     call dein#add('terryma/vim-multiple-cursors')
+    call dein#add('wellle/tmux-complete.vim')
+    call dein#add('dyng/ctrlsf.vim')
+
     call dein#add('joshdick/onedark.vim')
     call dein#add('rakr/vim-one')
-    call dein#add('wellle/tmux-complete.vim')
+    call dein#add('morhetz/gruvbox')
+
+    call dein#add('Vigemus/iron.nvim')
+
 endif
 
 if dein#check_install()
@@ -72,6 +82,8 @@ set smartcase
 set noshowmode
 " Required for operations modifying multiple buffers like rename.
 set hidden
+set breakindent
+set wildignore=*.pyc,__pycache__/**,.cache/,tags,.vscode/**,.ropeproject/**,.pytest_cache/**,.git/**,.flake8,.coverage,.coveragerc,cov-report/**,cov_annotate/**,coverage_html_report/**,htmlcov/**,.gitignore,.gitmodules,
 
 map <silent> <esc> :noh<cr>
 
@@ -93,7 +105,6 @@ nnoremap <C-w>z :mksession! ~/.cache/nvim/session.vim<CR>:wincmd o<CR>
 nnoremap <C-w>Z :source ~/.cache/nvim/session.vim<CR>
 
 noremap Q !!$SHELL<CR>
-
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
@@ -101,8 +112,9 @@ cmap w!! w !sudo tee > /dev/null %
 
 " Themes {{{
 set termguicolors
-colorscheme onedark
-let g:onedark_terminal_italics = 1
+colorscheme gruvbox
+set background=dark
+"let g:onedark_terminal_italics = 1
 "}}}
 
 " Folding {{{
