@@ -1,0 +1,250 @@
+# i3 config file (v4)
+#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
+
+exec compton --config ~/.config/compton/new-config
+exec copyq
+# Solved slow startup of gtk applications
+exec /usr/lib/xdg-desktop-portal-gtk
+exec "setxkbmap -layout us,il"
+exec "setxkbmap -option 'grp:alt_shift_toggle'"
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+
+exec_always feh --bg-scale ~/Pictures/wallpapers/coffee.jpg
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+gaps inner 10
+gaps outer 0
+
+set $mod Mod4
+
+# Font for window titles. Will also be used by the bar unless a different font
+# is used in the bar {} block below.
+font pango:Terminus 12
+
+# This font is widely installed, provides lots of unicode glyphs, right-to-left
+# text rendering and scalability on retina/hidpi displays (thanks to pango).
+#font pango:DejaVu Sans Mono 8
+
+# Before i3 v4.8, we used to recommend this one as the default:
+# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+# The font above is very space-efficient, that is, it looks good, sharp and
+# clear in small sizes. However, its unicode glyph coverage is limited, the old
+# X core fonts rendering does not support right-to-left and this being a bitmap
+# font, it doesn’t scale on retina/hidpi displays.
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec termite
+
+# border size
+new_window pixel 3
+for_window [class="Termite"] border none
+
+# kill focused window
+bindsym $mod+Shift+q kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d exec rofi -show combi -config ~/.config/rofi/config 
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+# alternatively, you can use the cursor keys:
+#bindsym $mod+Left focus left
+#bindsym $mod+Down focus down
+#bindsym $mod+Up focus up
+#bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+Right split h
+
+# split in vertical orientation
+bindsym $mod+Down split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+set $workspace1 "1: "
+set $workspace2 "2: "
+set $workspace3 "3: "
+set $workspace4 "4: "
+set $workspace5 "5: "
+set $workspace6 "6: "
+set $workspace7 "7: "
+set $workspace8 "8: "
+set $workspace9 "9: "
+set $workspace10 "10: "
+
+# switch to workspace
+bindsym $mod+1 workspace $workspace1
+bindsym $mod+2 workspace $workspace2
+bindsym $mod+3 workspace $workspace3
+bindsym $mod+4 workspace $workspace4
+bindsym $mod+5 workspace $workspace5
+bindsym $mod+6 workspace $workspace6
+bindsym $mod+7 workspace $workspace7
+bindsym $mod+8 workspace $workspace8
+bindsym $mod+9 workspace $workspace9
+bindsym $mod+0 workspace $workspace10
+
+assign [class="Termite"] $workspace6
+assign [class="Google-Chrome"] $workspace6
+assign [class="Code - Insiders"] $workspace3
+assign [class="oni"] $workspace3
+assign [class="Meld"] $workspace8
+assign [class="Robo3t"] $workspace5
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $workspace1
+bindsym $mod+Shift+2 move container to workspace $workspace2
+bindsym $mod+Shift+3 move container to workspace $workspace3
+bindsym $mod+Shift+4 move container to workspace $workspace4
+bindsym $mod+Shift+5 move container to workspace $workspace5
+bindsym $mod+Shift+6 move container to workspace $workspace6
+bindsym $mod+Shift+7 move container to workspace $workspace7
+bindsym $mod+Shift+8 move container to workspace $workspace8
+bindsym $mod+Shift+9 move container to workspace $workspace9
+bindsym $mod+Shift+0 move container to workspace $workspace10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+    # These bindings trigger as soon as you enter the resize mode
+
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
+
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+# My colors
+# class                 border      backgr.     text        indic.      child_border
+client.background    #282c34
+
+client.focused             #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+client.unfocused           #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+client.focused_inactive    #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+client.urgent              #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+client.placeholder         #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+
+# Colors
+set $active  #536B3D
+set $border  #313A28
+set $text    #BBC5B2
+set $text2   #8f8f8f
+set $text3   #8faf9f
+set $bright  #A3D572
+set $bright2 #3F5030
+set $bg      #2c2c2e
+set $bg2     #4c4c4f
+
+set $orange  #FCBF69
+set $blue    #98CBFE
+set $dblue   #6095C5
+set $ia      #8f8f8f
+set $be      #8faf9f
+set $yw      #ccdc90
+set $gn      #97A824
+set $rd      #e89393
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+#bar {
+#    position bottom
+#    #font -xos4-terminus-medium-r-normal--12-120-72-72-C-60-iso8859-1
+#    font pango:Misc status.Icons 18
+#    status_command i3status
+#    colors {
+#        background          #202023
+#        statusline          #888888
+#        separator           #444448
+#        focused_workspace   $gn        $bg        $gn
+#        active_workspace    $bg        $bg        $gn
+#        inactive_workspace  $bg        $bg        $ia
+#        urgent_workspace    $rd        $bg        $orange
+#    }
+#}
+
+#########################################
+# Volume Control (ALSA - uses media keys)
+#########################################
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master 1%+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master 1%- unmute"
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
+
+# Set the caps lock key to control
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+
+# lockscreen
+bindsym $mod+shift+x exec betterlockscreen --lock
+exec --no-startup-id betterlockscreen --blur -u /home/hagay/Pictures/wallpapers/ -r 2560x1440
+
+# Set last used image as desktop background
+exec --no-startup-id betterlockscreen -w
+bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshots/`date +%d%m%y%H%M%S`.png
+
+# Screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 5"
+bindsym XF86MonBrightnessUp exec --no-startup-id "light -A 5"
