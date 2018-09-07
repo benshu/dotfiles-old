@@ -25,7 +25,6 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('tpope/vim-commentary')
     call dein#add('tpope/vim-vinegar.git')
     call dein#add('tpope/vim-unimpaired')
-    call dein#add('jiangmiao/auto-pairs')
     call dein#add('idanarye/vim-merginal')
     call dein#add('junegunn/gv.vim')
     call dein#add('junegunn/vim-easy-align')
@@ -45,6 +44,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('terryma/vim-multiple-cursors')
     call dein#add('wellle/tmux-complete.vim')
     call dein#add('dyng/ctrlsf.vim')
+    call dein#add('jiangmiao/auto-pairs')
 
     call dein#add('joshdick/onedark.vim')
     call dein#add('rakr/vim-one')
@@ -197,4 +197,9 @@ endif
 
 " tmux-complete {{{
 let g:tmuxcomplete#trigger = ''
+" }}}
+
+" CtrlSF {{{
+vmap <C-s-F> <Plug>CtrlSFVwordExec
+nnoremap <C-s-F> <Plug>CtrlSFVwordPath
 " }}}

@@ -12,7 +12,7 @@ exec "setxkbmap -layout us,il"
 exec "setxkbmap -option 'grp:alt_shift_toggle'"
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
-exec_always feh --bg-scale ~/Pictures/wallpapers/coffee.jpg
+exec_always feh --bg-scale ~/Pictures/wallpapers/eagle.jpg
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
