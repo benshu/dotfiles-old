@@ -112,10 +112,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 # setting rg as the default command for fzf with respecting .gitignore
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# Base 16 shell theme
-BASE16_SHELL=$HOME/.config/base16-shell/
-
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 export QT_PKG_CONFIG=true
 
 alias unzip=/home/hagay/go/bin/unzip
