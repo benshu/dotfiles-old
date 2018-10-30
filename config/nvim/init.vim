@@ -51,6 +51,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('morhetz/gruvbox')
 
     call dein#add('Vigemus/iron.nvim')
+    call dein#add('easymotion/vim-easymotion')
 
 endif
 
@@ -85,6 +86,8 @@ set hidden
 set breakindent
 set wildignore=*.pyc,__pycache__/**,.cache/,tags,.vscode/**,.ropeproject/**,.pytest_cache/**,.git/**,.flake8,.coverage,.coveragerc,cov-report/**,cov_annotate/**,coverage_html_report/**,htmlcov/**,.gitignore,.gitmodules,
 
+set number
+set relativenumber
 map <silent> <esc> :noh<cr>
 
 " }}}
@@ -92,6 +95,10 @@ map <silent> <esc> :noh<cr>
 " Mappings  {{{
 " Setup the leader mapping dictionary for commenting the mappings
 let g:lmap =  {}
+
+" Align blocks of text and keep them selected
+vmap < <gv
+vmap > >gv
 
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -108,6 +115,7 @@ noremap Q !!$SHELL<CR>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
+nnoremap <leader>gb :Gblame<CR>
 "}}}
 
 " Themes {{{

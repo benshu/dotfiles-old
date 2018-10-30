@@ -399,8 +399,6 @@ vnoremap <C-c> "+y<CR>
 vmap < <gv
 vmap > >gv
 
-" Enable folding with the spacebar
-nnoremap <space> za
 noremap <leader>ss :call StripWhitespace()<CR>
 " Save a file as root (,W)
 noremap <leader>W :w !sudo tee % > /dev/null<CR>

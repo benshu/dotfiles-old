@@ -9,7 +9,7 @@ exec copyq
 # Solved slow startup of gtk applications
 exec /usr/lib/xdg-desktop-portal-gtk
 exec "setxkbmap -layout us,il"
-exec "setxkbmap -option 'grp:alt_shift_toggle'"
+exec "setxkbmap -option 'grp:super_space_toggle'"
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 exec_always feh --bg-scale ~/Pictures/wallpapers/eagle.jpg
@@ -59,7 +59,9 @@ bindsym $mod+d exec rofi -show combi -config ~/.config/rofi/config
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod1+Tab focus right
+# bindsym $mod1+Tab focus right
+bindsym $mod1+Tab workspace next
+bindsym $mod1+Shift+Tab workspace previous
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
@@ -245,7 +247,7 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps
 
 # lockscreen
 bindsym $mod+shift+x exec betterlockscreen --lock
-exec --no-startup-id betterlockscreen --blur -u /home/hagay/Pictures/wallpapers/ -r 2560x1440
+exec_always --no-startup-id betterlockscreen --blur -u /home/hagay/Pictures/wallpapers/ -r 1920x1080
 
 # Set last used image as desktop background
 exec --no-startup-id betterlockscreen -w
