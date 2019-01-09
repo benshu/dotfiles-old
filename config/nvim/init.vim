@@ -37,6 +37,7 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('brooth/far.vim')
     call dein#add('AndrewRadev/splitjoin.vim')
     call dein#add('hynek/vim-python-pep8-indent')
+    call dein#add('jeetsukumaran/vim-pythonsense')
     call dein#add('christoomey/vim-tmux-navigator')
     call dein#add('benmills/vimux')
     call dein#add('alfredodeza/coveragepy.vim')
@@ -45,7 +46,22 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('wellle/tmux-complete.vim')
     call dein#add('dyng/ctrlsf.vim')
     call dein#add('jiangmiao/auto-pairs')
+    call dein#add('google/vim-searchindex')
+    call dein#add('sheerun/vim-polyglot')
 
+    call dein#add('fisadev/vim-isort')
+
+    " Add maktaba and coverage to the runtimepath.
+    " (The latter must be installed before it can be used.)
+    call dein#add('google/vim-maktaba')
+    " Also add Glaive, which is used to configure coverage's maktaba flags. See
+    " `:help :Glaive` for usage.
+    call dein#add('google/vim-glaive')
+    call dein#add('google/vim-coverage')
+    call dein#add('google/vim-syncopate')
+    call dein#add('google/vim-codereview')
+
+    call maktaba#plugin#Detect()
     call dein#add('joshdick/onedark.vim')
     call dein#add('rakr/vim-one')
     call dein#add('morhetz/gruvbox')
@@ -65,6 +81,8 @@ call dein#remote_plugins()
 " }}}
 
 " System settings {{{
+filetype plugin indent on
+syntax on
 
 set clipboard+=unnamedplus
 set tabstop=4
@@ -74,13 +92,14 @@ set backupdir=~/.cache/nvim/backups//
 set directory=~/.cache/nvim/swaps//
 set undodir=~/.cache/nvim/undo//
 set list
-set complete=.,w,b,u,t,k
+set complete=.,w,b,u,t,k,kspell,i,d
 set completeopt=longest,menuone,preview
 let mapleader = ' '
 set mouse=a
 set ignorecase
 set smartcase
 set noshowmode
+set scrolloff=3
 " Required for operations modifying multiple buffers like rename.
 set hidden
 set breakindent
@@ -100,18 +119,25 @@ let g:lmap =  {}
 vmap < <gv
 vmap > >gv
 
+noremap <Leader>d "_d
+noremap <Leader>p "0p
+noremap <Leader>P "0P
+vnoremap <Leader>p "0p
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <Leader><Leader> :Commands<CR>
 
 " zoom into split
 nnoremap <C-w>z :mksession! ~/.cache/nvim/session.vim<CR>:wincmd o<CR>
 nnoremap <C-w>Z :source ~/.cache/nvim/session.vim<CR>
 
 noremap Q !!$SHELL<CR>
+
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
@@ -120,9 +146,13 @@ nnoremap <leader>gb :Gblame<CR>
 
 " Themes {{{
 set termguicolors
-colorscheme gruvbox
-set background=dark
-"let g:onedark_terminal_italics = 1
+colorscheme onedark
+"set background=dark
+let g:onedark_terminal_italics = 1
+" Background colors for active vs inactive windows
+"hi ActiveWindow guibg=#17252c
+set winhighlight=Normal:ActiveWindow,NormalNC:InactiveWindow
+hi InactiveWindow guibg=#222222
 "}}}
 
 " Folding {{{
@@ -134,6 +164,8 @@ autocmd FileType vim setlocal foldmethod=marker
 " FAR - Find and Replace {{{
 let g:far#debug = 1
 let g:far#source = 'rgnvim'
+let g:far#layout = 'left'
+let g:far#file_mask_favorites = ['%', '**/*.*', '**/*.py', '**/*.js']
 "}}}
 
 " SplitJoin {{{
@@ -144,20 +176,30 @@ let g:splitjoin_python_brackets_on_separate_lines = 1
 " Ale - Linting and fixing {{{
 let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠ '
+let g:ale_set_balloons = 1
 let g:ale_python_flake8_options = '--ignore=E501'
 let g:ale_python_autopep8_options = '--in-place --aggressive --aggressive --max-line-length=120'
 let g:ale_linters = {
-            \ 'python': ['flake8'],
-            \ 'javascript': ['eslint']
-            \ }
+    \ 'python': ['flake8'],
+    \ 'javascript': ['eslint']
+\ }
 let g:ale_fixers = {
-            \ 'python': ['yapf'],
-            \ 'javascript': ['eslint']
-            \ }
+    \ 'python': [
+    \     'add_blank_lines_for_python_control_statements',
+    \     'trim_whitespace',
+    \     'remove_trailing_lines',
+    \     'isort',
+    \ ],
+    \ 'javascript': [
+    \     'eslint',
+    \ ]
+\ }
 
 " Bind F8 to fixing problems with ALE
 nmap <F8> <Plug>(ale_fix)
 vmap <F8> <Plug>(ale_fix)
+nmap <leader>= <Plug>(ale_fix)
+vmap <leader>= <Plug>(ale_fix)
 "}}}
 
 " LanguageClient {{{
@@ -165,7 +207,8 @@ let g:LanguageClient_settingsPath = '/home/hagay/.config/pyls/settings.json'
 let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls', '-vv', '--log-file', '/home/hagay/.local/var/log/pyls/pyls.log'],
     \ }
-
+let g:LanguageClient_hoverPreview = "Always"
+let g:LanguageClient_diagnosticsEnable = 0
 nnoremap <F6> :call LanguageClient_contextMenu()<CR>
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
@@ -177,6 +220,7 @@ nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#sources = {}
 let g:deoplete#sources.python3 = ['LanguageClient']
+"let g:deoplete#sources.python3 = ['complete']
 
 " }}}
 
@@ -200,7 +244,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
-
 "}}}
 
 " tmux-complete {{{
@@ -211,3 +254,18 @@ let g:tmuxcomplete#trigger = ''
 vmap <C-s-F> <Plug>CtrlSFVwordExec
 nnoremap <C-s-F> <Plug>CtrlSFVwordPath
 " }}}
+
+" Google plugins {{{
+call maktaba#plugin#Detect()
+call glaive#Install()
+" Optional: Enable coverage's default mappings on the <Leader>C prefix.
+Glaive coverage plugin[mappings]
+
+" }}}
+"
+" yankring {{{
+let g:yankring_replace_n_pkey = ''
+let g:yankring_replace_n_pkey = ''
+" }}}
+"
+

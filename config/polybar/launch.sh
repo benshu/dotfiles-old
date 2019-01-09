@@ -26,7 +26,7 @@ else
 fi
 
 # Launch bar1 and bar2
-MAIN_MONITOR=$MAIN_MONITOR polybar top &
-MAIN_MONITOR=$MAIN_MONITOR polybar bottom &
+MAIN_MONITOR=$MAIN_MONITOR polybar primary &
+MAIN_MONITOR=$MAIN_MONITOR polybar secondary &
 
 notify-send "Polybars launched..."
