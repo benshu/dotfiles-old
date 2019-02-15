@@ -17,6 +17,11 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id "/home/hagay/dotfiles/monitors.sh"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+exec_always --no-startup-id "termite --title=dropdown -e 'tmux new -s dropdown'"
+bindsym $mod+t [title="dropdown"] scratchpad show, move position center
+for_window [title="dropdown"] floating enable, resize set 800 600, move scratchpad
+bindsym $mod+Shift+grave move scratchpad
+bindsym $mod+grave scratchpad show
 gaps inner 10
 gaps outer 0
 
