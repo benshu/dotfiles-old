@@ -8,12 +8,13 @@ exec_always --no-startup-id "compton -b --config /home/hagay/.config/compton/con
 exec copyq
 # Solved slow startup of gtk applications
 exec /usr/lib/xdg-desktop-portal-gtk
-exec "setxkbmap -layout us,il"
-exec "setxkbmap -option 'grp:super_space_toggle'"
+exec_always --no-startup-id "setxkbmap -layout us,il"
+exec_always --no-startup-id "setxkbmap -option grp:alt_shift_toggle us,il"
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 
 exec_always feh --bg-scale ~/Pictures/wallpapers/space.png
 exec_always --no-startup-id nm-applet
+exec_always --no-startup-id "/home/hagay/dotfiles/monitors.sh"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 gaps inner 10
