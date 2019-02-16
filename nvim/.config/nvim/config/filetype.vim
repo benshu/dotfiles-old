@@ -58,9 +58,6 @@ augroup MyAutoCmd " {{{
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
 
-	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
-	autocmd FileType html,css,javascript,jsx,javascript.jsx setlocal backupcopy=yes
-
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
 	autocmd FileType html
@@ -73,10 +70,6 @@ augroup MyAutoCmd " {{{
 		\ set expandtab
 		\ | setlocal spell autoindent formatoptions=tcroqn2 comments=n:>
 
-	autocmd FileType apache setlocal path+=./;/
-
-	autocmd FileType cam setlocal nonumber synmaxcol=10000
-
 	autocmd FileType go highlight default link goErr WarningMsg |
 		\ match goErr /\<err\>/
 
@@ -88,10 +81,6 @@ augroup END " }}}
 " Internal Plugin Settings  {{{
 " ------------------------
 
-" PHP {{{
-let g:PHP_removeCRwhenUnix = 0
-
-" }}}
 " Python {{{
 let g:python_highlight_all = 1
 
@@ -128,6 +117,7 @@ let g:markdown_fenced_languages = [
 	\  'python',
 	\  'py=python',
 	\  'sh',
+	\  'bash=sh',
 	\  'sass',
 	\  'xml',
 	\  'vim'

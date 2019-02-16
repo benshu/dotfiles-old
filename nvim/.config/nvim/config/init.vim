@@ -6,17 +6,7 @@
 " Use spacebar as leader and ; as secondary-leader
 " Required before loading plugins!
 let g:mapleader="\<Space>"
-let g:maplocalleader=';'
-
-" Release keymappings prefixes, evict entirely for use of plug-ins.
-nnoremap <Space>  <Nop>
-xnoremap <Space>  <Nop>
-nnoremap ,        <Nop>
-xnoremap ,        <Nop>
-nnoremap ;        <Nop>
-xnoremap ;        <Nop>
-nnoremap m        <Nop>
-xnoremap m        <Nop>
+let g:maplocalleader=','
 
 " }}}
 " Ensure cache directory "{{{
@@ -29,12 +19,6 @@ endif
 " Ensure custom spelling directory
 if ! isdirectory(expand('$VIMPATH/spell'))
 	call mkdir(expand('$VIMPATH/spell'))
-endif
-
-" }}}
-" Load vault settings "{{{
-if filereadable(expand('$VIMPATH/.vault.vim'))
-	execute 'source' expand('$VIMPATH/.vault.vim')
 endif
 
 " }}}
@@ -57,11 +41,6 @@ endif
 
 " }}}
 " Disable default plugins "{{{
-
-" Disable menu.vim
-if has('gui_running')
-  set guioptions=Mc
-endif
 
 " Disable pre-bundled plugins
 let g:loaded_getscript = 1
