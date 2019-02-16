@@ -18,9 +18,9 @@ elif [ "connected" = "$HDMI_STATUS" ]; then
 elif [ "connected" = "$DP_STAUTS" ]; then  
     MAIN_MONITOR="DVI-I-1-1"
 elif [ "connected" = "$NATIVE_HDMI" ]; then  
-    MAIN_MONITOR="HDMI-1"
+    MAIN_MONITOR="HDMI1"
 elif [ "connected" = "$NATIVE_DP" ]; then  
-    MAIN_MONITOR="DP-1"
+    MAIN_MONITOR="DP1"
 else
     MAIN_MONITOR="eDP1"
 fi

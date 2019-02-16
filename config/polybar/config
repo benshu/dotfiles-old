@@ -26,10 +26,10 @@ underline = #00AAFF00
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor = DP-1
+monitor = DP1
 
 ; Use the specified monitor as a fallback if the main one is not found.
-monitor-fallback = eDP-1
+monitor-fallback = eDP1
 
 ; Require the monitor to be in connected state
 ; XRandR sometimes report my monitor as being disconnected (when in use)
@@ -221,10 +221,10 @@ cursor-scroll =
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor = HDMI-1
+monitor = HDMI1
 
 ; Use the specified monitor as a fallback if the main one is not found.
-monitor-fallback = HDMI-1
+monitor-fallback = HDMI1
 
 ; Require the monitor to be in connected state
 ; XRandR sometimes report my monitor as being disconnected (when in use)
