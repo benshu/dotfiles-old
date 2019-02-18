@@ -93,13 +93,13 @@ source ~/.extra
 source ~/.docker_aliases
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f /home/hagay/google-cloud-sdk/path.zsh.inc ]; then
-  source '/home/hagay/google-cloud-sdk/path.zsh.inc'
+if [ -f $HOME/google-cloud-sdk/path.zsh.inc ]; then
+  source '$HOME/google-cloud-sdk/path.zsh.inc'
 fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f /home/hagay/google-cloud-sdk/completion.zsh.inc ]; then
-  source '/home/hagay/google-cloud-sdk/completion.zsh.inc'
+if [ -f $HOME/google-cloud-sdk/completion.zsh.inc ]; then
+  source '$HOME/google-cloud-sdk/completion.zsh.inc'
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -111,4 +111,4 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export QT_PKG_CONFIG=true
 
-alias unzip=/home/hagay/go/bin/unzip
+alias unzip=$HOME/go/bin/unzip
