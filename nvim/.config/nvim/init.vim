@@ -3,14 +3,15 @@
 " Repository  : https://github.com/benshu/dotfiles/
 
 " Plugins {{{
-if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
-    call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
-    call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
+if (!isdirectory(expand("$HOME/.cache/nvim/dein/repos/github.com/Shougo/dein.vim")))
+    call system(expand("mkdir -p $HOME/.cache/nvim/dein/repos/github.com"))
+    call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.cache/nvim/dein/repos/github.com/Shougo/dein.vim"))
 endif
 
-set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
-if dein#load_state(expand("$HOME/.config/nvim/repos"))
-    call dein#begin(expand('~/.config/nvim/repos'))
+set runtimepath+=~/.cache/nvim/dein/repos/github.com/Shougo/dein.vim
+if dein#load_state('~/.cache/nvim/dein')
+    call dein#begin('~/.cache/nvim/dein')
+
     call dein#add('Shougo/dein.vim')
     call dein#add('Shougo/deoplete.nvim')
     let g:deoplete#enable_at_startup = 1
@@ -41,28 +42,15 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('jeetsukumaran/vim-pythonsense')
     call dein#add('christoomey/vim-tmux-navigator')
     call dein#add('benmills/vimux')
-    call dein#add('alfredodeza/coveragepy.vim')
+    " call dein#add('alfredodeza/coveragepy.vim', {'merged': 0})
     call dein#add('chrisbra/Colorizer')
     call dein#add('terryma/vim-multiple-cursors')
     call dein#add('wellle/tmux-complete.vim')
     call dein#add('dyng/ctrlsf.vim')
     call dein#add('jiangmiao/auto-pairs')
-    call dein#add('google/vim-searchindex')
     call dein#add('sheerun/vim-polyglot')
-
+    call dein#add('junegunn/vim-github-dashboard.git')
     call dein#add('fisadev/vim-isort')
-
-    " Add maktaba and coverage to the runtimepath.
-    " (The latter must be installed before it can be used.)
-    call dein#add('google/vim-maktaba')
-    " Also add Glaive, which is used to configure coverage's maktaba flags. See
-    " `:help :Glaive` for usage.
-    call dein#add('google/vim-glaive')
-    call dein#add('google/vim-coverage')
-    call dein#add('google/vim-syncopate')
-    call dein#add('google/vim-codereview')
-
-    call maktaba#plugin#Detect()
     call dein#add('joshdick/onedark.vim')
     call dein#add('rakr/vim-one')
     call dein#add('morhetz/gruvbox')
@@ -70,6 +58,14 @@ if dein#load_state(expand("$HOME/.config/nvim/repos"))
     call dein#add('Vigemus/iron.nvim')
     call dein#add('easymotion/vim-easymotion')
 
+    call dein#add('google/vim-maktaba', {'merged': 0})
+    call dein#add('google/vim-glaive', {'merged': 0})
+    call dein#add('google/vim-coverage', {'merged': 0})
+    " call dein#add('google/vim-syncopate', {'merged': 0})
+    " call dein#add('google/vim-codereview', {'merged': 0})
+    " call dein#add('google/vim-searchindex', {'merged': 0})
+
+    call dein#end()
 endif
 
 if dein#check_install()
@@ -147,7 +143,7 @@ nnoremap <leader>gb :Gblame<CR>
 
 " Themes {{{
 set termguicolors
-colorscheme onedark
+colorscheme one
 "set background=dark
 let g:onedark_terminal_italics = 1
 " Background colors for active vs inactive windows
