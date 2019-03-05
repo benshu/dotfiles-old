@@ -112,3 +112,4 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export QT_PKG_CONFIG=true
 
 alias unzip=$HOME/go/bin/unzip
+source /usr/share/nvm/init-nvm.sh
