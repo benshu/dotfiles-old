@@ -20,7 +20,6 @@ link using stow
 ```bash
 stow alacritty
 stow bash
-stow bin
 stow dunst
 stow git
 stow i3

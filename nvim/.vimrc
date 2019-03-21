@@ -45,11 +45,15 @@ Plug 'git://github.com/altercation/vim-colors-solarized.git'
 Plug 'tomasr/molokai'
 Plug 'https://github.com/sickill/vim-monokai'
 Plug 'https://github.com/digitaltoad/vim-pug'
+Plug 'google/vim-maktaba'
+Plug 'google/vim-glaive'
+Plug 'google/vim-coverage'
+Plug 'google/vim-codereview'
 "Plugin 'https://github.com/terryma/vim-multiple-cursors'
 "Plugin 'LaTeX-Suite-aka-Vim-LaTeX'
 call plug#end()
 " }}}
-
+call maktaba#plugin#Detect()
 "__     _____ __  __            _   _   _
 "\ \   / /_ _|  \/  |  ___  ___| |_| |_(_)_ __   __ _ ___
 " \ \ / / | || |\/| | / __|/ _ \ __| __| | '_ \ / _` / __|
@@ -154,7 +158,7 @@ set noeol
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
-	set undodir=~/.vim/undo
+    set undodir=~/.vim/undo
 endif
 " Don’t create backups when editing files in certain directories
 set backupskip=/tmp/*,/private/tmp/*
