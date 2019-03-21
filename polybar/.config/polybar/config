@@ -26,14 +26,14 @@ underline = #00AAFF00
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor = ${env:MAIN_MONITOR:VGA-1}
+monitor = ${env:MAIN_MONITOR}
 
 ; Use the specified monitor as a fallback if the main one is not found.
-monitor-fallback = ${env:MAIN_MONITOR:eDP1}
+; monitor-fallback = ${env:MAIN_MONITOR:eDP1}
 
 ; Require the monitor to be in connected state
 ; XRandR sometimes report my monitor as being disconnected (when in use)
-monitor-strict = false
+; monitor-strict = false
 
 ; Tell the Window Manager not to configure the window.
 ; Use this to detach the bar if your WM is locking its size/position.
@@ -221,10 +221,10 @@ cursor-scroll =
 ; If unspecified, the application will pick the first one it finds.
 ; $ polybar -m | cut -d ':' -f 1
 ; $ xrandr -q | grep " connected" | cut -d ' ' -f1
-monitor = ${env:MAIN_MONITOR:VGA1}
+monitor = ${env:SECONDARY_MONITOR}
 
 ; Use the specified monitor as a fallback if the main one is not found.
-monitor-fallback = ${env:MAIN_MONITOR:eDP1}
+monitor-fallback = ${env:MAIN_MONITOR}
 
 ; Require the monitor to be in connected state
 ; XRandR sometimes report my monitor as being disconnected (when in use)

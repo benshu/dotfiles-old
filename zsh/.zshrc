@@ -92,16 +92,6 @@ source ~/.functions
 source ~/.extra
 source ~/.docker_aliases
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f $HOME/google-cloud-sdk/path.zsh.inc ]; then
-  source '$HOME/google-cloud-sdk/path.zsh.inc'
-fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f $HOME/google-cloud-sdk/completion.zsh.inc ]; then
-  source '$HOME/google-cloud-sdk/completion.zsh.inc'
-fi
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # setting rg as the default command for fzf with respecting .gitignore
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
@@ -113,3 +103,9 @@ export QT_PKG_CONFIG=true
 
 alias unzip=$HOME/go/bin/unzip
 source /usr/share/nvm/init-nvm.sh
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/benshu/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/home/benshu/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/benshu/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/benshu/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

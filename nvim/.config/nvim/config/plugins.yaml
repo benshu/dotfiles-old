@@ -76,6 +76,11 @@
 - { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: elzr/vim-json, on_ft: json }
 
+- repo: posva/vim-vue
+  on_ft: [ vue ]
+  hook_add: |
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+
 - repo: fatih/vim-go
   on_ft: go
   hook_source: |
@@ -310,7 +315,8 @@
     let g:gutentags_ctags_exclude_wildignore = 1
     let g:gutentags_ctags_exclude = [
       \ '*/wp-admin', '*/wp-content', '*/wp-includes',
-      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor'
+      \ '*/application/vendor', '*/vendor/ckeditor', '*/media/vendor',
+      \ '*/__pycache__', '*.pyc',
       \ ]
 
 - repo: mattn/emmet-vim
@@ -394,6 +400,9 @@
     let g:tern_show_signature_in_pum = 0
   hook_post_source: |
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
+
+- repo: ncm2/float-preview.nvim
+  if: has('nvim') && empty($VIM_MINIMAL)
 
 # ==========================================
 # Denite
