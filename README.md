@@ -1,47 +1,40 @@
 #Benshu's dotfiles
-
-This is a forked repository of Mathias's dotfiles, with personal tweaks.
+* i3wm
+* termite
+* tmux
+* zsh
+* neovim
 
 # Installation
 
 **Warning:** If you want to give these dotfiles a try, you should first fork this repository, review the code, and remove things you don’t want or need. Don’t blindly use my settings unless you know what that entails. Use at your own risk!
 
-### Using Git and the bootstrap python script
+### Using Git and GNU stow
 
-You can clone the repository wherever you want. (I like to keep it in `~/Projects/dotfiles`, with `~/dotfiles` as a symlink.) The bootstrapper script will pull in the latest version and copy the files to your home folder.
+You can clone the repository wherever you want. (I like to keep it in `~/dotfiles`) and use GNU stow to symlink the relevant files to the home directory
 
 ```bash
 git clone https://github.com/benshu/dotfiles.git && cd dotfiles 
 ```
-
-To update using sym links from the home folder to the dotfiles folder, first edit bootsrap.py list of files to sync and then use:
-
+link using stow
 ```bash
-python bootstrap.py
+stow alacritty
+stow bash
+stow dunst
+stow git
+stow i3
+stow nvim
+stow polybar
+stow pyls
+stow rofi
+stow shell
+stow termite
+stow tmux
+stow udev
+stow wget
+stow yapf
+stow zsh
 ```
-You'll be prompted if you'd like to continue, then any existing files will be renamed to <filename>.backup and then a new sym link will be creeated.
-
-To update overwriting existing files, `cd` into your local `dotfiles` repository and then:
-
-```bash
-source bootstrap.sh
-```
-
-Alternatively, to update while avoiding the confirmation prompt:
-
-```bash
-set -- -f; source bootstrap.sh
-```
-
-### Git-free install
-
-To install these dotfiles without Git:
-
-```bash
-cd; curl -#L https://github.com/mathiasbynens/dotfiles/tarball/master | tar -xzv --strip-components 1 --exclude={README.md,bootstrap.sh,LICENSE-MIT.txt}
-```
-
-To update later on, just run that command again.
 
 ### Specify the `$PATH`
 
@@ -91,16 +84,11 @@ When setting up a new Mac, you may want to install some common [Homebrew](http:/
 ## Feedback
 
 Suggestions/improvements
-[welcome](https://github.com/mathiasbynens/dotfiles/issues)!
-
-## Original Author
-
-| [![twitter/mathias](http://gravatar.com/avatar/24e08a9ea84deb17ae121074d0f17125?s=70)](http://twitter.com/mathias "Follow @mathias on Twitter") |
-|---|
-| [Mathias Bynens](https://mathiasbynens.be/) |
+[welcome](https://github.com/benshu/dotfiles/issues)!
 
 ## Thanks to…
 
+* [Mathias Bynens](https://mathiasbynens.be/) |
 * @ptb and [his _OS X Lion Setup_ repository](https://github.com/ptb/Mac-OS-X-Lion-Setup)
 * [Ben Alman](http://benalman.com/) and his [dotfiles repository](https://github.com/cowboy/dotfiles)
 * [Chris Gerke](http://www.randomsquared.com/) and his [tutorial on creating an OS X SOE master image](http://chris-gerke.blogspot.com/2012/04/mac-osx-soe-master-image-day-7.html) + [_Insta_ repository](https://github.com/cgerke/Insta)
@@ -114,4 +102,3 @@ Suggestions/improvements
 * [Tom Ryder](http://blog.sanctum.geek.nz/) and his [dotfiles repository](https://github.com/tejr/dotfiles)
 * [Kevin Suttle](http://kevinsuttle.com/) and his [dotfiles repository](https://github.com/kevinSuttle/dotfiles) and [OSXDefaults project](https://github.com/kevinSuttle/OSXDefaults), which aims to provide better documentation for [`~/.osx`](https://mths.be/osx)
 * [Haralan Dobrev](http://hkdobrev.com/)
-* anyone who [contributed a patch](https://github.com/mathiasbynens/dotfiles/contributors) or [made a helpful suggestion](https://github.com/mathiasbynens/dotfiles/issues)
