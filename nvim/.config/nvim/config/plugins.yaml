@@ -2,7 +2,7 @@
 # PLUGINS
 # ==========================================
 
-# Startup
+# Startup plugins
 # -------
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
@@ -401,8 +401,7 @@
   hook_post_source: |
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
-- repo: ncm2/float-preview.nvim
-  if: has('nvim') && empty($VIM_MINIMAL)
+# - { repo: ncm2/float-preview.nvim, merged: 0,  }
 
 # ==========================================
 # Denite
