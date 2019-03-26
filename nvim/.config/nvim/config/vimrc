@@ -19,44 +19,9 @@ let g:dein#install_progress_type = 'echo'
 let g:dein#enable_notification = 1
 let g:dein#install_log_filename = $VARPATH.'/dein.log'
 
-function! s:dein_check_ruby() abort
-	call system("ruby -e 'require \"json\"; require \"yaml\"'")
-	return (v:shell_error == 0) ? 1 : 0
-endfunction
-
-function! s:dein_check_yaml2json()
-	try
-		let result = system('yaml2json', "---\ntest: 1")
-		if v:shell_error != 0
-			return 0
-		endif
-		let result = json_decode(result)
-		return result.test
-	catch
-	endtry
-	return 0
-endfunction
-
 function! s:dein_load_yaml(filename) abort
-	if executable('yaml2json') && exists('*json_decode') &&
-				\ s:dein_check_yaml2json()
-		" Decode YAML using the CLI tool yaml2json
-		" See: https://github.com/koraa/large-yaml2json-json2yaml
-		let g:denite_plugins = json_decode(
-					\ system('yaml2json', readfile(a:filename)))
-	elseif executable('ruby') && exists('*json_decode') && s:dein_check_ruby()
-		let g:denite_plugins = json_decode(
-					\ system("ruby -e 'require \"json\"; require \"yaml\"; ".
-									\ "print JSON.generate YAML.load \$stdin.read'",
-									\ readfile(a:filename)))
-	else
-		" Fallback to use python3 and PyYAML
-	python3 << endpython
-import vim, yaml
-with open(vim.eval('a:filename'), 'r') as f:
-	vim.vars['denite_plugins'] = yaml.load(f.read(), Loader=yaml.FullLoader)
-endpython
-	endif
+	let g:denite_plugins = json_decode(
+				\ system('yaml2json', readfile(a:filename)))
 
 	for plugin in g:denite_plugins
 		call dein#add(plugin['repo'], extend(plugin, {}, 'keep'))
@@ -93,13 +58,49 @@ augroup END
 
 " Initialize base requirements
 if has('vim_starting')
-	call s:source_file('init.vim')
-	if has('nvim')
-		" Neovim settings
-		call s:source_file('neovim.vim')
-	elseif ! has('gui_running') && ! has('win32') && ! has('win64')
-		" Linux terminal settings
-		call s:source_file('terminal.vim')
+	" Vim Initialization
+	" ------------------
+
+	" Global Mappings "{{{
+	" Use spacebar as leader and ; as secondary-leader
+	" Required before loading plugins!
+	let g:mapleader="\<Space>"
+	let g:maplocalleader=','
+
+	" }}}
+	" Ensure cache directory "{{{
+	if ! isdirectory(expand($VARPATH))
+		" Create missing dirs i.e. cache/{undo,backup}
+		call mkdir(expand('$VARPATH/undo'), 'p')
+		call mkdir(expand('$VARPATH/backup'))
+	endif
+
+	" Ensure custom spelling directory
+	if ! isdirectory(expand('$VIMPATH/spell'))
+		call mkdir(expand('$VIMPATH/spell'))
+	endif
+	" }}}
+	" Setup dein {{{
+	if &runtimepath !~# '/dein.vim'
+		let s:dein_dir = expand('$VARPATH/dein').'/repos/github.com/Shougo/dein.vim'
+		if ! isdirectory(s:dein_dir)
+			execute '!git clone https://github.com/Shougo/dein.vim' s:dein_dir
+		endif
+
+		execute 'set runtimepath+='.substitute(
+			\ fnamemodify(s:dein_dir, ':p') , '/$', '', '')
+	endif
+	" }}}
+
+	" Write history on idle, for sharing among different sessions
+	autocmd MyAutoCmd CursorHold * if exists(':rshada') | rshada | wshada | endif
+
+	" Search and use environments specifically made for Neovim.
+	if isdirectory($VARPATH.'/venv/neovim2')
+		let g:python_host_prog = $VARPATH.'/venv/neovim2/bin/python'
+	endif
+	if isdirectory($VARPATH.'/venv/neovim3')
+		let g:python3_host_prog = $VARPATH.'/venv/neovim3/bin/python'
 	endif
 endif
 
@@ -156,4 +157,4 @@ if filereadable(expand('$VIMPATH/config/local.vim'))
 endif
 set secure
 
-" vim: set ts=2 sw=2 tw=80 noet :
+" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
