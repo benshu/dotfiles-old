@@ -91,6 +91,7 @@ source ~/.exports
 source ~/.functions
 source ~/.extra
 source ~/.docker_aliases
+source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # setting rg as the default command for fzf with respecting .gitignore

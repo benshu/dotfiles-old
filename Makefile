@@ -49,8 +49,10 @@ install:
 	yay -S \
 		polybar \
 		ttf-fira-code \
-	       	ttf-fira-mono \
-	       	nerd-fonts-fira-mono
+		ttf-fira-mono \
+		nerd-fonts-fira-mono
+	mkdir -p $HOME/Pictures/wallpapers
+	curl -L http://i.imgur.com/Z6kdWmA.jpg > $HOME/Pictures/wallpapers/jamie.jpg
 
 dotfiles: zsh
 	stow zsh
