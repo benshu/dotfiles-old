@@ -91,6 +91,7 @@ source ~/.exports
 source ~/.functions
 source ~/.extra
 source ~/.docker_aliases
+source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f /home/hagay/google-cloud-sdk/path.zsh.inc ]; then
