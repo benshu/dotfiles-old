@@ -253,11 +253,11 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps
 
 # lockscreen
 bindsym $mod+shift+x exec betterlockscreen --lock
-exec_always --no-startup-id betterlockscreen --blur -u $HOME/Pictures/wallpapers/ -r 1920x1080
+exec_always --no-startup-id betterlockscreen --blur -u /home/hagay/Pictures/wallpapers/ -r 1920x1080
 
 # Set last used image as desktop background
 exec --no-startup-id betterlockscreen -w
-bindsym Print exec --no-startup-id import -window root $HOME/Pictures/screenshots/`date +%d%m%y%H%M%S`.png
+bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshots/`date +%d%m%y%H%M%S`.png
 
 # Screen brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id "light -U 5"
