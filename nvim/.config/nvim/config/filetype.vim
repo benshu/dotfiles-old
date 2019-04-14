@@ -64,7 +64,7 @@ augroup MyAutoCmd " {{{
 		\ setlocal path+=./;/
 		\ | setlocal equalprg=tidy\ -i\ -q
 
-	autocmd FileType json setlocal equalprg=python\ -c\ json.tool
+	autocmd FileType json setlocal equalprg=python\ -m\ json.tool
 
 	autocmd FileType markdown
 		\ set expandtab
@@ -94,15 +94,6 @@ let g:vim_indent_cont = &shiftwidth
 let g:is_bash = 1
 
 " }}}
-" Java {{{
-let g:java_highlight_functions = 'style'
-let g:java_highlight_all = 1
-let g:java_highlight_debug = 1
-let g:java_allow_cpp_keywords = 1
-let g:java_space_errors = 1
-let g:java_highlight_functions = 1
-
-" }}}
 " JavaScript {{{
 let g:SimpleJsIndenter_BriefMode = 1
 let g:SimpleJsIndenter_CaseIndentLevel = -1
@@ -130,9 +121,6 @@ let g:markdown_fenced_languages = [
 let g:vimsyn_folding = 'af'
 let g:tex_fold_enabled = 1
 let g:xml_syntax_folding = 1
-let g:php_folding = 2
-let g:php_phpdoc_folding = 1
-let g:perl_fold = 1
 " }}}
 " }}}
 
