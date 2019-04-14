@@ -60,7 +60,7 @@ plugins=(git git-extras python pip tmux docker vi-mode history-substring-search 
 # User configuration
 
 export LC_ALL=en_US.UTF-8
-export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$PATH:/usr/local/go/bin
+export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$PATH:/usr/local/go/bin:$HOME/go/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -93,6 +93,8 @@ source ~/.extra
 source ~/.docker_aliases
 source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
 
+[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # setting rg as the default command for fzf with respecting .gitignore
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
