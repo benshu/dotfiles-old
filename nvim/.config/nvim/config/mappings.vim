@@ -121,6 +121,9 @@ cnoremap <Down> <C-n>
 " File operations {{{
 " ---------------
 
+nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <Leader><Leader> :Commands<CR>
+
 " When pressing <leader>cd switch to the directory of the open buffer
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
@@ -138,15 +141,6 @@ cmap W!! w !sudo tee % >/dev/null
 " }}}
 " Editor UI {{{
 " ---------
-
-" I like to :quit with 'q', shrug.
-nnoremap <silent> q :<C-u>:quit<CR>
-autocmd MyAutoCmd FileType man nnoremap <silent><buffer> q :<C-u>:quit<CR>
-
-" Macros
-nnoremap Q q
-nnoremap gQ @q
-
 " Show highlight names under cursor
 nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'
