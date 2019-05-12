@@ -39,8 +39,9 @@ nnoremap <leader>a =ip
 " xnoremap p  "0p
 " nnoremap x "_x
 
-" Toggle fold
-nnoremap <CR> za
+" fzf
+nnoremap <silent> <C-P> :Files<CR>
+nnoremap <silent> <Leader><Leader> :Commands<CR>
 
 " Focus the current fold by closing all others
 nnoremap <S-Return> zMza
@@ -121,9 +122,6 @@ cnoremap <Down> <C-n>
 " File operations {{{
 " ---------------
 
-nnoremap <silent> <C-P> :Files<CR>
-nnoremap <silent> <Leader><Leader> :Commands<CR>
-
 " When pressing <leader>cd switch to the directory of the open buffer
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 
@@ -141,6 +139,7 @@ cmap W!! w !sudo tee % >/dev/null
 " }}}
 " Editor UI {{{
 " ---------
+
 " Show highlight names under cursor
 nmap <silent> gh :echo 'hi<'.synIDattr(synID(line('.'), col('.'), 1), 'name')
 	\.'> trans<'.synIDattr(synID(line('.'), col('.'), 0), 'name').'> lo<'

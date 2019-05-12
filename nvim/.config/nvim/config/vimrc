@@ -1,14 +1,5 @@
-"      .-.     .-.     .-.     .-.     .-.     .-.     .-.
-" `._.'   `._.'   `._.'   `._.'   `._.'   `._.'   `._.'
-"
-" https://github.com/rafi/vim-config
-
 " Runtime and Plugins
 " -------------------------------------------------
-
-if &compatible
-	set nocompatible
-endif
 
 " Set main configuration directory, and where cache is stored.
 let $VIMPATH = fnamemodify(resolve(expand('<sfile>:p')), ':h:h')
@@ -20,8 +11,19 @@ let g:dein#enable_notification = 1
 let g:dein#install_log_filename = $VARPATH.'/dein.log'
 
 function! s:dein_load_yaml(filename) abort
-	let g:denite_plugins = json_decode(
-				\ system('yaml2json', readfile(a:filename)))
+	if executable('yaml2json') && exists('*json_decode')
+		" Decode YAML using the CLI tool yaml2json
+		" See: https://github.com/koraa/large-yaml2json-json2yaml
+		let g:denite_plugins = json_decode(
+					\ system('yaml2json', readfile(a:filename)))
+	else
+		" Fallback to use python3 and PyYAML
+	python3 << endpython
+import vim, yaml
+with open(vim.eval('a:filename'), 'r') as f:
+	vim.vars['denite_plugins'] = yaml.load(f.read(), Loader=yaml.FullLoader)
+endpython
+	endif
 
 	for plugin in g:denite_plugins
 		call dein#add(plugin['repo'], extend(plugin, {}, 'keep'))
@@ -107,14 +109,10 @@ endif
 " Initialize dein.vim (package manager)
 let s:path = expand('$VARPATH/dein')
 let s:plugins_path = expand('$VIMPATH/config/plugins.yaml')
-let s:user_plugins_path = expand('$VIMPATH/config/local.plugins.yaml')
 if dein#load_state(s:path)
 	call dein#begin(s:path, [expand('<sfile>'), s:plugins_path])
 	try
 		call s:dein_load_yaml(s:plugins_path)
-		if filereadable(s:user_plugins_path)
-			call s:dein_load_yaml(s:user_plugins_path)
-		endif
 	catch /.*/
 		echoerr v:exception
 		echomsg 'Error loading config/plugins.yaml...'
@@ -122,15 +120,9 @@ if dein#load_state(s:path)
 		echoerr 'Please run: pip3 install --user PyYAML'
 	endtry
 
-	if isdirectory(expand('$VIMPATH/dev'))
-		call dein#local(expand('$VIMPATH/dev'), {'frozen': 1, 'merged': 0})
-	endif
 	call dein#end()
 	call dein#save_state()
 	if dein#check_install()
-		if ! has('nvim')
-			set nomore
-		endif
 		call dein#install()
 	endif
 endif
@@ -151,10 +143,6 @@ call s:source_file('filetype.vim')
 call s:source_file('mappings.vim')
 call s:source_file('theme.vim')
 
-" Load user custom local settings
-if filereadable(expand('$VIMPATH/config/local.vim'))
-	call s:source_file('local.vim')
-endif
 set secure
 
-" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
+" vim: set ts=2 sw=2 tw=80 noet :
