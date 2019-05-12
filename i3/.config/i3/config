@@ -10,7 +10,7 @@ exec copyq
 exec /usr/lib/xdg-desktop-portal-gtk
 exec_always --no-startup-id "setxkbmap -layout us,il"
 exec_always --no-startup-id "setxkbmap -option grp:alt_shift_toggle us,il"
-exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
 
 exec_always feh --bg-scale $HOME/Pictures/wallpapers/jamie.jpg
 exec_always --no-startup-id nm-applet
