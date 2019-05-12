@@ -1,0 +1,11 @@
+xrandr \
+    --output DP1 \
+    --off \
+    --output HDMI1 \
+    --mode 2560x1440 \
+    --pos 0x0 \
+    --rotate normal \
+    --output eDP1 \
+    --mode 2560x1440 \
+    --output HDMI2 \
+    --off

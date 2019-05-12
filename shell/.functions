@@ -1,3 +1,11 @@
+#
+function mdtohtml() {
+    if [ $# -eq 0 ]; then
+	    printf ".md filename required";
+    else
+	pandoc "$1" --css pandoc.css -s -o "$1.html" && xdg-open "$1.html"
+    fi
+}
 # lint the diff to the selected branch
 function lintdiff() {
     git diff --name-only "$1" | grep "\.py" | parallel xargs -n 1 flake8 --ignore=E501 | grep -v -e "__init__.py.*F401"
