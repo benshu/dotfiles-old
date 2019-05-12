@@ -7,7 +7,7 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 # Launch bar1 and bar2
-MAIN_MONITOR=$MAIN_MONITOR polybar primary &
-MAIN_MONITOR=$MAIN_MONITOR polybar secondary &
+MAIN_MONITOR=eDP1 polybar primary &
+MAIN_MONITOR=eDP1 polybar secondary &
 
 notify-send "Polybars launched..."

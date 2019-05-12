@@ -194,3 +194,5 @@
 
 [include]
     path = ~/.gituser
+[http]
+	cookiefile = /home/$HOME/.gitcookies
