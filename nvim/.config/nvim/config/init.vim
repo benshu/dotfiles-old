@@ -34,12 +34,7 @@ if &runtimepath !~# '/dein.vim'
 endif
 
 " }}}
-" Load less plugins while SSHing to remote machines {{{
-if len($SSH_CLIENT)
-	let $VIM_MINIMAL = 1
-endif
 
-" }}}
 " Disable default plugins "{{{
 
 " Disable pre-bundled plugins

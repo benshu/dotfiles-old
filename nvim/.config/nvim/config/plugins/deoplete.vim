@@ -1,21 +1,22 @@
 " deoplete for nvim
 " ---
 
-" let g:deoplete#enable_profile = 1
+" call deoplete#custom#option('profile', v:true)
 " call deoplete#enable_logging('DEBUG', 'deoplete.log')<CR>
 " call deoplete#custom#source('tern', 'debug_enabled', 1)<CR>
 
 " General settings " {{{
 " ---
-" let g:deoplete#auto_complete_delay = 50  " Default is 50
-" let g:deoplete#auto_refresh_delay = 500  " Default is 500
-let g:deoplete#enable_refresh_always = 0
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#max_abbr_width = 35
-let g:deoplete#max_menu_width = 20
-let g:deoplete#skip_chars = ['(', ')', '<', '>']
-let g:deoplete#tag#cache_limit_size = 800000
-let g:deoplete#file#enable_buffer_path = 1
+
+call deoplete#custom#option({
+	\ 'auto_refresh_delay': 10,
+	\ 'camel_case': v:true,
+	\ 'skip_multibyte': v:true,
+	\ 'prev_completion_mode': 'filter',
+	\ 'min_pattern_length': 1,
+	\ 'max_list': 10000,
+	\ 'skip_chars': ['(', ')', '<', '>'],
+	\ })
 
 let g:deoplete#sources#jedi#statement_length = 30
 let g:deoplete#sources#jedi#show_docstring = 1
@@ -32,18 +33,16 @@ let g:deoplete#sources#ternjs#timeout = 3
 let g:deoplete#sources#ternjs#types = 1
 let g:deoplete#sources#ternjs#docs = 1
 
-call deoplete#custom#source('_', 'min_pattern_length', 2)
-
 " }}}
 " Limit Sources " {{{
 " ---
 
-let g:deoplete#sources = get(g:, 'deoplete#sources', {})
-let g:deoplete#sources.go = ['vim-go']
+" let g:deoplete#sources = get(g:, 'deoplete#sources', {})
+" let g:deoplete#sources.go = ['vim-go']
 " let g:deoplete#sources.javascript = ['file', 'ternjs']
 " let g:deoplete#sources.jsx = ['file', 'ternjs']
 
-let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
+" let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " let g:deoplete#ignore_sources.html = ['syntax']
 " let g:deoplete#ignore_sources.python = ['syntax']
 " let g:deoplete#ignore_sources.php = ['omni']
@@ -53,49 +52,53 @@ let g:deoplete#ignore_sources = get(g:, 'deoplete#ignore_sources', {})
 " }}}
 " Omni functions and patterns " {{{
 " ---
-" let g:deoplete#keyword_patterns = {}
-" let g:deoplete#keyword_patterns._ = '[a-zA-Z_]\k*\(?'
-
-let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
-let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
-let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
-let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
+" let g:deoplete#omni#functions = get(g:, 'deoplete#omni#functions', {})
+" let g:deoplete#omni#functions.css = 'csscomplete#CompleteCSS'
+" let g:deoplete#omni#functions.html = 'htmlcomplete#CompleteTags'
+" let g:deoplete#omni#functions.markdown = 'htmlcomplete#CompleteTags'
 " let g:deoplete#omni#functions.javascript =
-"	\ [ 'tern#Complete', 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
+" 	\ [ 'tern#Complete', 'jspc#omni', 'javascriptcomplete#CompleteJS' ]
 
 let g:deoplete#omni_patterns = get(g:, 'deoplete#omni_patterns', {})
-let g:deoplete#omni_patterns.html = '<[^>]*'
+call deoplete#custom#option('omni_patterns', {
+\ 'complete_method': 'omnifunc',
+\ 'terraform': '[^ *\t"{=$]\w*',
+\})
+" let g:deoplete#omni_patterns.terraform = '[^ *\t"{=$]\w*'
+" let g:deoplete#omni_patterns.html = '<[^>]*'
 " let g:deoplete#omni_patterns.javascript = '[^. *\t]\.\w*'
 " let g:deoplete#omni_patterns.javascript = '[^. \t]\.\%\(\h\w*\)\?'
-let g:deoplete#omni_patterns.php =
-	\ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
+" let g:deoplete#omni_patterns.php =
+" 	\ '\w+|[^. \t]->\w*|\w+::\w*'
+	" \ '\h\w*\|[^. \t]->\%(\h\w*\)\?\|\h\w*::\%(\h\w*\)\?'
 
-let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
-let g:deoplete#omni#input_patterns.xml = '<[^>]*'
-let g:deoplete#omni#input_patterns.md = '<[^>]*'
-let g:deoplete#omni#input_patterns.css  = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-let g:deoplete#omni#input_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
-let g:deoplete#omni#input_patterns.sass = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+" let g:deoplete#omni#input_patterns = get(g:, 'deoplete#omni#input_patterns', {})
+" let g:deoplete#omni#input_patterns.xml = '<[^>]*'
+" let g:deoplete#omni#input_patterns.md = '<[^>]*'
+" let g:deoplete#omni#input_patterns.css  = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+" let g:deoplete#omni#input_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+" let g:deoplete#omni#input_patterns.sass = '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]'
+" let g:deoplete#omni#input_patterns.javascript = '[^. *\t]\.\w*'
 " let g:deoplete#omni#input_patterns.python = ''
-let g:deoplete#omni#input_patterns.javascript = ''
+" let g:deoplete#omni#input_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 
 " }}}
 " Ranking and Marks " {{{
 " Default rank is 100, higher is better.
-call deoplete#custom#source('omni',          'mark', '⌾')
-call deoplete#custom#source('flow',          'mark', '⌁')
-call deoplete#custom#source('padawan',       'mark', '⌁')
-call deoplete#custom#source('TernJS',        'mark', '⌁')
-call deoplete#custom#source('go',            'mark', '⌁')
-call deoplete#custom#source('jedi',          'mark', '⌁')
-call deoplete#custom#source('vim',           'mark', '⌁')
-call deoplete#custom#source('neosnippet',    'mark', '⌘')
-call deoplete#custom#source('tag',           'mark', '⌦')
-call deoplete#custom#source('around',        'mark', '↻')
-call deoplete#custom#source('buffer',        'mark', 'ℬ')
-call deoplete#custom#source('tmux-complete', 'mark', '⊶')
-call deoplete#custom#source('syntax',        'mark', '♯')
-call deoplete#custom#source('member',        'mark', '.')
+call deoplete#custom#source('omni',          'mark', '<omni>')
+call deoplete#custom#source('flow',          'mark', '<flow>')
+call deoplete#custom#source('padawan',       'mark', '<php>')
+call deoplete#custom#source('tern',          'mark', '<tern>')
+call deoplete#custom#source('go',            'mark', '<go>')
+call deoplete#custom#source('jedi',          'mark', '<jedi>')
+call deoplete#custom#source('vim',           'mark', '<vim>')
+call deoplete#custom#source('neosnippet',    'mark', '<snip>')
+call deoplete#custom#source('tag',           'mark', '<tag>')
+call deoplete#custom#source('around',        'mark', '<around>')
+call deoplete#custom#source('buffer',        'mark', '<buf>')
+call deoplete#custom#source('tmux-complete', 'mark', '<tmux>')
+call deoplete#custom#source('syntax',        'mark', '<syntax>')
+call deoplete#custom#source('member',        'mark', '<member>')
 
 call deoplete#custom#source('padawan',       'rank', 660)
 call deoplete#custom#source('go',            'rank', 650)
@@ -151,7 +154,8 @@ imap     <expr><C-u> pumvisible() ? "\<PageUp>" : "\<C-u>"
 
 " Redraw candidates
 inoremap <expr><C-g> deoplete#refresh()
-inoremap <expr><C-l> deoplete#complete_common_string()
+inoremap <expr><C-e> deoplete#cancel_popup()
+inoremap <silent><expr><C-l> deoplete#complete_common_string()
 
 " <CR>: If popup menu visible, expand snippet or close popup with selection,
 "       Otherwise, check if within empty pair and use delimitMate.
@@ -178,7 +182,7 @@ inoremap <expr><S-Tab>  pumvisible() ? "\<Up>" : "\<C-h>"
 
 function! s:is_whitespace() "{{{
 	let col = col('.') - 1
-	return ! col || getline('.')[col - 1] =~? '\s'
+	return ! col || getline('.')[col - 1] =~ '\s'
 endfunction "}}}
 " }}}
 

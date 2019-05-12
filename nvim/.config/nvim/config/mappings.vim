@@ -26,14 +26,14 @@ nmap <silent> <Leader><Leader> V
 vmap <Leader><Leader> <Esc>
 
 " Change current word in a repeatable manner
-nnoremap cn *``cgn
-nnoremap cN *``cgN
+nnoremap <leader>cn *``cgn
+nnoremap <leader>cN *``cgN
 
 " Change selected word in a repeatable manner
-vnoremap <expr> cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
-vnoremap <expr> cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
+vnoremap <expr> <leader>cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
+vnoremap <expr> <leader>cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 
-nnoremap cp yap<S-}>p
+nnoremap <leader>cp yap<S-}>p
 nnoremap <leader>a =ip
 
 " xnoremap p  "0p
@@ -49,9 +49,6 @@ nnoremap <S-Return> zMza
 " Use backspace key for matchit.vim
 nmap <BS> %
 xmap <BS> %
-
-nmap <Tab>  <C-w>w
-nmap <S-Tab>  <C-w>W
 
 "}}}
 " Global niceties {{{
@@ -89,7 +86,7 @@ noremap <expr> <C-y> (line("w0") <= 1         ? "k" : "3\<C-y>")
 
 " Window control
 nnoremap <C-q> <C-w>
-nnoremap <C-x> <C-w>x
+nnoremap <C-x> <C-w>x<C-w>w
 nnoremap <silent><C-w>z :vert resize<CR>:resize<CR>:normal! ze<CR>
 
 " Select blocks after indenting
@@ -99,8 +96,8 @@ xnoremap > >gv|
 " Use tab for indenting in visual mode
 vnoremap <Tab> >gv|
 vnoremap <S-Tab> <gv
-nnoremap > >>_
-nnoremap < <<_
+nmap >>  >>_
+nmap <<  <<_
 
 " Select last paste
 nnoremap <expr> gp '`['.strpart(getregtype(), 0, 1).'`]'
@@ -263,7 +260,7 @@ if has('mac')
 
 	" Use Dash on Mac, for context help
 	if executable('/Applications/Dash.app/Contents/MacOS/Dash')
-		autocmd MyAutoCmd FileType ansible,go,php,css,less,html,markdown
+		autocmd MyAutoCmd FileType yaml.ansible,go,php,css,less,html,markdown
 			\ nmap <silent><buffer> K :!open -g dash://"<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
 		autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
 			\ nmap <silent><buffer> K :!open -g dash://"<cword>"&<CR><CR>
@@ -271,7 +268,7 @@ if has('mac')
 
 " Use Zeal on Linux for context help
 elseif executable('zeal')
-	autocmd MyAutoCmd FileType ansible,go,php,css,less,html,markdown
+	autocmd MyAutoCmd FileType yaml.ansible,go,php,css,less,html,markdown
 		\ nmap <silent><buffer> K :!zeal --query "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
 	autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
 		\ nmap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>

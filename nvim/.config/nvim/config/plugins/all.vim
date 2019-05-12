@@ -3,29 +3,28 @@
 "---------------------------------------------------------
 
 if dein#tap('denite.nvim')
-	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh<CR>
-	nnoremap <silent><LocalLeader>f :<C-u>Denite file_rec<CR>
-	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file_old -default-action=switch<CR>
+	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -mode=normal<CR>
+	nnoremap <silent><LocalLeader>f :<C-u>Denite file/rec<CR>
+	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file/old -default-action=switch<CR>
 	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec -default-action=cd<CR>
-	nnoremap <silent><LocalLeader>v :<C-u>Denite register -buffer-name=register<CR>
-	xnoremap <silent><LocalLeader>v :<C-u>Denite register -buffer-name=register -default-action=replace<CR>
+	nnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register<CR>
+	xnoremap <silent><LocalLeader>v :<C-u>Denite neoyank -buffer-name=register -default-action=replace<CR>
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
-	nnoremap <silent><LocalLeader>g :<C-u>Denite grep<CR>
-	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file_point<CR>
+	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=search -no-empty -mode=normal<CR>
+	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -mode=normal<CR>
+	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session -buffer-name=list<CR>
-	nnoremap <silent><expr> <LocalLeader>t &filetype == 'help' ? "g\<C-]>" :
-		\ ":\<C-u>DeniteCursorWord -buffer-name=tag
-		\  tag:include\<CR>"
-	nnoremap <silent><expr> <LocalLeader>p  &filetype == 'help' ?
-		\ ":\<C-u>pop\<CR>" : ":\<C-u>Denite -mode=normal jump\<CR>"
+	nnoremap <silent><LocalLeader>t :<C-u>Denite -buffer-name=tag tag:include<CR>
+	nnoremap <silent><LocalLeader>p :<C-u>Denite jump -buffer-name=jump -mode=normal<CR>
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
-	nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
-	nnoremap <silent><LocalLeader>/ :<C-u>Denite line<CR>
-	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line<CR>
-	nnoremap <silent><LocalLeader>z :<C-u>Denite z<CR>
+	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
+	" nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
+	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=jump<CR>
+	nnoremap <silent><LocalLeader>/ :<C-u>Denite line -buffer-name=search -auto-highlight<CR>
+	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line -buffer-name=search -auto-highlight -mode=normal<CR>
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command command_history<CR>
 
 	" chemzqm/denite-git
@@ -34,11 +33,12 @@ if dein#tap('denite.nvim')
 	nnoremap <silent> <Leader>gc :<C-u>Denite gitbranch<CR>
 
 	" Open Denite with word under cursor or selection
-	nnoremap <silent> <Leader>gf :DeniteCursorWord file_rec<CR>
-	nnoremap <silent> <Leader>gg :DeniteCursorWord grep<CR>
+	nnoremap <silent> <Leader>gt :DeniteCursorWord tag:include -buffer-name=tag -immediately<CR>
+	nnoremap <silent> <Leader>gf :DeniteCursorWord file/rec<CR>
+	nnoremap <silent> <Leader>gg :DeniteCursorWord grep -buffer-name=search<CR>
 	vnoremap <silent> <Leader>gg
 		\ :<C-u>call <SID>get_selection('/')<CR>
-		\ :execute 'Denite grep:::'.@/<CR><CR>
+		\ :execute 'Denite -buffer-name=search grep:::'.@/<CR><CR>
 
 	function! s:get_selection(cmdtype)
 		let temp = @s
@@ -61,6 +61,13 @@ if dein#tap('tagbar')
 	let g:tagbar_map_openfold = ['l', '+', 'zo']
 endif
 
+if dein#tap('defx.nvim')
+	nnoremap <silent> <LocalLeader>e
+		\ :<C-u>Defx -resume -toggle -buffer-name=tab`tabpagenr()`<CR>
+	nnoremap <silent> <LocalLeader>a
+		\ :<C-u>Defx -resume -buffer-name=tab`tabpagenr()` -search=`expand('%:p')`<CR>
+endif
+
 if dein#tap('nerdtree')
 	let g:NERDTreeMapOpenSplit = 'sv'
 	let g:NERDTreeMapOpenVSplit = 'sg'
@@ -71,8 +78,10 @@ if dein#tap('nerdtree')
 	let g:NERDTreeMapCloseChildren = 'T'
 	let g:NERDTreeMapToggleHidden = '.'
 
-	nnoremap <silent> <LocalLeader>e :<C-u>NERDTreeToggle<CR>
-	nnoremap <silent> <LocalLeader>a :<C-u>NERDTreeFind<CR>
+	nnoremap <silent> <Leader>e :<C-u>let NERDTreeWinPos=0 \| NERDTreeToggle<CR>
+	" nnoremap <silent> <LocalLeader>a :<C-u>let NERDTreeWinPos=0 \| NERDTreeFind<CR>
+	" nnoremap <silent> <LocalLeader>E :<C-u>let NERDTreeWinPos=1 \| NERDTreeToggle<CR>
+	" nnoremap <silent> <LocalLeader>A :<C-u>let NERDTreeWinPos=1 \| NERDTreeFind<CR>
 endif
 
 if dein#tap('neosnippet.vim')
@@ -147,6 +156,15 @@ if dein#tap('vim-bookmarks')
 	nmap mi <Plug>BookmarkAnnotate
 endif
 
+if dein#tap('auto-git-diff')
+	autocmd MyAutoCmd FileType gitrebase
+		\  nmap <buffer><CR>  <Plug>(auto_git_diff_scroll_manual_update)
+		\| nmap <buffer><C-n> <Plug>(auto_git_diff_scroll_down_page)
+		\| nmap <buffer><C-p> <Plug>(auto_git_diff_scroll_up_page)
+		\| nmap <buffer><C-d> <Plug>(auto_git_diff_scroll_down_half)
+		\| nmap <buffer><C-u> <Plug>(auto_git_diff_scroll_up_half)
+endif
+
 if dein#tap('committia.vim')
 	let g:committia_hooks = {}
 	function! g:committia_hooks.edit_open(info)
@@ -196,7 +214,7 @@ endif
 if dein#tap('tern_for_vim')
 	autocmd MyAutoCmd FileType javascript,jsx,javascript.jsx
 		\  nnoremap <silent><buffer> K          :<C-u>TernDoc<CR>
-		\| nnoremap <silent><buffer> <C-]>      :<C-u>TernDef<CR>
+		\| nnoremap <silent><buffer> <C-]>      :<C-u>TernDefSplit<CR>
 		\| nnoremap <silent><buffer> <leader>g  :<C-u>TernType<CR>
 		\| nnoremap <silent><buffer> <leader>n  :<C-u>TernRefs<CR>
 		\| nnoremap <silent><buffer> <leader>r  :<C-u>TernRename<CR>
@@ -233,9 +251,6 @@ endif
 
 if dein#tap('vimagit')
 	nnoremap <silent> mg :Magit<CR>
-
-	" autocmd MyAutoCmd FileType magit
-	" 	\ nnoremap <silent><buffer> <CR> za
 endif
 
 if dein#tap('vim-easygit')
@@ -246,6 +261,16 @@ if dein#tap('vim-easygit')
 	nnoremap <silent> <leader>gB :Gbrowse<CR>
 	nnoremap <silent> <leader>gS :Gstatus<CR>
 	nnoremap <silent> <leader>gp :Gpush<CR>
+endif
+
+if dein#tap('vim-altr')
+	nmap gs  <Plug>(altr-forward)
+	nmap gS  <Plug>(altr-back)
+endif
+
+if dein#tap('open-browser.vim')
+	nmap gx <Plug>(openbrowser-smart-search)
+	vmap gx <Plug>(openbrowser-smart-search)
 endif
 
 if dein#tap('undotree')
@@ -301,15 +326,30 @@ if dein#tap('dsf.vim')
 	nmap csf <Plug>DsfChange
 endif
 
-if dein#tap('vim-commentary')
-	xmap <Leader>v  <Plug>Commentary
-	nmap <Leader>v  <Plug>CommentaryLine
-	xmap gc  <Plug>Commentary
-	nmap gc  <Plug>Commentary
-	omap gc  <Plug>Commentary
-	nmap gcc <Plug>CommentaryLine
-	nmap cgc <Plug>ChangeCommentary
-	nmap gcu <Plug>Commentary<Plug>Commentary
+if dein#tap('caw.vim')
+	function! InitCaw() abort
+		if ! &l:modifiable
+			silent! nunmap <buffer> <Leader>V
+			silent! xunmap <buffer> <Leader>V
+			silent! nunmap <buffer> <Leader>v
+			silent! xunmap <buffer> <Leader>v
+			silent! nunmap <buffer> gc
+			silent! xunmap <buffer> gc
+			silent! nunmap <buffer> gcc
+			silent! xunmap <buffer> gcc
+		else
+			xmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+			nmap <buffer> <Leader>V <Plug>(caw:wrap:toggle)
+			xmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
+			nmap <buffer> <Leader>v <Plug>(caw:hatpos:toggle)
+			nmap <buffer> gc <Plug>(caw:prefix)
+			xmap <buffer> gc <Plug>(caw:prefix)
+			nmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+			xmap <buffer> gcc <Plug>(caw:hatpos:toggle)
+		endif
+	endfunction
+	autocmd MyAutoCmd FileType * call InitCaw()
+	call InitCaw()
 endif
 
 if dein#tap('vim-easymotion')
