@@ -129,6 +129,12 @@
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
 
+
+- repo: rhysd/git-messenger.vim
+  lazy: 1
+  on_cmd: GitMessenger
+  on_map: { <Plug>(git-messengerGitMessenger }
+
 - repo: hashivim/vim-terraform
   on_ft: terraform
   on_cmd: [ Terraform, TerraformFmt ]
