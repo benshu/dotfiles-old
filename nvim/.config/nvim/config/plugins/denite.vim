@@ -3,7 +3,7 @@
 " -----------
 
 " INTERFACE
-call denite#custom#option('_', {
+call denite#custom#option('default', {
 	\ 'prompt': 'λ:',
 	\ 'empty': 0,
 	\ 'winheight': 16,
@@ -14,24 +14,21 @@ call denite#custom#option('_', {
 	\ })
 
 call denite#custom#option('list', {})
-
-call denite#custom#option('mpc', {
-	\ 'quit': 0,
-	\ 'mode': 'normal',
-	\ 'winheight': 20,
-	\ })
+call denite#custom#option('mpc', { 'mode': 'normal', 'winheight': 20 })
 
 " MATCHERS
-" Default is 'matcher_fuzzy'
-call denite#custom#source('tag', 'matchers', ['matcher_substring'])
+" Default is 'matcher/fuzzy'
+call denite#custom#source('tag', 'matchers', ['matcher/substring'])
+" call denite#custom#source('file/rec', 'matchers', ['matcher/fruzzy'])
+
 if has('nvim') && &runtimepath =~# '\/cpsm'
 	call denite#custom#source(
-		\ 'buffer,file_mru,file_old,file_rec,grep,mpc,line',
-		\ 'matchers', ['matcher_cpsm', 'matcher_fuzzy'])
+		\ 'buffer,file_mru,file_old,file/rec,grep,mpc,line,neoyank',
+		\ 'matchers', ['matcher/cpsm', 'matcher/fuzzy'])
 endif
 
 " SORTERS
-" Default is 'sorter_rank'
+" Default is 'sorter/rank'
 call denite#custom#source('z', 'sorters', ['sorter_z'])
 
 " CONVERTERS
@@ -43,7 +40,7 @@ call denite#custom#source(
 " FIND and GREP COMMANDS
 if executable('ag')
 	" The Silver Searcher
-	call denite#custom#var('file_rec', 'command',
+	call denite#custom#var('file/rec', 'command',
 		\ ['ag', '-U', '--hidden', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
 	" Setup ignore patterns in your .agignore file!
@@ -67,6 +64,17 @@ elseif executable('ack')
 	call denite#custom#var('grep', 'default_opts',
 			\ ['--ackrc', $HOME.'/.config/ackrc', '-H',
 			\ '--nopager', '--nocolor', '--nogroup', '--column'])
+
+elseif executable('rg')
+	" Ripgrep
+  call denite#custom#var('file/rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git'])
+  call denite#custom#var('grep', 'command', ['rg', '--threads', '1'])
+  call denite#custom#var('grep', 'recursive_opts', [])
+  call denite#custom#var('grep', 'final_opts', [])
+  call denite#custom#var('grep', 'separator', ['--'])
+  call denite#custom#var('grep', 'default_opts',
+        \ ['-i', '--vimgrep', '--no-heading'])
 endif
 
 " KEY MAPPINGS
@@ -78,6 +86,8 @@ let insert_mode_mappings = [
 	\  ['<Up>', '<denite:assign_previous_text>', 'noremap'],
 	\  ['<Down>', '<denite:assign_next_text>', 'noremap'],
 	\  ['<C-Y>', '<denite:redraw>', 'noremap'],
+	\  ['<BS>', '<denite:smart_delete_char_before_caret>', 'noremap'],
+	\  ['<C-h>', '<denite:smart_delete_char_before_caret>', 'noremap'],
 	\ ]
 
 let normal_mode_mappings = [

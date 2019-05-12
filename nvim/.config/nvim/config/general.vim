@@ -33,7 +33,7 @@ set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 set wildignore+=application/vendor/**,**/vendor/ckeditor/**,media/vendor/**
-set wildignore+=__pycache__,*.egg-info
+set wildignore+=__pycache__,*.egg-info,.pytest_cache
 
 " }}}
 " Vim Directories {{{
@@ -129,7 +129,9 @@ set list                " Show hidden characters
 
 set showtabline=2       " Always show the tabs line
 set winwidth=30         " Minimum width for active window
-set winheight=1         " Minimum height for active window
+set winminwidth=10      " Minimum width for inactive windows
+set winheight=4         " Minimum height for active window
+set winminheight=2      " Minimum height for inactive window
 set pumheight=15        " Pop-up menu's line height
 set helpheight=12       " Minimum help window height
 set previewheight=12    " Completion preview height
@@ -142,6 +144,10 @@ set laststatus=2        " Always show a status line
 set colorcolumn=80      " Highlight the 80th character limit
 set display=lastline
 set conceallevel=2 concealcursor=niv " For snippet_complete marker
+
+if exists('&pumblend')
+	set pumblend=20
+endif
 
 " }}}
 " Folds {{{

@@ -41,22 +41,22 @@ augroup MyAutoCmd " {{{
 		\|   execute 'normal! g`"zvzz'
 		\| endif
 
-	" Disable paste and/or update diff when leaving insert mode
-	autocmd InsertLeave *
-			\ if &paste | setlocal nopaste mouse=a | echo 'nopaste' | endif |
-			\ if &l:diff | diffupdate | endif
-
 	autocmd TabLeave * let g:lasttab = tabpagenr()
 
 	autocmd FileType crontab setlocal nobackup nowritebackup
 
 	autocmd FileType css setlocal equalprg=csstidy\ -\ --silent=true
 
-	autocmd FileType docker-compose setlocal expandtab
+	autocmd FileType yaml.docker-compose setlocal expandtab
 
 	autocmd FileType gitcommit setlocal spell
 
 	autocmd FileType gitcommit,qfreplace setlocal nofoldenable
+
+	" https://webpack.github.io/docs/webpack-dev-server.html#working-with-editors-ides-supporting-safe-write
+	autocmd FileType css,javascript,jsx,javascript.jsx
+		\ setlocal backupcopy=yes
+		\| setlocal equalprg=jslint
 
 	autocmd FileType zsh setlocal foldenable foldmethod=marker
 
@@ -64,14 +64,19 @@ augroup MyAutoCmd " {{{
 		\ setlocal path+=./;/
 		\ | setlocal equalprg=tidy\ -i\ -q
 
-	autocmd FileType json setlocal equalprg=python\ -m\ json.tool
+	autocmd FileType json setlocal equalprg=python\ -c\ json.tool
 
 	autocmd FileType markdown
 		\ set expandtab
-		\ | setlocal spell autoindent formatoptions=tcroqn2 comments=n:>
+		\ | setlocal autoindent formatoptions=tcroqn2 comments=n:>
+		\ | setlocal spell conceallevel=0
 
-	autocmd FileType go highlight default link goErr WarningMsg |
-		\ match goErr /\<err\>/
+	autocmd FileType apache setlocal path+=./;/
+
+	autocmd FileType cam setlocal nonumber synmaxcol=10000
+
+	" autocmd FileType go highlight default link goErr WarningMsg |
+	" 	\ match goErr /\<err\>/
 
 	autocmd FileType xml
 		\ setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
@@ -107,10 +112,13 @@ let g:markdown_fenced_languages = [
 	\  'json=javascript',
 	\  'python',
 	\  'py=python',
+	\  'docker=Dockerfile',
+	\  'makefile=make',
 	\  'sh',
 	\  'bash=sh',
 	\  'sass',
 	\  'xml',
+	\  'yaml',
 	\  'vim'
 	\]
 
