@@ -2,7 +2,7 @@
 # PLUGINS
 # ==========================================
 
-# Startup plugins
+# Startup
 # -------
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
@@ -10,6 +10,7 @@
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
+- repo: tpope/vim-vinegar
 - repo: itchyny/vim-gitbranch
 - repo: itchyny/vim-parenmatch
 - repo: itchyny/vim-cursorword
@@ -117,8 +118,11 @@
 # ==========================================
 # Commands
 # --------
-- { repo: junegunn/fzf, build: ./install, merged: 0 }
-- { repo: junegunn/fzf.vim }
+- repo: junegunn/fzf
+  merged: 0
+  dir: '~/.fzf'
+  do: './install --all'
+- { repo: junegunn/fzf.vim, depends: fzf }
 
 - repo: scrooloose/nerdtree
   depends: nerdtree-git-plugin
@@ -127,7 +131,6 @@
 
 - { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
 - { repo: tpope/vim-commentary, on_map: <Plug>Commentary }
-- { repo: t9md/vim-choosewin, on_map: { n: <Plug> }}
 - { repo: Shougo/vinarise.vim, on_cmd: Vinarise }
 - { repo: kana/vim-niceblock, on_map: { x: <Plug> }}
 - { repo: guns/xterm-color-table.vim, on_cmd: XtermColorTable }
@@ -402,7 +405,8 @@
   hook_post_source: |
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
-# - { repo: ncm2/float-preview.nvim, merged: 0,  }
+- repo: ncm2/float-preview.nvim
+  if: has('nvim') && empty($VIM_MINIMAL)
 
 # ==========================================
 # Denite
