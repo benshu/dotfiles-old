@@ -184,7 +184,12 @@
 - { repo: metakirby5/codi.vim, on_cmd: Codi }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
-- { repo: brooth/far.vim, on_cmd: [ Far, Farp, F ] }
+- repo: brooth/far.vim
+  on_cmd: [ Far, Farp, F ]
+  hook_source: |
+    let g:far#source = 'rgnvim'
+    let g:far#default_file_mask = '**/*.py'
+
 - { repo: jreybert/vimagit, on_cmd: Magit }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
