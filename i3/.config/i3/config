@@ -4,15 +4,15 @@
 
 exec_always --no-startup-id "xrdb -load $HOME/.Xresources"
 # exec --no-startup-id "compton -b --paint-on-overlay --unredir-if-possible --backend xr_glx_hybrid --vsync drm --glx-swap-method -1 --glx-no-stencil --config ~/.config/compton/config"
-exec_always --no-startup-id "compton -b --config /home/hagay/.config/compton/config"
+exec_always --no-startup-id "compton -b --config $HOME/.config/compton/compton.conf"
 exec copyq
 # Solved slow startup of gtk applications
 exec /usr/lib/xdg-desktop-portal-gtk
 exec_always --no-startup-id "setxkbmap -layout us,il"
 exec_always --no-startup-id "setxkbmap -option grp:alt_shift_toggle us,il"
-exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc
+exec --no-startup-id "dunst -config $HOME/.config/dunst/dunstrc"
 
-exec_always feh --bg-scale $HOME/Pictures/wallpapers/jamie.jpg
+exec_always "feh --bg-scale $HOME/Pictures/wallpapers/jamie.jpg"
 exec_always --no-startup-id nm-applet
 # exec_always --no-startup-id . $HOME/dotfiles/scripts/monitors.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -254,10 +254,11 @@ exec --no-startup-id setxkbmap -option ctrl:nocaps
 
 # lockscreen
 bindsym $mod+shift+x exec betterlockscreen --lock
-exec_always --no-startup-id betterlockscreen --blur -u /home/hagay/Pictures/wallpapers/ -r 1920x1080
+exec_always --no-startup-id betterlockscreen --blur -u $HOME/Pictures/wallpapers/jamie.jpg -r 1920x1080
 
 # Set last used image as desktop background
 exec --no-startup-id betterlockscreen -w
+
 bindsym Print exec --no-startup-id import -window root ~/Pictures/screenshots/`date +%d%m%y%H%M%S`.png
 
 # Screen brightness

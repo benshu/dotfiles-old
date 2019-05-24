@@ -41,7 +41,7 @@
     # The transparency of the window.  Range: [0; 100].
     # This option will only work if a compositing window manager is
     # present (e.g. xcompmgr, compiz, etc.).
-    transparency = 0
+    transparency = 40
 
     # The height of the entire notification.  If the height is smaller
     # than the font height and padding combined, it will be raised
@@ -323,7 +323,6 @@
 #    summary = *twitter.com*
 #    urgency = normal
 #
-# vim: ft=cfg
 frame_color = "#c5c8c6"
 separator_color = "#c5c8c6"
 
@@ -341,3 +340,5 @@ separator_color = "#c5c8c6"
     msg_urgency = critical
     background = "#CC342B"
     foreground = "#e0e0e0"
+
+# vim: ft=cfg

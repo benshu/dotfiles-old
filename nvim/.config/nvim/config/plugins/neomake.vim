@@ -8,6 +8,9 @@ if ! empty(g:python3_host_prog)
 	let g:neomake_python_python_exe = g:python3_host_prog
 endif
 
+" Python
+let g:neomake_python_enabled_makers = ['flake8']
+
 " YAML / ANSIBLE
 let g:neomake_yaml_enabled_makers = ['yamllint']
 let g:neomake_ansible_enabled_makers = ['yamllint']

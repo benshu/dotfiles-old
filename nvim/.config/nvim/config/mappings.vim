@@ -5,21 +5,20 @@
 " Non-standard {{{
 " ------------
 
-" Window-control prefix
-nnoremap  [Window]   <Nop>
-nmap      s [Window]
-
 " Fix keybind name for Ctrl+Spacebar
 map <Nul> <C-Space>
 map! <Nul> <C-Space>
 
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
 " Disable arrow movement, resize splits instead.
-if get(g:, 'elite_mode')
-	nnoremap <Up>    :resize +2<CR>
-	nnoremap <Down>  :resize -2<CR>
-	nnoremap <Left>  :vertical resize +2<CR>
-	nnoremap <Right> :vertical resize -2<CR>
-endif
+nnoremap <Up>    :resize +2<CR>
+nnoremap <Down>  :resize -2<CR>
+nnoremap <Left>  :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
 
 " Double leader key for toggling visual-line mode
 nmap <silent> <Leader><Leader> V
