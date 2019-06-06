@@ -55,12 +55,12 @@ fi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras python pip tmux docker vi-mode history-substring-search zsh-syntax-highlighting httpie)
+plugins=(git git-extras python pip tmux docker vi-mode history-substring-search httpie)
 
 # User configuration
 
 export LC_ALL=en_US.UTF-8
-export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$PATH:/usr/local/go/bin:$HOME/go/bin
+export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$HOME/.npm/bin/:$PATH:/usr/local/go/bin:$HOME/go/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -108,7 +108,7 @@ alias unzip=$HOME/go/bin/unzip
 # source /usr/share/nvm/init-nvm.sh
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/hagay/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hagay/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/hagay/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hagay/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
