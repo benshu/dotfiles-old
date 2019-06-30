@@ -106,7 +106,8 @@ module-margin = 1
 ;   font-2 = Termsynu:size=8;-1
 ;   font-3 = FontAwesome:size=10
 ; See the Fonts wiki page for more details
-font-0 = fixed:pixelsize=10;1
+; font-0 = fixed:pixelsize=10;1
+font-0 = "FuraCode:style=Retina:pixelsize=12;2"
 font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=12;2"
 font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=12;2"
 font-3 = "Font Awesome 5 Brands:style=Regular:pixelsize=12;2"
@@ -137,7 +138,7 @@ wm-name =
 
 ; Locale used to localize various module data (e.g. date)
 ; Expects a valid libc locale, for example: sv_SE.UTF-8
-locale =
+locale = en_US.UTF-8
 
 ; Position of the system tray window
 ; If empty or undefined, tray support will be disabled
