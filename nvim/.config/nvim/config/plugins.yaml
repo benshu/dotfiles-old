@@ -6,6 +6,7 @@
 # -------
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
+- repo: arcticicestudio/nord-vim
 - repo: rafi/vim-badge
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
@@ -191,6 +192,12 @@
     let g:far#default_file_mask = '**/*.py'
 
 - { repo: jreybert/vimagit, on_cmd: Magit }
+- { repo: tpope/vim-fugitive }
+
+- repo: rbong/vim-flog
+  depends: vim-fugitive
+  on_source: [ Flog, Flogsplit ]
+
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }

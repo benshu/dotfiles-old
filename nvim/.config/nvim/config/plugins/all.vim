@@ -380,4 +380,16 @@ if dein#tap('vim-textobj-function')
 	xmap <silent> if <Plug>(textobj-function-i)
 endif
 
+if dein#tap('vim-flog')
+  function! Flogdiff(mods) abort
+    let l:path = fnameescape(flog#get_state().path[0])
+    let l:commit = flog#get_commit_data(line('.')).short_commit_hash
+    call flog#preview(a:mods . ' split ' . l:path . ' | Gvdiff ' . l:commit)
+  endfunction
+
+  augroup flog
+    autocmd FileType floggraph command! -buffer -nargs=0 Flogdiff call Flogdiff('<mods>')
+  augroup END
+endif
+
 " vim: set ts=2 sw=2 tw=80 noet :
