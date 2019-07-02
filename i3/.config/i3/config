@@ -250,7 +250,7 @@ bindsym XF86AudioLowerVolume exec "amixer -q sset Master 1%- unmute"
 bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 
 # Set the caps lock key to control
-exec --no-startup-id setxkbmap -option ctrl:nocaps
+exec_always --no-startup-id setxkbmap -option ctrl:nocaps
 
 # lockscreen
 bindsym $mod+shift+x exec betterlockscreen --lock
