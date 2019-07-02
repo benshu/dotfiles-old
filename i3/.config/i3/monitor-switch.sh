@@ -33,3 +33,4 @@ elif [ "$DIALOG_RESULT" = "exit" ];
 then
     exit 0
 fi
+$HOME/.config/polybar/launch.sh
