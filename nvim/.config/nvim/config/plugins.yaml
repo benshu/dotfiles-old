@@ -7,6 +7,7 @@
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
 - repo: rafi/vim-badge
+- repo: arcticicestudio/nord-vim
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
@@ -475,7 +476,6 @@
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
 - repo: ncm2/float-preview.nvim
-  if: has('nvim') && empty($VIM_MINIMAL)
 
 # ==========================================
 # Denite
