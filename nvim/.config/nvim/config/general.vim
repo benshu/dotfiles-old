@@ -26,8 +26,8 @@ set clipboard& clipboard+=unnamedplus
 " }}}
 " Wildmenu {{{
 " --------
-set wildmode=list:longest,full
-set wildoptions=tagfile
+set wildmode=longest:full
+set wildoptions=pum,tagfile
 set wildignorecase
 set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
 set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
