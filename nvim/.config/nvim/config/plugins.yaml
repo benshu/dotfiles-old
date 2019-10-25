@@ -202,7 +202,6 @@
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
-- { repo: kana/vim-altr, on_map: { n: <Plug> }}
 
 - repo: tyru/open-browser.vim
   on_map: { nxv: <Plug>(openbrowser }
@@ -258,7 +257,6 @@
 # ---------
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }}
-- { repo: haya14busa/vim-edgemotion, on_map: { nv: <Plug> }}
 - { repo: t9md/vim-quickhl, on_map: { nv: <Plug> }}
 - { repo: rafi/vim-sidemenu, on_map: { nv: <Plug> }}
 
@@ -536,7 +534,13 @@
 - { repo: kana/vim-textobj-user, on_func: textobj#user# }
 - { repo: terryma/vim-expand-region, on_map: { x: <Plug> }}
 - { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
-- { repo: AndrewRadev/splitjoin.vim, on_map: { n: <Plug>Splitjoin }}
+- repo: AndrewRadev/splitjoin.vim
+  on_map: { n: <Plug>Splitjoin }
+  hook_add: |
+    nmap gj :SplitjoinJoin<cr>
+    nmap gs :SplitjoinSplit<cr>
+    let g:splitjoin_trailing_comma = 1
+    let g:splitjoin_python_brackets_on_separate_lines = 1
 - { repo: AndrewRadev/linediff.vim, on_cmd: Linediff }
 
 - repo: AndrewRadev/dsf.vim
