@@ -97,7 +97,7 @@ source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # setting rg as the default command for fzf with respecting .gitignore
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!.cache/*" --glob "!snap/*"'
 
 # setting rg as the default command for fzf with respecting .gitignore
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
