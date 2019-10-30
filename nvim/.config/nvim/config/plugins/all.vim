@@ -1,6 +1,6 @@
 
 " Plugin Settings
-"---------------------------------------------------------
+" --------------------------------------------------------
 
 if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -mode=normal<CR>

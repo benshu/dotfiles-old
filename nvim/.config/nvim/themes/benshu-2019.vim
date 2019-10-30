@@ -102,6 +102,7 @@ let s:stl .= "%8*%{badge#mode('⚠ ', 'Z')}"        " Read-only symbol
 let s:stl .= '%='                                 " Align to right
 let s:stl .= '%8(%{badge#syntax()} %)%*'           " syntax check
 let s:stl .= "%8*%(%{badge#trails('⤐ %s')} %)"   " Whitespace
+let s:stl .= "%{kite#statusline()}" " kite engine status
 let s:stl .= '%4*%{badge#format()}'            " File format
 let s:stl .= ' %{&fenc} '                     " File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'                  " File type

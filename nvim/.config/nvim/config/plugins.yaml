@@ -7,8 +7,8 @@
 - repo: Shougo/dein.vim
 - repo: rafi/awesome-vim-colorschemes
 - repo: arcticicestudio/nord-vim
+- repo: cocopon/iceberg.vim
 - repo: rafi/vim-badge
-- repo: arcticicestudio/nord-vim
 - repo: christoomey/vim-tmux-navigator
 - repo: junegunn/vim-peekaboo
 - repo: tpope/vim-sleuth
@@ -20,6 +20,8 @@
     autocmd MyAutoCmd FileType denite,qf,nerdtree let b:cursorword=0
     autocmd MyAutoCmd InsertEnter * let b:cursorword=0
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
+- repo: glacambre/firenvim
+- repo: KabbAmine/zeavim.vim
 
 # Lazy Loading
 # ==========================================
@@ -64,6 +66,10 @@
       \ 'makefile=make',
       \ 'py=python'
       \ ]
+
+- repo: iamcco/markdown-preview.nvim
+  on_ft: [markdown, pandoc.markdown, rmd]
+  build: cd app && yarn install
 
 - repo: rhysd/vim-gfm-syntax
   depends: vim-markdown
@@ -132,11 +138,6 @@
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
 
 
-- repo: rhysd/git-messenger.vim
-  lazy: 1
-  on_cmd: GitMessenger
-  on_map: { <Plug>(git-messengerGitMessenger }
-
 - repo: hashivim/vim-terraform
   on_ft: terraform
   on_cmd: [ Terraform, TerraformFmt ]
@@ -186,6 +187,7 @@
 - { repo: metakirby5/codi.vim, on_cmd: Codi }
 - { repo: Shougo/vimproc.vim, build: make, on_func: vimproc# }
 - { repo: reedes/vim-wordy, on_cmd: [ Wordy, NextWordy, PrevWordy ]}
+
 - repo: brooth/far.vim
   on_cmd: [ Far, Farp, F ]
   hook_source: |
@@ -198,6 +200,11 @@
 - repo: rbong/vim-flog
   depends: vim-fugitive
   on_source: [ Flog, Flogsplit ]
+
+- repo: rhysd/git-messenger.vim
+  lazy: 1
+  on_cmd: GitMessenger
+  on_map: { <Plug>(git-messengerGitMessenger }
 
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
