@@ -359,10 +359,10 @@
     \   { 'diary_header': 'Diary',
     \     'diary_link_fmt': '%Y-%m/%d',
     \     'auto_toc': 1,
-    \     'path': '~/docs/wiki/',
+    \     'path': '~/Documents//wiki/',
     \     'syntax': 'markdown',
     \     'ext': '.md' },
-    \   { 'path': '~/docs/blog/',
+    \   { 'path': '~/Documents//blog/',
     \     'syntax': 'markdown',
     \     'ext': '.md' }
     \ ]
