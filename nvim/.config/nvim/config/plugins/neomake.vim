@@ -11,10 +11,8 @@ endif
 " Python
 let g:neomake_python_enabled_makers = ['flake8']
 
-" YAML / ANSIBLE
+" YAML
 let g:neomake_yaml_enabled_makers = ['yamllint']
-let g:neomake_ansible_enabled_makers = ['yamllint']
-let g:neomake_ansible_yamllint_maker = neomake#makers#ft#yaml#yamllint()
 
 " SHELL
 let g:neomake_shellcheck_args = ['-fgcc']
