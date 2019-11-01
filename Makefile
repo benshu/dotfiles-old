@@ -45,7 +45,8 @@ install:
 		i3-gaps \
 		dunst \
 		neovim \
-		rofi
+		rofi \
+		flameshot
 	yay -S \
 		polybar \
 		ttf-fira-code \
