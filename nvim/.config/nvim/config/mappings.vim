@@ -20,10 +20,6 @@ nnoremap <Down>  :resize -2<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
 
-" Double leader key for toggling visual-line mode
-nmap <silent> <Leader><Leader> V
-vmap <Leader><Leader> <Esc>
-
 " Change current word in a repeatable manner
 nnoremap <leader>cn *``cgn
 nnoremap <leader>cN *``cgN
@@ -32,8 +28,8 @@ nnoremap <leader>cN *``cgN
 vnoremap <expr> <leader>cn "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgn"
 vnoremap <expr> <leader>cN "y/\\V\<C-r>=escape(@\", '/')\<CR>\<CR>" . "``cgN"
 
+" Duplicate paragraph
 nnoremap <leader>cp yap<S-}>p
-nnoremap <leader>a =ip
 
 " xnoremap p  "0p
 " nnoremap x "_x
@@ -120,13 +116,6 @@ cnoremap <Down> <C-n>
 
 " When pressing <leader>cd switch to the directory of the open buffer
 map <Leader>cd :lcd %:p:h<CR>:pwd<CR>
-
-" Fast saving
-nnoremap <silent><Leader>w :write<CR>
-vnoremap <silent><Leader>w <Esc>:write<CR>
-nnoremap <silent><C-s> :<C-u>write<CR>
-vnoremap <silent><C-s> :<C-u>write<CR>
-cnoremap <silent><C-s> <C-u>write<CR>
 
 " Save a file with sudo
 " http://forrst.com/posts/Use_w_to_sudo_write_a_file_with_Vim-uAN
@@ -267,10 +256,10 @@ if has('mac')
 
 " Use Zeal on Linux for context help
 elseif executable('zeal')
-	autocmd MyAutoCmd FileType yaml.ansible,go,php,css,less,html,markdown
-		\ nmap <silent><buffer> K :!zeal --query "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
+	autocmd MyAutoCmd FileType yaml.ansible,go,php,css,less,html,markdown,python
+		\ nmap <silent><buffer> K :!zeal "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
 	autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
-		\ nmap <silent><buffer> K :!zeal --query "<cword>"&<CR><CR>
+		\ nmap <silent><buffer> K :!zeal "<cword>"&<CR><CR>
 endif
 
 " }}}

@@ -20,7 +20,6 @@
     autocmd MyAutoCmd FileType denite,qf,nerdtree let b:cursorword=0
     autocmd MyAutoCmd InsertEnter * let b:cursorword=0
     autocmd MyAutoCmd InsertLeave * let b:cursorword=1
-- repo: glacambre/firenvim
 - repo: KabbAmine/zeavim.vim
 
 # Lazy Loading
@@ -48,13 +47,17 @@
 - repo: plasticboy/vim-markdown
   on_ft: markdown
   hook_add: |
-    let g:vim_markdown_folding_level = 6
-    let g:vim_markdown_emphasis_multiline = 0
-    let g:vim_markdown_conceal = 0
     let g:vim_markdown_frontmatter = 1
-    let g:vim_markdown_new_list_item_indent = 2
-    let g:vim_markdown_edit_url_in = 'vsplit'
     let g:vim_markdown_strikethrough = 1
+    let g:vim_markdown_folding_level = 6
+    let g:vim_markdown_override_foldtext = 1
+    let g:vim_markdown_folding_style_pythonic = 1
+    let g:vim_markdown_conceal = 0
+    let g:vim_markdown_conceal_code_blocks = 0
+    let g:vim_markdown_edit_url_in = 'vsplit'
+    let g:vim_markdown_auto_insert_bullets = 1
+    let g:vim_markdown_new_list_item_indent = 0
+    let g:vim_markdown_toc_autofit = 0
     let g:vim_markdown_fenced_languages = [
       \ 'c++=cpp',
       \ 'viml=vim',
@@ -62,10 +65,20 @@
       \ 'ini=dosini',
       \ 'js=javascript',
       \ 'json=javascript',
+      \ 'jsx=javascriptreact',
+      \ 'tsx=typescriptreact',
       \ 'docker=Dockerfile',
       \ 'makefile=make',
       \ 'py=python'
       \ ]
+
+- repo: rhysd/vim-gfm-syntax
+  depends: vim-markdown
+  on_ft: markdown
+  hook_add: |
+    let g:gfm_syntax_enable_always = 0
+    let g:gfm_syntax_highlight_emoji = 0
+    let g:gfm_syntax_enable_filetypes = ['markdown']
 
 - repo: iamcco/markdown-preview.nvim
   on_ft: [markdown, pandoc.markdown, rmd]
@@ -88,7 +101,6 @@
 
 - { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: posva/vim-vue, on_ft: [ vue ]}
-- { repo: heavenshell/vim-jsdoc, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: jparise/vim-graphql, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: elzr/vim-json, on_ft: json }
@@ -136,19 +148,17 @@
 - { repo: ekalinin/Dockerfile.vim, on_ft: [ Dockerfile, yaml.docker-compose ]}
 - { repo: tmux-plugins/vim-tmux, on_ft: tmux }
 - { repo: andreshazard/vim-logreview, on_ft: logreview }
-
+- { repo: mboughaba/i3config.vim, on_ft: i3config }
+- { repo: robbles/logstash.vim, on_ft: logstash }
+- { repo: lifepillar/pgsql.vim, on_ft: pgsql }
+- { repo: chr4/nginx.vim, on_ft: nginx }
+- { repo: IN3D/vim-raml, on_ft: raml }
+- { repo: towolf/vim-helm, on_ft: helm }
 
 - repo: hashivim/vim-terraform
   on_ft: terraform
   on_cmd: [ Terraform, TerraformFmt ]
   hook_source: let g:terraform_fmt_on_save = 1
-
-- { repo: cespare/vim-toml, on_ft: toml }
-- { repo: mboughaba/i3config.vim, on_ft: i3config }
-- { repo: robbles/logstash.vim, on_ft: logstash }
-- { repo: exu/pgsql.vim, on_ft: pgsql }
-- { repo: othree/nginx-contrib-vim, on_ft: nginx }
-- { repo: IN3D/vim-raml, on_ft: raml }
 
 # ==========================================
 # Commands
@@ -162,7 +172,7 @@
 
 - repo: kristijanhusak/defx-icons
   on_source: defx.nvim
-  hook_source: |
+  hook_post_source: |
     let g:defx_icons_column_length = 2
     let g:defx_icons_mark_icon = '✓'
 
@@ -170,12 +180,28 @@
   merged: 0
   dir: '~/.fzf'
   do: './install --all'
-- { repo: junegunn/fzf.vim, depends: fzf }
+
+- repo: junegunn/fzf.vim
+  depends: fzf
+  hook_post_source: |
+    let $FZF_DEFAULT_OPTS .= ' --border --margin=0,2 --layout=reverse'
+    function! FloatingFZF()
+      let width = float2nr(&columns * 0.9)
+      let height = float2nr(&lines * 0.6)
+      let opts = { 'relative': 'editor',
+                  \ 'row': (&lines - height) / 2,
+                  \ 'col': (&columns - width) / 2,
+                  \ 'width': width,
+                  \ 'height': height }
+      let win = nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+      call setwinvar(win, '&winhighlight', 'NormalFloat:Normal')
+    endfunction
+    let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+- repo: stsewd/fzf-checkout.vim
 
 - repo: scrooloose/nerdtree
-  depends: nerdtree-git-plugin
-  on_map: { n: <Plug> }
-  trusted: 1
+  # trusted: 1
   hook_post_source: source $VIMPATH/config/plugins/nerdtree.vim
 
 - { repo: Xuyuanp/nerdtree-git-plugin, on_source: nerdtree }
@@ -195,11 +221,11 @@
     let g:far#default_file_mask = '**/*.py'
 
 - { repo: jreybert/vimagit, on_cmd: Magit }
-- { repo: tpope/vim-fugitive }
+# - { repo: tpope/vim-fugitive }
 
-- repo: rbong/vim-flog
-  depends: vim-fugitive
-  on_source: [ Flog, Flogsplit ]
+# - repo: rbong/vim-flog
+#   depends: vim-fugitive
+#   on_source: [ Flog, Flogsplit ]
 
 - repo: rhysd/git-messenger.vim
   lazy: 1
@@ -209,7 +235,7 @@
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/gina.vim, on_cmd: Gina }
 - { repo: cocopon/colorswatch.vim, on_cmd: ColorSwatchGenerate }
-- { repo: kana/vim-altr, on_map: { n: <Plug> }}
+# - { repo: kana/vim-altr, on_map: { n: <Plug> }}
 
 - repo: tyru/open-browser.vim
   on_map: { nxv: <Plug>(openbrowser }
@@ -255,10 +281,6 @@
     if executable('jsctags')
       let g:tagbar_type_javascript = { 'ctagsbin': 'jsctags' }
     endif
-
-- repo: beloglazov/vim-online-thesaurus
-  on_cmd: [ OnlineThesaurusCurrentWord, Thesaurus ]
-  hook_source: let g:online_thesaurus_map_keys = 0
 
 # ==========================================
 # Interface
@@ -426,7 +448,7 @@
 - { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/context_filetype.vim, lazy: 1, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/neco-vim, on_ft: vim, if: empty($VIM_MINIMAL) }
-- { repo: Shougo/neco-syntax, on_source: [ neocomplete.vim, deoplete.nvim ]}
+- { repo: Shougo/neco-syntax, on_source: [ deoplete.nvim ]}
 
 - repo: davidhalter/jedi-vim
   on_ft: python
@@ -435,6 +457,7 @@
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#smart_auto_mappings = 0
     let g:jedi#show_call_signatures = 1
+    let g:jedi#show_call_signatures_delay = 0
   hook_source: |
     let g:jedi#use_tag_stack = 0
     let g:jedi#popup_select_first = 0
@@ -471,10 +494,10 @@
   on_ft: [ markdown, gitcommit ]
   on_event: InsertEnter
 
-- repo: juliosueiras/vim-terraform-completion
-  hook_add: let g:terraform_completion_keys = 1
-  on_ft: [ terraform ]
-  on_event: InsertEnter
+# - repo: juliosueiras/vim-terraform-completion
+#   hook_add: let g:terraform_completion_keys = 1
+#   on_ft: [ terraform ]
+#   on_event: InsertEnter
 
 - repo: ternjs/tern_for_vim
   build: npm install
@@ -490,6 +513,8 @@
     autocmd MyAutoCmd FileType javascript setlocal omnifunc=tern#Complete
 
 - repo: ncm2/float-preview.nvim
+  hook_add: |
+    let g:float_preview#docked = 0
 
 # ==========================================
 # Denite
@@ -500,25 +525,10 @@
   hook_source: source $VIMPATH/config/plugins/denite.vim
 
 - { repo: Shougo/neoyank.vim, on_event: TextYankPost, on_source: denite.nvim }
-- { repo: Shougo/junkfile.vim, on_source: denite.nvim }
 - { repo: chemzqm/unite-location, on_source: denite.nvim }
 - { repo: chemzqm/denite-git, on_source: denite.nvim }
-- { repo: rafi/vim-denite-z, on_source: denite.nvim }
 - { repo: rafi/vim-denite-session, on_source: denite.nvim }
 
-# - repo: nixprime/cpsm
-#   build: 'sh -c "PY3=ON ./install.sh"'
-
-# - repo: raghur/fruzzy
-#   on_source: denite.nvim
-#   hook_source: let g:fruzzy#sortonempty = 0
-#   hook_post_update: call fruzzy#install()
-
-# - { repo: rafi/vim-denite-task, on_source: denite.nvim }
-# - repo: rafi/vim-denite-mpc
-#   if: executable('mpc')
-#   on_source: denite.nvim
-#   hook_source: call denite#custom#var('mpc', 'default_view', 'date')
 
 # ==========================================
 # Operators
@@ -544,7 +554,6 @@
 - { repo: terryma/vim-expand-region, on_map: { x: <Plug> }}
 - { repo: AndrewRadev/sideways.vim, on_map: { ox: <Plug>Sideways }}
 - repo: AndrewRadev/splitjoin.vim
-  on_map: { n: <Plug>Splitjoin }
   hook_add: |
     nmap gj :SplitjoinJoin<cr>
     nmap gs :SplitjoinSplit<cr>
