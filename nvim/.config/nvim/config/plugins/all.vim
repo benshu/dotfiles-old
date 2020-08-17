@@ -3,7 +3,7 @@
 " --------------------------------------------------------
 
 if dein#tap('denite.nvim')
-	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh -mode=normal<CR>
+	nnoremap <silent><LocalLeader>r :<C-u>Denite -resume -refresh<CR>
 	nnoremap <silent><LocalLeader>f :<C-u>Denite file/rec<CR>
 	nnoremap <silent><LocalLeader>b :<C-u>Denite buffer file/old -default-action=switch<CR>
 	nnoremap <silent><LocalLeader>d :<C-u>Denite directory_rec -default-action=cd<CR>
@@ -12,19 +12,19 @@ if dein#tap('denite.nvim')
 	nnoremap <silent><LocalLeader>l :<C-u>Denite location_list -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>q :<C-u>Denite quickfix -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>n :<C-u>Denite dein<CR>
-	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=search -no-empty -mode=normal<CR>
-	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point -mode=normal<CR>
+	nnoremap <silent><LocalLeader>g :<C-u>Denite grep -buffer-name=search -no-empty<CR>
+	nnoremap <silent><LocalLeader>j :<C-u>Denite jump change file/point<CR>
 	nnoremap <silent><LocalLeader>u :<C-u>Denite junkfile:new junkfile<CR>
 	nnoremap <silent><LocalLeader>o :<C-u>Denite outline<CR>
 	nnoremap <silent><LocalLeader>s :<C-u>Denite session -buffer-name=list<CR>
 	nnoremap <silent><LocalLeader>t :<C-u>Denite -buffer-name=tag tag:include<CR>
-	nnoremap <silent><LocalLeader>p :<C-u>Denite jump -buffer-name=jump -mode=normal<CR>
+	nnoremap <silent><LocalLeader>p :<C-u>Denite jump -buffer-name=jump<CR>
 	nnoremap <silent><LocalLeader>h :<C-u>Denite help<CR>
 	nnoremap <silent><LocalLeader>m :<C-u>Denite file/rec -buffer-name=memo -path=~/docs/books<CR>
 	" nnoremap <silent><LocalLeader>m :<C-u>Denite mpc -buffer-name=mpc<CR>
 	nnoremap <silent><LocalLeader>z :<C-u>Denite z -buffer-name=jump<CR>
 	nnoremap <silent><LocalLeader>/ :<C-u>Denite line -buffer-name=search -auto-highlight<CR>
-	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line -buffer-name=search -auto-highlight -mode=normal<CR>
+	nnoremap <silent><LocalLeader>* :<C-u>DeniteCursorWord line -buffer-name=search -auto-highlight<CR>
 	nnoremap <silent><LocalLeader>; :<C-u>Denite command command_history<CR>
 
 	" chemzqm/denite-git
@@ -240,13 +240,6 @@ if dein#tap('vim-go')
 		\ | nmap <Leader>goe  <Plug>(go-referrers)
 		\ | nmap <Leader>gor  <Plug>(go-run)
 		\ | nmap <Leader>gov  <Plug>(go-vet)
-endif
-
-if dein#tap('phpcomplete-extended')
-	autocmd MyAutoCmd FileType php
-		\   nmap <silent> <unique> K <Plug>(phpcomplete-extended-doc)
-		\ | nmap <silent> <unique> <C-]> <Plug>(phpcomplete-extended-goto)
-		\ | nmap <silent> <unique> <Leader>a <Plug>(phpcomplete-extended-add-use)
 endif
 
 if dein#tap('vimagit')

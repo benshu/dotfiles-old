@@ -110,8 +110,7 @@ set switchbuf+=vsplit           " Switch buffer behavior to vsplit
 set backspace=indent,eol,start  " Intuitive backspacing in insert mode
 set diffopt=filler,iwhite       " Diff mode: show fillers, ignore white
 set showfulltag                 " Show tag and tidy search in completion
-set complete=.                  " No wins, buffs, tags, include scanning
-set completeopt=menuone         " Show menu even for one item
+set completeopt=menu,menuone         " Show menu even for one item
 set completeopt+=noselect       " Do not select a match in the menu
 set completeopt+=noinsert
 set inccommand=nosplit
@@ -145,9 +144,8 @@ set colorcolumn=80      " Highlight the 80th character limit
 set display=lastline
 set conceallevel=2 concealcursor=niv " For snippet_complete marker
 
-if exists('&pumblend')
-	set pumblend=20
-endif
+set pumblend=20
+set winblend=20
 
 " }}}
 " Folds {{{
@@ -196,6 +194,15 @@ function! FoldText()
 	let expansionString = repeat('.', w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
 	return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
 endfunction
+
+" }}}
+
+" Netrw {{{
+" --------
+let g:netrw_browse_split = 0
+let g:netrw_winsize = 25
+let g:netrw_liststyle = 3
+let g:netrw_altv = 1
 
 " }}}
 

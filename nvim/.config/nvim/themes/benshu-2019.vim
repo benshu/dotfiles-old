@@ -94,15 +94,15 @@ let &tabline='%!Tabline()'
 
 " Statusline {{{
 let s:stl = '%5*%(  %{badge#branch()} %)%0*'           " Git branch name
-let s:stl .= '%1*%{badge#filename()}'          " Filename
+let s:stl .= '%1*%{ badge#filename() }'          " Filename
 let s:stl .= '%<'                                " Truncate here
-let s:stl .= ' %*b: %n'                               " Buffer number
+" let s:stl .= '%* b: %n'                               " Buffer number
 let s:stl .= "%6*%{badge#modified('+')}%0*"       " Modified symbol
 let s:stl .= "%8*%{badge#mode('⚠ ', 'Z')}"        " Read-only symbol
 let s:stl .= '%='                                 " Align to right
 let s:stl .= '%8(%{badge#syntax()} %)%*'           " syntax check
 let s:stl .= "%8*%(%{badge#trails('⤐ %s')} %)"   " Whitespace
-let s:stl .= '%4*%{badge#format()}'            " File format
+let s:stl .= '%4*%{ badge#format()}'            " File format
 let s:stl .= ' %{&fenc} '                     " File encoding
 let s:stl .= '%4*%*%( %{&ft} %)'                  " File type
 let s:stl .= '%2* %l/%2c%4p%% '                " Line and column

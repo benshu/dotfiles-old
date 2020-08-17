@@ -54,21 +54,21 @@ function! s:dein_load_yaml(filename) abort
 	if executable('yaml2json') && exists('*json_decode')
 		" Decode YAML using the CLI tool yaml2json
 		" See: https://github.com/koraa/large-yaml2json-json2yaml
-		let g:denite_plugins = json_decode(
+		let g:dein_plugins = json_decode(
 					\ system('yaml2json', readfile(a:filename)))
 	else
 		" Fallback to use python3 and PyYAML
 	python3 << endpython
 import vim, yaml
 with open(vim.eval('a:filename'), 'r') as f:
-	vim.vars['denite_plugins'] = yaml.safe_load(f.read())
+	vim.vars['dein_plugins'] = yaml.safe_load(f.read())
 endpython
 	endif
 
-	for plugin in g:denite_plugins
+	for plugin in g:dein_plugins
 		call dein#add(plugin['repo'], extend(plugin, {}, 'keep'))
 	endfor
-	unlet g:denite_plugins
+	unlet g:dein_plugins
 endfunction
 
 function! s:source_file(path, ...) abort
@@ -133,10 +133,8 @@ call s:source_file('plugins/all.vim')
 filetype plugin indent on
 syntax enable
 
-if ! has('vim_starting')
-	call dein#call_hook('source')
-	call dein#call_hook('post_source')
-endif
+call dein#call_hook('source')
+autocmd VimEnter * call dein#call_hook('post_source')
 
 " Loading configuration modules
 call s:source_file('general.vim')
