@@ -25,7 +25,10 @@ else
 fi
 
 # Launch bar1 and bar2
-MAIN_MONITOR="$MAIN_MONITOR" polybar primary &
+# MAIN_MONITOR="$MAIN_MONITOR" FC_DEBUG=1 polybar -l info primary 2>&1 | systemd-cat -p info &
+for m in $(polybar --list-monitors | cut -d":" -f1); do
+    MONITOR=$m polybar --reload primary &
+done
 # MAIN_MONITOR="$MAIN_MONITOR" polybar secondary &
 
 notify-send "Polybars launched..."
