@@ -1,4 +1,4 @@
-#Benshu's dotfiles
+# Benshu's dotfiles
 * i3wm
 * termite
 * tmux
