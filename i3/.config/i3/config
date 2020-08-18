@@ -18,7 +18,7 @@ exec_always --no-startup-id nm-applet
 # exec_always --no-startup-id . $HOME/dotfiles/scripts/monitors.sh
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh 2>&1 | systemd-cat -p info &"
 
-exec_always --no-startup-id "termite --title=dropdown -e 'tmux new -s dropdown'"
+exec_always --no-startup-id "alacritty --title=dropdown -e 'tmux new -s dropdown'"
 bindsym $mod+t [title="dropdown"] scratchpad show, move position center
 for_window [title="dropdown"] floating enable, resize set 800 600, move scratchpad
 bindsym $mod+Shift+grave move scratchpad
@@ -50,11 +50,11 @@ font pango:NotoSans-Regular 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite
+bindsym $mod+Return exec alacritty
 
 # border size
 new_window none
-for_window [class="Termite"] border none
+for_window [class="Alacritty"] border none
 
 # kill focused window
 bindsym $mod+Shift+q kill
