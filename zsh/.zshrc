@@ -1,3 +1,6 @@
+if [[ "$ZPROF" = true ]]; then
+  zmodload zsh/zprof
+fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -63,6 +66,7 @@ export LC_ALL=en_US.UTF-8
 export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$HOME/.npm/bin/:$PATH:/usr/local/go/bin:$HOME/go/bin
 # export MANPATH="/usr/local/man:$MANPATH"
 
+source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -91,7 +95,6 @@ source ~/.exports
 source ~/.functions
 source ~/.extra
 source ~/.docker_aliases
-source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
 
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
@@ -104,11 +107,34 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export QT_PKG_CONFIG=true
 
-alias unzip=$HOME/go/bin/unzip
-# source /usr/share/nvm/init-nvm.sh
-
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then . '$HOME/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then . '$HOME/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
+
+lazynvm() {
+  unset -f nvm node npm
+  export NVM_DIR=~/.nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
+nvm() {
+  lazynvm
+  nvm $@
+}
+
+node() {
+  lazynvm
+  node $@
+}
+
+npm() {
+  lazynvm
+  npm $@
+}
+
+if [[ "$ZPROF" = true ]]; then
+  zprof
+fi

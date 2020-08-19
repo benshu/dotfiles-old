@@ -1,4 +1,8 @@
-#
+profzsh() {
+  shell=${1-$SHELL}
+  ZPROF=true $shell -i -c exit
+}
+
 function mdtohtml() {
     if [ $# -eq 0 ]; then
 	    printf ".md filename required";
