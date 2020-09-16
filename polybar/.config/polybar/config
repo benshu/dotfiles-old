@@ -385,7 +385,7 @@ interval = 60
 
 ; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
-date = %A, %d %B %Y
+date = %a, %d.%M.%Y
 
 ; Optional time format
 time = %I:%M %p
