@@ -17,21 +17,20 @@
 	zsh
 
 arch-base:
-	sudo pacman -S netowrkmanager
-	sudo pacman -S nm-applet
-	systemctl disable dhcpcd.service
+	sudo pacman -S networkmanager
+	# sudo pacman -S nm-applet
+	# systemctl disable dhcpcd.service
 	systemctl enable NetworkManager.service
 	sudo pacman -S xdg-user-dirs
 	xdg-user-dirs-update
 	sudo pacman -S git
 	mkdir ~/src
-	cd ~/src
-	git clone https://aur.archlinux.org/yay.git
-	cd yay
+	git clone https://aur.archlinux.org/yay.git ~/src/yay
+	cd ~/src/yay
 	makepkg -si
 
 init:
-	cd $HOME
+	cd $$HOME
 	sudo pacman -S git
 	git clone https://github.com/benshu/dotfiles.git
 	cd dotfiles
@@ -42,6 +41,9 @@ install:
 		zsh \
 		tmux \
 		termite \
+		xorg \
+		xorg-xinit \
+		udisks2 \
 		i3-gaps \
 		dunst \
 		neovim \
@@ -52,8 +54,8 @@ install:
 		ttf-fira-code \
 		ttf-fira-mono \
 		nerd-fonts-fira-mono
-	mkdir -p $HOME/Pictures/wallpapers
-	curl -L http://i.imgur.com/Z6kdWmA.jpg > $HOME/Pictures/wallpapers/jamie.jpg
+	mkdir -p $$HOME/Pictures/wallpapers
+	curl -L http://i.imgur.com/Z6kdWmA.jpg > $$HOME/Pictures/wallpapers/jamie.jpg
 
 dotfiles: zsh
 	stow zsh
@@ -72,7 +74,7 @@ dotfiles: zsh
 	stow yapf
 
 zsh:
-	echo sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-	echo git clone https://github.com/denysdovhan/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt"
-	echo ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-	echo mv ~/.zshrc ~/.zshrc_old
+	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	git clone https://github.com/denysdovhan/spaceship-prompt.git "$$ZSH_CUSTOM/themes/spaceship-prompt"
+	ln -s "$$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+	# echo mv ~/.zshrc ~/.zshrc_old

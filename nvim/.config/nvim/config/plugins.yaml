@@ -82,7 +82,7 @@
 
 - repo: iamcco/markdown-preview.nvim
   on_ft: [markdown, pandoc.markdown, rmd]
-  build: cd app && yarn install
+  build: cd app && npm install
 
 - repo: rhysd/vim-gfm-syntax
   depends: vim-markdown
