@@ -3,8 +3,8 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 exec_always --no-startup-id "xrdb -merge $HOME/.Xresources"
-# exec --no-startup-id "compton -b --paint-on-overlay --unredir-if-possible --backend xr_glx_hybrid --vsync drm --glx-swap-method -1 --glx-no-stencil --config ~/.config/compton/config"
-exec_always --no-startup-id "compton -b --config $HOME/.config/compton/compton.conf 2>&1 | systemd-cat -p info &"
+# exec --no-startup-id "picom -b --paint-on-overlay --unredir-if-possible --backend xr_glx_hybrid --vsync drm --glx-swap-method -1 --glx-no-stencil --config ~/.config/picom/config"
+exec_always --no-startup-id "picom -b --config $HOME/.config/picom/picom.conf 2>&1 | systemd-cat -p info &"
 exec copyq
 exec --no-startup-id flameshot
 # Solved slow startup of gtk applications
