@@ -99,10 +99,9 @@ source ~/.docker_aliases
 [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
 [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# setting rg as the default command for fzf with respecting .gitignore
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!.cache/*" --glob "!snap/*"'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+export FZF_DEFAULT_OPTS='--layout=reverse --inline-info'
 
-# setting rg as the default command for fzf with respecting .gitignore
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export QT_PKG_CONFIG=true

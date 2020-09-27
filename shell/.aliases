@@ -16,6 +16,7 @@ alias gbd='git log --graph --left-right --cherry-pick --oneline'
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias b="cd ~/backend"
+alias s="cd ~/src"
 alias g="git"
 alias hpc="hub pr checkout"
 alias h="history"
