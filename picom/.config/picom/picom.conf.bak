@@ -1,3 +1,12 @@
+# Thank you code_nomad: http://9m.no/ꪯ鵞
+# and Arch Wiki contributors: https://wiki.archlinux.org/index.php/Compton
+
+#################################
+#
+# Backend
+#
+#################################
+
 # Backend to use: "xrender" or "glx".
 # GLX backend is typically much faster but depends on a sane driver.
 backend = "glx";
@@ -72,16 +81,21 @@ shadow-opacity = 0.5;
 shadow-exclude = [
     "! name~=''",
     "name = 'Notification'",
+    "name = 'Awesome'",
     "name = 'Conky'",
+    "name = 'Plank'",
+    "name = 'Docky'",
+    "name = 'Kupfer'",
+    "name = 'xfce4-notifyd'",
     "name *= 'VLC'",
     "name *= 'compton'",
     "name *= 'picom'",
     "name *= 'Chromium'",
     "name *= 'Chrome'",
-    "name *= 'Firefox'",
     "class_g = 'Firefox' && argb",
     "class_g = 'Conky'",
-    "class_g = 'zoom'",
+    "class_g = 'Awesome'",
+    "class_g = 'Kupfer'",
     "class_g = 'Synapse'",
     "class_g ?= 'Notify-osd'",
     "class_g ?= 'Cairo-dock'",
@@ -109,7 +123,7 @@ inactive-opacity-override = false;
 # Do not let dimness adjust based on window opacity.
 inactive-dim-fixed = true;
 # Blur background of transparent windows. Bad performance with X Render backend. GLX backend is preferred.
-blur-background = false;
+blur-background = true;
 # # Blur background of opaque windows with transparent frames as well.
  blur-background-frame = true;
 # # Do not let blur radius adjust based on window opacity.
@@ -119,14 +133,16 @@ blur-background = false;
 
 blur: {
   method = "dual_kawase";
-  strength = 5;
+  strength = 50;
   background = false;
   background-frame = false;
   background-fixed = false;
 }
 
 blur-background-exclude = [
+    "window_type = 'dock'",
     "window_type = 'desktop'",
+    "class_g = 'slop'",
 ];
 
 #################################
@@ -229,3 +245,4 @@ wintypes:
 
 # Use X Sync fence to sync clients' draw calls. Needed on nvidia-drivers with GLX backend for some users.
 xrender-sync-fence = true;
+
