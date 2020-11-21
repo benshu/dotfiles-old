@@ -1,3 +1,5 @@
+alias act="source ./.venv/bin/activate"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
@@ -18,7 +20,7 @@ alias dt="cd ~/Desktop"
 alias b="cd ~/backend"
 alias s="cd ~/src"
 alias g="git"
-alias hpc="hub pr checkout"
+alias gpc="gh pr checkout"
 alias h="history"
 alias j="jobs"
 alias gdd="git difftool -d"

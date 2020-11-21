@@ -3,6 +3,10 @@ profzsh() {
   ZPROF=true $shell -i -c exit
 }
 
+gch() {
+ git checkout $(git branch --all | fzf | tr -d '[:space:]')
+}
+
 function mdtohtml() {
     if [ $# -eq 0 ]; then
         printf ".md filename required";
@@ -10,6 +14,7 @@ function mdtohtml() {
     pandoc "$1" --css ~/Documents/pandoc.css -s -o "$1.html" && xdg-open "$1.html"
     fi
 }
+
 # lint the diff to the selected branch
 function lintdiff() {
     git diff --name-only "$1" | grep "\.py" | parallel xargs -n 1 flake8 | grep -v -e "__init__.py.*F401"
@@ -20,10 +25,12 @@ function lintdiff() {
 function cl() { 
     history -p '!!'|tr -d \\n|pbcopy; 
 }
+
 # Show 255 colors options
 function show_colors() { 
     for code ({000..255}) print -P -- "$code: %F{$code}This is how your text would look like%f"
 }
+
 #LaTeX file compile with simple settings
 function mklatex() {
     if [ $# -eq 0 ]; then
@@ -32,6 +39,7 @@ function mklatex() {
         xelatex -synctex=on -interaction=nonstopmode "$@";
     fi;
 }
+
 # Markdown please - get markdown of html page from url
 function md_please() {
     curl http://markdownplease.com/\?url\=$@
@@ -93,5 +101,5 @@ function v() {
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
 function tre() {
-    tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+    tree -aC -I '.git|node_modules|__pycache__' --dirsfirst "$@" | less -FRNX;
 }
