@@ -265,7 +265,8 @@ for_window [class="(?i)pavucontrol"] resize set 280 800, floating enable, focus,
 for_window [window_type="dialog|utility|splash|menu|dropdown_menu|popup_menu|tooltip|notification"] floating enable
 for_window [window_role="browser|GtkFileChooserDialog"] resize set 800 600, move position center
 for_window [class="(?i)lxappearance"] floating enable
-for_window [class="Zoom"] floating enable, resize set 640 480
+for_window [class="(?i)Zoom"] floating enable, resize set 800 600
+for_window [class="(?i)nemo"] floating enable, resize set 800 600
 
 for_window [title="(?i)(.*qiv.*)"] floating disable
 
