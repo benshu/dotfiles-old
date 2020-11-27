@@ -84,14 +84,6 @@
   on_ft: [markdown, pandoc.markdown, rmd]
   build: cd app && npm install
 
-- repo: rhysd/vim-gfm-syntax
-  depends: vim-markdown
-  on_ft: markdown
-  hook_source: |
-    let g:gfm_syntax_enable_always = 0
-    let g:gfm_syntax_highlight_emoji = 0
-    let g:gfm_syntax_enable_filetypes = ['markdown']
-
 - repo: pangloss/vim-javascript
   on_ft: [ javascript, jsx, javascript.jsx ]
   hook_source: |
@@ -99,7 +91,6 @@
     let g:javascript_plugin_flow = 1
     highlight! link jsFutureKeys PreProc
 
-- { repo: othree/jspc.vim, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: posva/vim-vue, on_ft: [ vue ]}
 - { repo: jparise/vim-graphql, on_ft: [ javascript, jsx, javascript.jsx ] }
 - { repo: moll/vim-node, on_ft: [ javascript, jsx, javascript.jsx ] }
@@ -132,9 +123,13 @@
     let g:go_highlight_variable_declarations = 0
     let g:go_highlight_variable_assignments = 0
 
-- { repo: vim-python/python-syntax, on_ft: python }
+- repo: vim-python/python-syntax
+  on_ft: python
+  hook_source: |
+    let g:python_highlight_builtins = 1
+    let g:python_highlight_standard_exceptions = 1
+    let g:python_highlight_class_vars = 1
 - { repo: Vimjas/vim-python-pep8-indent, on_ft: python }
-- { repo: vim-scripts/python_match.vim, on_ft: python }
 - { repo: tmhedberg/SimpylFold, on_ft: python }
 - { repo: raimon49/requirements.txt.vim, on_ft: requirements }
 
@@ -346,20 +341,6 @@
   on_event: [ InsertLeave, BufWinLeave ]
   on_cmd: DiffOrig
 
-- repo: junegunn/goyo.vim
-  depends: limelight.vim
-  on_cmd: Goyo
-  hook_source: source $VIMPATH/config/plugins/goyo.vim
-
-- repo: junegunn/limelight.vim
-  on_cmd: Limelight
-
-- repo: itchyny/calendar.vim
-  on_cmd: Calendar
-  hook_source: |
-    let g:calendar_google_calendar = 1
-    let g:calendar_google_task = 1
-
 - repo: vimwiki/vimwiki
   on_map: { n: <Plug> }
   on_cmd: [ VimwikiIndex, VimwikiUISelect ]
@@ -384,12 +365,12 @@
 # ==========================================
 # Completion
 # ----------
-- repo: Shougo/deoplete.nvim
-  depends: context_filetype.vim
-  on_event: InsertEnter
-  hook_source: |
-    source $VIMPATH/config/plugins/deoplete.vim
-    call deoplete#enable()
+# - repo: Shougo/deoplete.nvim
+#   depends: context_filetype.vim
+#   on_event: InsertEnter
+#   hook_source: |
+#     source $VIMPATH/config/plugins/deoplete.vim
+#     call deoplete#enable()
 
 - repo: Shougo/neosnippet.vim
   depends: [ neosnippet-snippets, context_filetype.vim ]
@@ -397,7 +378,6 @@
   on_ft: snippet
   hook_add: let g:neosnippet#data_directory = $VARPATH.'/snippets'
   hook_source: |
-    let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#enable_completed_snippet = 1
     let g:neosnippet#expand_word_boundary = 1
     let g:neosnippet#enable_complete_done = 1
@@ -434,8 +414,11 @@
 - repo: Raimondi/delimitMate
   on_event: InsertEnter
   hook_source: |
+    let g:delimitMate_expand_space = 1
     let g:delimitMate_expand_cr = 1
     let g:delimitMate_excluded_ft = 'html'
+    let g:delimitMate_smart_matchpairs = 1
+    let g:delimitMate_balance_matchpairs = 1
 
 - { repo: Shougo/neosnippet-snippets, if: empty($VIM_MINIMAL) }
 - { repo: Shougo/context_filetype.vim, lazy: 1, if: empty($VIM_MINIMAL) }

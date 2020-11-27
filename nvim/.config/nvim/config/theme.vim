@@ -2,10 +2,8 @@
 " Theme
 " -----
 
-" Enable 256 color terminal
-set t_Co=256
-
 set termguicolors
+let g:gruvbox_italic=1
 
 function! s:theme_reload(name)
 	let theme_path = $VIMPATH.'/themes/'.a:name.'.vim'

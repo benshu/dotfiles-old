@@ -1,7 +1,7 @@
 
 " Neomake
 " ---------
-let g:neomake_open_list = 0
+let g:neomake_open_list = 2
 let g:neomake_verbose = 1
 
 if ! empty(g:python3_host_prog)
@@ -10,7 +10,11 @@ endif
 
 " Python
 let g:neomake_python_enabled_makers = ['flake8']
-
+let g:neomake_flake8_maker = {
+		\ 'exe': 'flake8',
+		"\ 'args': ['--build'],
+		\ 'errorformat': '%f:%l:%c: %m',
+		\ }
 " YAML
 let g:neomake_yaml_enabled_makers = ['yamllint']
 

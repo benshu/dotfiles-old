@@ -258,7 +258,7 @@ if has('mac')
 elseif executable('zeal')
 	autocmd MyAutoCmd FileType yaml.ansible,go,php,css,less,html,markdown,python
 		\ nmap <silent><buffer> K :!zeal "<C-R>=split(&ft, '\.')[0]<CR>:<cword>"&<CR><CR>
-	autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh
+	autocmd MyAutoCmd FileType javascript,javascript.jsx,sql,ruby,conf,sh,python
 		\ nmap <silent><buffer> K :!zeal "<cword>"&<CR><CR>
 endif
 
@@ -266,19 +266,6 @@ endif
 
 " Display diff from last save {{{
 command! DiffOrig vert new | setlocal bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-" }}}
-
-" Append modeline to EOF {{{
-nnoremap <silent> <Leader>ml :call <SID>append_modeline()<CR>
-
-" Append modeline after last line in buffer
-" See: http://vim.wikia.com/wiki/Modeline_magic
-function! s:append_modeline() "{{{
-	let l:modeline = printf(' vim: set ts=%d sw=%d tw=%d %set :',
-				\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-	let l:modeline = substitute(&commentstring, '%s', l:modeline, '')
-	call append(line('$'), l:modeline)
-endfunction "}}}
 " }}}
 
 " s: Windows and buffers {{{

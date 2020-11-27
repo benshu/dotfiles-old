@@ -25,6 +25,6 @@ fi
 
 # Install or upgrade dependencies
 echo ':: PYTHON 2'
-"$venv/neovim2/bin/pip" install -U pynvim PyYAML msgpack jedi flake8
+"$venv/neovim2/bin/pip" install -U pynvim PyYAML msgpack jedi flake8 astroid
 echo -e '\n:: PYTHON 3'
-"$venv/neovim3/bin/pip" install -U pynvim PyYAML Send2Trash msgpack jedi flake8
+"$venv/neovim3/bin/pip" install -U pynvim PyYAML Send2Trash msgpack jedi flake8 astroid
