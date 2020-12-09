@@ -4,20 +4,19 @@
 
 # exec --no-startup-id "picom -b --paint-on-overlay --unredir-if-possible --backend xr_glx_hybrid --vsync drm --glx-swap-method -1 --glx-no-stencil --config ~/.config/picom/config"
 # exec_always --no-startup-id "picom -b --config --experimental-backends $HOME/.config/picom/picom.conf 2>&1 | systemd-cat -p info &"
+exec --no-startup-id dockd --daemon
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id blueman-applet
+exec_always --no-startup-id "setxkbmap -layout us\,il -option grp:alt_shift_toggle"
+exec_always --no-startup-id "feh --bg-scale $HOME/Pictures/wallpapers/forest_stairs.jpg"
 exec --no-startup-id "dunst -config $HOME/.config/dunst/dunstrc"
+exec --no-startup-id keepassxc
 exec --no-startup-id copyq
 exec --no-startup-id flameshot
 exec --no-startup-id slack
-exec_always --no-startup-id "setxkbmap -layout us\,il -option grp:alt_shift_toggle"
-
-exec_always --no-startup-id "feh --bg-scale $HOME/Pictures/wallpapers/forest_stairs.jpg"
-exec_always --no-startup-id nm-applet
 # exec_always --no-startup-id . $HOME/dotfiles/scripts/monitors.sh
 exec_always --no-startup-id "$HOME/.config/polybar/launch.sh 2>&1 | systemd-cat -p info &"
 
-exec_always --no-startup-id "alacritty --title=dropdown"
-bindsym $mod+t [title="dropdown"] scratchpad show, move position center
-for_window [title="dropdown"] floating enable, resize set 800 600, move scratchpad
 for_window [instance="keepassxc"] floating enable, resize set 800 800, move scratchpad, border pixel 5
 
 gaps inner 10
