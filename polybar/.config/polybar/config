@@ -11,14 +11,26 @@
 ; alert = #bd2c40
 ; underline = #00AAFF00
 
-background = #222222
-background-alt = #444
-foreground = #dfdfdf
+; Original colorscheme
+; background = #222222
+; background-alt = #444
+; foreground = #dfdfdf
+; foreground-alt = #555
+; primary = #00FFFF
+; secondary = #00AAFF
+; thirdary = #00AAAA
+; alert = #bd2c40
+; underline = #00AAFF00
+
+; Dracula
+background = #282A36
+background-alt = #282A36
+foreground = #F8F8F2
 foreground-alt = #555
 primary = #00FFFF
 secondary = #00AAFF
 thirdary = #00AAAA
-alert = #bd2c40
+alert = #FF5555
 underline = #00AAFF00
 
 [bar/primary]
