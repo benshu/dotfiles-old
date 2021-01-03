@@ -4,11 +4,13 @@
 
 # exec --no-startup-id "picom -b --paint-on-overlay --unredir-if-possible --backend xr_glx_hybrid --vsync drm --glx-swap-method -1 --glx-no-stencil --config ~/.config/picom/config"
 # exec_always --no-startup-id "picom -b --config --experimental-backends $HOME/.config/picom/picom.conf 2>&1 | systemd-cat -p info &"
+exec_always --no-startup-id picom
 exec --no-startup-id dockd --daemon
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id blueman-applet
 exec_always --no-startup-id "setxkbmap -layout us\,il -option grp:alt_shift_toggle"
-exec_always --no-startup-id "feh --bg-scale $HOME/Pictures/wallpapers/forest_stairs.jpg"
+exec_always --no-startup-id "feh --bg-scale /home/hagay/Pictures/wallpapers/PXL_20201219_125322897.jpg"
+
 exec --no-startup-id "dunst -config $HOME/.config/dunst/dunstrc"
 exec --no-startup-id keepassxc
 exec --no-startup-id copyq
@@ -192,34 +194,58 @@ bindsym $mod+r mode "resize"
 bindsym $mod+Shift+grave move scratchpad
 bindsym $mod+grave scratchpad show
 
-# My colors
-# class                    border      backgr.     text        indic.      child_border
-client.background          #282c34
-client.unfocused           #abb2bf    #282c34    #abb2bf    #282c34        #282c34
-client.focused_inactive    #abb2bf    #282c34    #abb2bf    #282c34        #282c34
-client.urgent              #abb2bf    #282c34    #abb2bf    #282c34        #282c34
-client.placeholder         #abb2bf    #282c34    #abb2bf    #282c34        #282c34
-client.focused             #00ff00    #285577    #FFFFFF    #A796DD        #A796DD
+# class                 border  bground text    indicator child_border
+client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
+client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
+client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
+client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
+client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
-# Colors
-set $active  #536B3D
-set $border  #313A28
-set $text    #BBC5B2
-set $text2   #8f8f8f
-set $text3   #8faf9f
-set $bright  #A3D572
-set $bright2 #3F5030
-set $bg      #2c2c2e
-set $bg2     #4c4c4f
+client.background       #F8F8F2
 
-set $orange  #FCBF69
-set $blue    #98CBFE
-set $dblue   #6095C5
-set $ia      #8f8f8f
-set $be      #8faf9f
-set $yw      #ccdc90
-set $gn      #97A824
-set $rd      #e89393
+# bar {
+#   colors {
+#     background #282A36
+#     statusline #F8F8F2
+#     separator  #44475A
+
+#     focused_workspace  #44475A #44475A #F8F8F2
+#     active_workspace   #282A36 #44475A #F8F8F2
+#     inactive_workspace #282A36 #282A36 #BFBFBF
+#     urgent_workspace   #FF5555 #FF5555 #F8F8F2
+#     binding_mode       #FF5555 #FF5555 #F8F8F2
+#   }
+# }
+
+# bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'monospace-10' -p 'dmenu%'"
+# # My colors
+# # class                    border      backgr.     text        indic.      child_border
+# client.background          #282c34
+# client.unfocused           #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+# client.focused_inactive    #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+# client.urgent              #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+# client.placeholder         #abb2bf    #282c34    #abb2bf    #282c34        #282c34
+# client.focused             #00ff00    #285577    #FFFFFF    #A796DD        #A796DD
+
+# # Colors
+# set $active  #536B3D
+# set $border  #313A28
+# set $text    #BBC5B2
+# set $text2   #8f8f8f
+# set $text3   #8faf9f
+# set $bright  #A3D572
+# set $bright2 #3F5030
+# set $bg      #2c2c2e
+# set $bg2     #4c4c4f
+
+# set $orange  #FCBF69
+# set $blue    #98CBFE
+# set $dblue   #6095C5
+# set $ia      #8f8f8f
+# set $be      #8faf9f
+# set $yw      #ccdc90
+# set $gn      #97A824
+# set $rd      #e89393
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
