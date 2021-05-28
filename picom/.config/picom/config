@@ -34,19 +34,19 @@ blur-background-fixed = true;
 blur-method = "dual_kawase";
 blur-strength = 6;
 
-#shadow-exclude = [
-#	"class_g *= 'Rofi'",
-#	"class_i *= 'lemonbar'",
-#	"class_i *= 'tray'",
-#	"class_g *= 'Compton'",
-#	"class_g *= 'compton'",
-#	"class_g = 'Chromium' && argb",
-#	"class_g = 'Firefox' && argb",
-#	"class_g ?= 'maim'",
-#	#"!focused",
-#	"fullscreen",
-#	"width >= 3440"
-#];
+shadow-exclude = [
+	"class_g *= 'Rofi'",
+	"class_i *= 'lemonbar'",
+	"class_i *= 'tray'",
+	"class_g *= 'Compton'",
+	"class_g *= 'compton'",
+	"class_g = 'Chromium' && argb",
+	"class_g = 'Firefox' && argb",
+	"class_g ?= 'maim'",
+	#"!focused",
+	"fullscreen",
+	"width >= 3440"
+];
 
 focus-exclude = [
 	# "name *= 'rofi'",
