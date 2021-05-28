@@ -18,22 +18,22 @@ git clone https://github.com/benshu/dotfiles.git && cd dotfiles
 ```
 link using stow
 ```bash
-stow alacritty
-stow bash
-stow dunst
-stow git
-stow i3
-stow nvim
-stow polybar
-stow pyls
-stow rofi
-stow shell
-stow termite
-stow tmux
-stow udev
-stow wget
-stow yapf
-stow zsh
+stow alacritty -t ~/.config/alacritty
+stow bash -t ~/.config/bash
+stow dunst -t ~/.config/dunst
+stow git -t ~/.config/git
+stow i3 -t ~/.config/i3
+stow nvim -t ~/.config/nvim
+stow polybar -t ~/.config/polybar
+stow pyls -t ~/.config/pyls
+stow rofi -t ~/.config/rofi
+stow shell -t ~/.config/shell
+stow termite -t ~/.config/termite
+stow tmux -t ~/.config/tmux
+stow udev -t ~/.config/udev
+stow wget -t ~/.config/wget
+stow yapf -t ~/.config/yapf
+stow zsh -t ~/
 ```
 
 ### Specify the `$PATH`
@@ -55,10 +55,10 @@ My `~/.extra` looks something like this:
 ```bash
 # Git credentials
 # Not in the repository, to prevent people from accidentally committing under my name
-GIT_AUTHOR_NAME="Mathias Bynens"
+GIT_AUTHOR_NAME="Benshu"
 GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
 git config --global user.name "$GIT_AUTHOR_NAME"
-GIT_AUTHOR_EMAIL="mathias@mailinator.com"
+GIT_AUTHOR_EMAIL="benshu@mailinator.com"
 GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 git config --global user.email "$GIT_AUTHOR_EMAIL"
 ```

@@ -63,7 +63,7 @@ plugins=(git git-extras python pip tmux docker vi-mode history-substring-search 
 # User configuration
 
 export LC_ALL=en_US.UTF-8
-export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$HOME/.npm/bin/:$PATH:/usr/local/go/bin:$HOME/go/bin
+export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$HOME/.npm/bin/
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
@@ -106,27 +106,11 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 export QT_PKG_CONFIG=true
 
-lazynvm() {
-  unset -f nvm node npm
-  export NVM_DIR=~/.nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
+export PATH=~/.nvm/versions/node/v15.2.0/bin/:$PATH
+export NVM_DIR=~/.nvm
 
-nvm() {
-  lazynvm
-  nvm $@
-}
-
-node() {
-  lazynvm
-  node $@
-}
-
-npm() {
-  lazynvm
-  npm $@
-}
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 if [[ "$ZPROF" = true ]]; then
   zprof
