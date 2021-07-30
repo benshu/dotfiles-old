@@ -95,7 +95,9 @@ vim.wo.wrap           = false
 vim.wo.foldmethod     = 'marker'
 vim.wo.foldlevel      = 0
 
-vim.g["far#debug"] = 1
+vim.g['far#debug'] = 0
+vim.g['completion_trigger_on_delete'] = 1
+
 
 vim.cmd('colorscheme dracula')
 --]]
@@ -162,7 +164,6 @@ local on_attach = function(client, bufnr)
           return tostring(o)
       end
   end
-  print(dump(client.resolved_capabilities))
   if client.resolved_capabilities.document_formatting then
     buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   end
@@ -176,7 +177,6 @@ local on_attach = function(client, bufnr)
       hi link LspReferenceRead DraculaFgUnderline
       hi link LspReferenceText DraculaFgUnderline
       hi link LspReferenceWrite DraculaFgUnderline
-      hi 
       augroup lsp_document_highlight
         autocmd!
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -234,6 +234,7 @@ nvim_lsp.sumneko_lua.setup {
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
+        enable = true,
         globals = {'vim'},
       },
       workspace = {
@@ -250,3 +251,13 @@ nvim_lsp.sumneko_lua.setup {
     },
   },
 }
+
+-- LSP utils setup
+vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
