@@ -100,6 +100,13 @@ vim.g['completion_trigger_on_delete'] = 1
 
 
 vim.cmd('colorscheme dracula')
+
+vim.g['netrw_browse_split'] = 4
+vim.g['netrw_preview'] = 1
+vim.g['netrw_altv'] = '=&spr'
+vim.g['netrw_liststyle'] = 3
+vim.g['netrw_banner'] = 0
+vim.g['netrw_liststyle'] = 3
 --]]
 
 vim.api.nvim_set_keymap('n', '<Up>', '<C-y>', { noremap = true, silent = true })

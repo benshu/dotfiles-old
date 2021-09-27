@@ -8,6 +8,7 @@ exec_always --no-startup-id picom
 exec --no-startup-id dockd --daemon
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id blueman-applet
+exec_always --no-startup-id "solaar --window=hide"
 exec_always --no-startup-id "setxkbmap -layout us\,il -option grp:alt_shift_toggle"
 exec_always --no-startup-id "feh --bg-scale /home/hagay/Pictures/wallpapers/PXL_20201219_125322897.jpg"
 

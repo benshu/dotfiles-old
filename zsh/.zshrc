@@ -64,6 +64,7 @@ plugins=(git git-extras python pip tmux docker vi-mode history-substring-search 
 
 export LC_ALL=en_US.UTF-8
 export PATH=$HOME:$HOME/.local/bin:/bin:/usr/local/bin:/usr/local/sbin:$HOME/.cargo/bin/:$HOME/.gem/ruby/2.5.0/bin:$HOME/.npm/bin/
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source ~/.oh-my-zsh/custom/themes/spaceship_prompt.zsh
